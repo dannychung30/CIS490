@@ -1,1 +1,1 @@
-# CIS490
+# CIS490 Capstone Project Class 
