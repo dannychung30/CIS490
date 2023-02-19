@@ -3,6 +3,9 @@ from .utils.Reader import Reader
 
 # Create your views here.
 
+def index(request):
+    return render(request, 'index.html')
+
 
 def process_csv(request):
     if request.method == 'POST':
