@@ -1,8 +1,5 @@
-# from fuzzywuzzy import fuzz
+from fuzzywuzzy import fuzz
 import csv
-import spacy
-
-nlp = spacy.load("en_core_web_lg")
 
 
 class Entry:
@@ -39,6 +36,9 @@ class Person:
         print(
             f"Q: {self.entries[idx].question}\nA: {self.entries[idx].answer}")
 
+    def __str__(self) -> str:
+        return self.get_answer_at_index(10)
+
 
 class Reader:
 
@@ -48,14 +48,14 @@ class Reader:
         self.read_data()
 
     def read_data(self) -> None:
-        with open(self.file_name) as csvfile:
-            csvreader = csv.reader(csvfile)
-            questions_header = next(csvreader)
-            for row in csvreader:
-                person = Person()
-                for index, answer in enumerate(row):
-                    person.add_entry(questions_header[index], answer)
-                self.data.append(person)
+        decoded_file = self.file_name.read().decode('utf-8').splitlines()
+        csvreader = csv.reader(decoded_file)
+        questions_header = next(csvreader)
+        for row in csvreader:
+            person = Person()
+            for index, answer in enumerate(row):
+                person.add_entry(questions_header[index], answer)
+            self.data.append(person)
 
     def get_data(self) -> list[Person]:
         return self.data
@@ -110,22 +110,7 @@ class Matcher:
         return score
 
     def get_score(self, mentee_answer: str, mentor_answer: str) -> int:
-        score = nlp(mentee_answer).similarity(nlp(mentor_answer))
+        score = fuzz.token_sort_ratio(mentee_answer, mentor_answer)
         print(
             f"Mentee answered: \"{mentee_answer}\"\nMentor answered: \"{mentor_answer}\"\nScore: {score}")
         return score
-
-
-if __name__ == "__main__":
-    mentees = Reader("mentees.csv")
-    mentors = Reader("mentors.csv")
-
-    questions_to_match = [(36, 27), (22, 22), (31, 39)]
-
-    matcher = Matcher(questions_to_match,
-                      mentees.get_data(), mentors.get_data())
-
-    matcher.go_through_data()
-
-    # mentors.get_data()[0].display_enumerated_entries()
-    # mentees.get_data()[0].display_enumerated_entries()
