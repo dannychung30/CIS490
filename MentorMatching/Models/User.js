@@ -1,4 +1,6 @@
 
+
+
 class Survey {
     constructor(key){
         this.questions = JSON.parse(localStorage.getItem(key))
@@ -25,8 +27,12 @@ class Survey {
 }
 
 class User {
-    constructor(){
-        this.responses = {};
+    constructor(first_name, last_name, email){
+        // this.role = ;
+        this.first_name = first_name
+        this.last_name = last_name
+        this.email = email
+        this.responses = {question, answer};
     }
 
     addResponse(question, answer){
