@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Matcher</title>
+    <script src="/scripts/papaparse.js"></script>
+    <script src="/Models/User.js"></script>
+  </head>
+  <body>
+    <section>
+      <form id="myForm">
+        <div>
+          <label for="menteeFile">Attach Mentee File</label>
+          <br />
+          <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
+        </div>
+        <div>
+          <label for="mentorFile">Attach Mentor File</label>
+          <br />
+          <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
+      <a href="./mentee-questions.html">Next</a>
+    </section>
+
+    <script>
+      const myForm = document.getElementById("myForm");
+      const menteeFile = document.getElementById("menteeFile");
+      const mentorFile = document.getElementById("mentorFile");
+
+      const mentees = [];
+      const mentors = [];
+
+      myForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+
+        Papa.parse(menteeFile.files[0], {
+          complete: function (results) {
+            localStorage.setItem(
+              "MenteeSurvey",
+              JSON.stringify(results.data[0])
+            );
+
+            for (let i = 1; i < results.data[0].length; i++) {
+              const mentee = {};
+              for (let j = 0; j < results.data[0].length; j++) {
+                mentee[results.data[0][j]] = results.data[i][j];
+              }
+              mentees[i - 1] = mentee;
+            }
+            localStorage.setItem("Mentees", JSON.stringify(mentees));
+          },
+        });
+
+        Papa.parse(mentorFile.files[0], {
+          complete: function (results) {
+            localStorage.setItem(
+              "MentorSurvey",
+              JSON.stringify(results.data[0])
+            );
+
+            for (let i = 1; i < results.data[0].length; i++) {
+              const mentor = {};
+              for (let j = 0; j < results.data[0].length; j++) {
+                const question = results.data[0][j];
+                const answer = results.data[i][j];
+                mentor[question] = answer;
+              }
+              mentors[i - 1] = mentor;
+            }
+            localStorage.setItem("Mentors", JSON.stringify(mentors));
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

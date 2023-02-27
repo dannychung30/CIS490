@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewpeet" content="width=device-width, initial-scale=1.0">
+    <title>Mentee Questions</title>
+    <script src="../Models/User.js"></script>
+</head>
+<body>
+    <h1>Mentee Survey</h1>
+    <div>
+        <h2>Match the label with the question asked.</h2>
+        <label for="email">Email</label>
+        <select name="email" id="email"></select>
+        <br/>
+
+        <label for="first-name">First Name</label>
+        <select name="first-name" id="first-name"></select>
+        <br/>
+
+        <label for="last-name">Last Name</label>
+        <select name="last-name" id="last-name"></select>
+    </div>
+
+    <div>
+        <h2>Select the questions to match.</h2>
+        <div id="options"></div>
+    </div>
+
+    <a href="./mentor-questions.html">Next</a>
+
+    <script>
+        const menteeSurvey = new Survey("MenteeSurvey")
+        const menteeQuestions = menteeSurvey.getAllQuestions()
+
+        const first_name_select = document.getElementById('first-name');
+        populateOptions(menteeQuestions, first_name_select)
+
+        const last_name_select = document.getElementById('last-name');
+        populateOptions(menteeQuestions, last_name_select)
+
+        const email_select = document.getElementById('email');
+        populateOptions(menteeQuestions, email_select)
+
+
+        function populateOptions(questions, tag){
+            questions.forEach(question => {
+            const option = document.createElement('option')
+            option.value = question
+            option.innerText = question;
+            tag.append(option)
+        })
+        }
+
+        const options = document.getElementById('options')
+
+        menteeQuestions.forEach((question, idx) => {
+            const input = document.createElement("input")
+            input.type = "checkbox"
+            input.id = idx
+            input.name = idx
+            input.value = idx
+            const label = document.createElement("label")
+            label.htmlFor = idx
+            label.innerText = question
+            const breakEl = document.createElement('br')
+            options.append(input, label, breakEl)
+        })
+
+    </script>
+</body>
+</html>
