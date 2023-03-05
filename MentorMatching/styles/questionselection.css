@@ -1,0 +1,17 @@
+body {
+    margin: 1%;
+}
+
+select {
+    max-width: 200px;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+}
+
+.survey {
+    width: 45vw;
+    margin: 2vw;
+}
