@@ -12,41 +12,42 @@
     <div id="pairing-section"></div>
 
     <script>
-      const pairing_section = document.getElementById("pairing-section");
+      const db = new Database();
+      const pairing_section = document.getElementById('pairing-section');
 
-      const menteeSurvey = new Survey("MenteeSurvey");
-      const mentorSurvey = new Survey("MentorSurvey");
+      const menteeSurvey = new Survey('MenteeSurvey');
+      const mentorSurvey = new Survey('MentorSurvey');
 
-      const menteeSelectedQuestions = JSON.parse(
-        localStorage.getItem("MenteeSelectedQuestions")
-      ).map((q) => {
-        const index = q.split("-")[1];
-        return menteeSurvey.getQuestionAtIndex(index);
-      });
+      const menteeSelectedQuestions = db
+        .getSelectedMenteeQuestions()
+        .map((q) => {
+          const index = q.split('-')[1];
+          return menteeSurvey.getQuestionAtIndex(index);
+        });
 
-      const mentorSelectedQuestions = JSON.parse(
-        localStorage.getItem("MentorSelectedQuestions")
-      ).map((q) => {
-        const index = q.split("-")[1];
-        return menteeSurvey.getQuestionAtIndex(index);
-      });
+      const mentorSelectedQuestions = db
+        .getSelectedMentorQuestions()
+        .map((q) => {
+          const index = q.split('-')[1];
+          return menteeSurvey.getQuestionAtIndex(index);
+        });
 
       for (let i = 0; i < menteeSelectedQuestions.length; i++) {
         const currentQuestion = menteeSelectedQuestions[i];
-        const select = document.createElement("select");
-        select.name = "Q" + (i + 1);
-        select.id = "Q" + (i + 1);
+        const select = document.createElement('select');
+        select.name = 'Q' + (i + 1);
+        select.id = 'Q' + (i + 1);
 
-        const label = document.createElement("label");
+        const label = document.createElement('label');
         label.innerText = currentQuestion;
-        const breakEl = document.createElement("br");
+        const breakEl = document.createElement('br');
         populateOptions(mentorSelectedQuestions, select);
         pairing_section.append(label, breakEl, select);
       }
 
       function populateOptions(questions, tag) {
         questions.forEach((question) => {
-          const option = document.createElement("option");
+          const option = document.createElement('option');
           option.value = question;
           option.innerText = question;
           tag.append(option);

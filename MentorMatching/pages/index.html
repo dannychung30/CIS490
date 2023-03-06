@@ -27,23 +27,21 @@
     </section>
 
     <script>
-      const myForm = document.getElementById("myForm");
-      const menteeFile = document.getElementById("menteeFile");
-      const mentorFile = document.getElementById("mentorFile");
+      const db = new Database();
+      const myForm = document.getElementById('myForm');
+      const menteeFile = document.getElementById('menteeFile');
+      const mentorFile = document.getElementById('mentorFile');
 
       const mentees = [];
       const mentors = [];
 
-      myForm.addEventListener("submit", (e) => {
+      myForm.addEventListener('submit', (e) => {
         e.preventDefault();
         localStorage.clear();
 
         Papa.parse(menteeFile.files[0], {
           complete: function (results) {
-            localStorage.setItem(
-              "MenteeSurvey",
-              JSON.stringify(results.data[0])
-            );
+            db.saveMenteeSurvey(results.data[0]);
 
             for (let i = 1; i < results.data[0].length; i++) {
               const mentee = {};
@@ -52,16 +50,13 @@
               }
               mentees[i - 1] = mentee;
             }
-            localStorage.setItem("Mentees", JSON.stringify(mentees));
+            db.saveMentees(mentees);
           },
         });
 
         Papa.parse(mentorFile.files[0], {
           complete: function (results) {
-            localStorage.setItem(
-              "MentorSurvey",
-              JSON.stringify(results.data[0])
-            );
+            db.saveMentorSurvey(results.data[0]);
 
             for (let i = 1; i < results.data[0].length; i++) {
               const mentor = {};
@@ -72,7 +67,7 @@
               }
               mentors[i - 1] = mentor;
             }
-            localStorage.setItem("Mentors", JSON.stringify(mentors));
+            db.saveMentors(mentors);
           },
         });
       });
