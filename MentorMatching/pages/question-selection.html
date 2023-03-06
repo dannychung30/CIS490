@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewpeet" content="width=device-width, initial-scale=1.0" />
     <title>Question Selection</title>
-    <script src="../Models/User.js"></script>
+    <script src="../Models/Database.js"></script>
+    <script src="../Models/Survey.js"></script>
+    <script src="../Models/MenteeSurvey.js"></script>
+    <script src="../Models/MentorSurvey.js"></script>
     <link rel="stylesheet" href="../styles/global.css" />
     <link rel="stylesheet" href="../styles/questionselection.css" />
   </head>
@@ -64,30 +67,33 @@
     <script>
       const db = new Database();
 
+      const menteeSurvey = new MenteeSurvey();
+      const mentorSurvey = new MentorSurvey();
+
       const mentee_first_name_select =
         document.getElementById('mentee-first-name');
-      populateOptions(db.getMenteeSurvey(), mentee_first_name_select);
+      populateOptions(menteeSurvey, mentee_first_name_select);
 
       const mentee_last_name_select =
         document.getElementById('mentee-last-name');
-      populateOptions(db.getMenteeSurvey(), mentee_last_name_select);
+      populateOptions(menteeSurvey, mentee_last_name_select);
 
       const mentee_email_select = document.getElementById('mentee-email');
-      populateOptions(db.getMenteeSurvey(), mentee_email_select);
+      populateOptions(menteeSurvey, mentee_email_select);
 
       const mentor_first_name_select =
         document.getElementById('mentor-first-name');
-      populateOptions(db.getMentorSurvey(), mentor_first_name_select);
+      populateOptions(mentorSurvey, mentor_first_name_select);
 
       const mentor_last_name_select =
         document.getElementById('mentor-last-name');
-      populateOptions(db.getMentorSurvey(), mentor_last_name_select);
+      populateOptions(mentorSurvey, mentor_last_name_select);
 
       const mentor_email_select = document.getElementById('mentor-email');
-      populateOptions(db.getMentorSurvey(), mentor_email_select);
+      populateOptions(mentorSurvey, mentor_email_select);
 
-      function populateOptions(questions, tag) {
-        questions.forEach((question) => {
+      function populateOptions(survey, tag) {
+        questions.getAll().forEach((question) => {
           const option = document.createElement('option');
           option.value = question;
           option.innerText = question;
@@ -97,7 +103,7 @@
 
       const mentee_options = document.getElementById('mentee-options');
 
-      db.getMenteeSurvey().forEach((question, idx) => {
+      menteeSurvey.getAll().forEach((question, idx) => {
         const input = document.createElement('input');
         input.type = 'checkbox';
         input.id = 'mentee-' + idx;
@@ -112,7 +118,7 @@
 
       const mentor_options = document.getElementById('mentor-options');
 
-      db.getMentorSurvey().forEach((question, idx) => {
+      mentorSurvey.getAll().forEach((question, idx) => {
         const input = document.createElement('input');
         input.type = 'checkbox';
         input.id = 'mentor-' + idx;
@@ -135,16 +141,13 @@
 
       mentee_question_form.addEventListener('submit', (e) => {
         e.preventDefault();
-        localStorage.setItem('MenteeSelectedQuestions', '');
         const selected = getCheckedBoxes(mentee_question_form);
         db.saveSelectedMenteeQuestions(selected);
       });
 
       mentor_question_form.addEventListener('submit', (e) => {
         e.preventDefault();
-        localStorage.setItem('MentorSelectedQuestions', '');
         const selected = getCheckedBoxes(mentor_question_form);
-        console.log(selected);
         db.saveSelectedMentorQuestions(selected);
       });
 
