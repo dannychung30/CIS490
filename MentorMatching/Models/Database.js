@@ -2,7 +2,7 @@ class Database {
   /**
    * Keys in localstorage
    */
-  Constants = {
+  constants = {
     Mentees: 'Mentees',
     Mentee_Survey: 'MenteeSurvey',
     Mentee_Selected_Questions: 'MenteeSelectedQuestions',
@@ -17,7 +17,7 @@ class Database {
    */
   saveMenteeSurvey(questions) {
     localStorage.setItem(
-      this.Constants.Mentee_Survey,
+      this.constants.Mentee_Survey,
       JSON.stringify(questions)
     );
   }
@@ -27,7 +27,7 @@ class Database {
    * @returns {string[]} Array of questions asked in Mentee Survey.
    */
   getMenteeSurvey() {
-    return JSON.parse(localStorage.getItem(this.Constants.Mentee_Survey));
+    return JSON.parse(localStorage.getItem(this.constants.Mentee_Survey));
   }
 
   /**
@@ -35,7 +35,7 @@ class Database {
    * @param {{string: string}[]} data
    */
   saveMentees(data) {
-    localStorage.setItem(this.Constants.Mentees, JSON.stringify(data));
+    localStorage.setItem(this.constants.Mentees, JSON.stringify(data));
   }
 
   /**
@@ -43,7 +43,7 @@ class Database {
    * @returns {Mentee[]} Returns array of instances of Mentee class.
    */
   getMentees() {
-    mentees = JSON.parse(localStorage.getItem(this.Constants.Mentees)).map(
+    mentees = JSON.parse(localStorage.getItem(this.constants.Mentees)).map(
       (response) => new Mentee(response['Response ID'], response)
     );
   }
@@ -54,7 +54,7 @@ class Database {
    */
   saveSelectedMenteeQuestions(selected_questions) {
     localStorage.setItem(
-      this.Constants.Mentee_Selected_Questions,
+      this.constants.Mentee_Selected_Questions,
       JSON.stringify(selected_questions)
     );
   }
@@ -65,7 +65,7 @@ class Database {
    */
   getSelectedMenteeQuestions() {
     return JSON.parse(
-      localStorage.getItem(this.Constants.Mentee_Selected_Questions)
+      localStorage.getItem(this.constants.Mentee_Selected_Questions)
     );
   }
 
@@ -75,7 +75,7 @@ class Database {
    */
   saveMentorSurvey(questions) {
     localStorage.setItem(
-      this.Constants.Mentor_Survey,
+      this.constants.Mentor_Survey,
       JSON.stringify(questions)
     );
   }
@@ -85,7 +85,7 @@ class Database {
    * @returns {string[]} Array of questions asked in Mentor Survey.
    */
   getMentorSurvey() {
-    return JSON.parse(localStorage.getItem(this.Constants.Mentor_Survey));
+    return JSON.parse(localStorage.getItem(this.constants.Mentor_Survey));
   }
 
   /**
@@ -93,7 +93,7 @@ class Database {
    * @param {{string: string}[]} data
    */
   saveMentors(data) {
-    localStorage.setItem(this.Constants.Mentors, JSON.stringify(data));
+    localStorage.setItem(this.constants.Mentors, JSON.stringify(data));
   }
 
   /**
@@ -101,7 +101,7 @@ class Database {
    * @returns {Mentor[]} Returns array of instances of Mentor class.
    */
   getMentors() {
-    return JSON.parse(localStorage.getItem(this.Constants.Mentors)).map(
+    return JSON.parse(localStorage.getItem(this.constants.Mentors)).map(
       (response) => new Mentor(response['Response ID'], response)
     );
   }
@@ -112,7 +112,7 @@ class Database {
    */
   saveSelectedMentorQuestions(selected_questions) {
     localStorage.setItem(
-      this.Constants.Mentor_Selected_Questions,
+      this.constants.Mentor_Selected_Questions,
       JSON.stringify(selected_questions)
     );
   }
@@ -123,7 +123,7 @@ class Database {
    */
   getSelectedMentorQuestions() {
     return JSON.parse(
-      localStorage.getItem(this.Constants.Mentor_Selected_Questions)
+      localStorage.getItem(this.constants.Mentor_Selected_Questions)
     );
   }
 }

@@ -3,8 +3,8 @@ class Mentee extends User {
 
   possible_matches = [];
 
-  constructor(responses) {
-    super(responses);
+  constructor() {
+    super();
   }
 
   /**

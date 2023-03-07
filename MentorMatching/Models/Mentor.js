@@ -2,8 +2,8 @@ class Mentor extends User {
   mentees = [];
   max_mentees;
 
-  constructor(response_id, responses) {
-    super(response_id, responses);
+  constructor() {
+    super();
   }
 
   /**
