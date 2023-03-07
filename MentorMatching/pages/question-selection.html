@@ -93,7 +93,7 @@
       populateOptions(mentorSurvey, mentor_email_select);
 
       function populateOptions(survey, tag) {
-        questions.getAll().forEach((question) => {
+        survey.getAll().forEach((question) => {
           const option = document.createElement('option');
           option.value = question;
           option.innerText = question;
