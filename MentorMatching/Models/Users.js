@@ -1,4 +1,11 @@
-class Users {
+import User from './User.js';
+import Database from './Database.js';
+
+export default class Users {
+  /**
+   * Data retrieved from database
+   * @type {string[]}
+   */
   data;
   db = new Database();
   /**
@@ -12,7 +19,7 @@ class Users {
 
   /**
    *
-   * @returns {int} The number of respondants.
+   * @returns {int} The number of users.
    */
   size() {
     return this.data.length;

@@ -1,5 +1,16 @@
-class Mentor extends User {
+import User from './User';
+import Mentee from './Mentee';
+
+export default class Mentor extends User {
+  /**
+   * Current mentees
+   * @type {Mentee[]}
+   */
   mentees = [];
+  /**
+   * Maximum mentees willing to mentor.
+   * @type {int}
+   */
   max_mentees;
 
   constructor() {
