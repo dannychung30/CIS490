@@ -1,7 +1,4 @@
-import User from './User';
-import Mentee from './Mentee';
-
-export default class Mentor extends User {
+class Mentor extends User {
   /**
    * Current mentees
    * @type {Mentee[]}
