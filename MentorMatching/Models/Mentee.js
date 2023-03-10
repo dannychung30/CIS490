@@ -1,6 +1,16 @@
-class Mentee extends User {
+import User from './User';
+import Mentor from './Mentor';
+
+export default class Mentee extends User {
+  /**
+   * Maximum possible matches for a User
+   * @type {int}
+   */
   MAX_MATCHES = 3;
 
+  /**
+   * @type {Mentor[]}
+   */
   possible_matches = [];
 
   constructor() {

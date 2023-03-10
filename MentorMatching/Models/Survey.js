@@ -1,9 +1,17 @@
-class Survey {
+import Database from './Database';
+
+export default class Survey {
   db = new Database();
   /**
-   * Array of questions in the survey
+   * Questions in the survey.
+   * @type string[]
    */
   questions = [];
+
+  /**
+   * Questions that will be matched.
+   * @type string[]
+   */
   questions_to_match = [];
 
   /**
@@ -27,7 +35,7 @@ class Survey {
 
   /**
    *
-   * @returns {number} The size of the index.
+   * @returns {number} The number of questions in the survey.
    */
   size() {
     return this.questions.length;
