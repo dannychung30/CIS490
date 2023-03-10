@@ -1,6 +1,4 @@
-import Database from './Database';
-
-export default class Survey {
+class Survey {
   db = new Database();
   /**
    * Questions in the survey.

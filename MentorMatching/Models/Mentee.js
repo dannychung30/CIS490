@@ -1,7 +1,4 @@
-import User from './User';
-import Mentor from './Mentor';
-
-export default class Mentee extends User {
+class Mentee extends User {
   /**
    * Maximum possible matches for a User
    * @type {int}

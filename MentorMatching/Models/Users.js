@@ -1,7 +1,4 @@
-import User from './User.js';
-import Database from './Database.js';
-
-export default class Users {
+class Users {
   /**
    * Data retrieved from database
    * @type {string[]}
