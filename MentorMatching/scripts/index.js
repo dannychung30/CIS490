@@ -3,42 +3,31 @@ const myForm = document.getElementById('myForm');
 const menteeFile = document.getElementById('menteeFile');
 const mentorFile = document.getElementById('mentorFile');
 
-const mentees = [];
-const mentors = [];
-
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  const mentees = [];
+  const mentors = [];
   localStorage.clear();
 
-  Papa.parse(menteeFile.files[0], {
+  parse(mentees, menteeFile, db.saveMenteeSurvey, db.saveMentees);
+  parse(mentors, mentorFile, db.saveMentorSurvey, db.saveMentors);
+});
+
+function parse(users, input, saveSurvey, saveUsers) {
+  Papa.parse(input.files[0], {
     complete: function (results) {
-      db.saveMenteeSurvey(results.data[0]);
+      saveSurvey(results.data[0]);
 
       for (let i = 1; i < results.data[0].length; i++) {
-        const mentee = {};
-        for (let j = 0; j < results.data[0].length; j++) {
-          mentee[results.data[0][j]] = results.data[i][j];
-        }
-        mentees[i - 1] = mentee;
-      }
-      db.saveMentees(mentees);
-    },
-  });
-
-  Papa.parse(mentorFile.files[0], {
-    complete: function (results) {
-      db.saveMentorSurvey(results.data[0]);
-
-      for (let i = 1; i < results.data[0].length; i++) {
-        const mentor = {};
+        const user = {};
         for (let j = 0; j < results.data[0].length; j++) {
           const question = results.data[0][j];
           const answer = results.data[i][j];
-          mentor[question] = answer;
+          user[question] = answer;
         }
-        mentors[i - 1] = mentor;
+        users[i - 1] = user;
       }
-      db.saveMentors(mentors);
+      saveUsers(users);
     },
   });
-});
+}
