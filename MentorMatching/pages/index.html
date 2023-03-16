@@ -9,24 +9,36 @@
     <script src="/Models/Database.js"></script>
     <script src="/Models/Users.js"></script>
     <script src="/Models/User.js"></script>
-    <script src="/scripts/index.js"></script>
+    <script defer src="/scripts/index.js"></script>
+    <link rel="stylesheet" href="../styles/index.css" />
   </head>
   <body>
     <section>
       <form id="myForm">
-        <div>
-          <label for="menteeFile">Attach Mentee File</label>
-          <br />
-          <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
+        <div class="file-inputs">
+          <div class="file-input">
+            <label for="menteeFile">Select your Mentee File</label>
+            <input
+              type="file"
+              name="menteeFile"
+              id="menteeFile"
+              accept=".csv"
+            />
+          </div>
+          <div class="file-input">
+            <label for="mentorFile">Select your Mentor File</label>
+            <input
+              type="file"
+              name="mentorFile"
+              id="mentorFile"
+              accept=".csv"
+            />
+          </div>
         </div>
-        <div>
-          <label for="mentorFile">Attach Mentor File</label>
-          <br />
-          <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
-        </div>
-        <input type="submit" value="Submit" />
+        <a href="question-selection.html">
+          <input type="submit" value="Submit" />
+        </a>
       </form>
-      <a href="./question-selection.html">Next</a>
     </section>
   </body>
 </html>

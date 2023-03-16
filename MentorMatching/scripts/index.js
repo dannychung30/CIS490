@@ -8,7 +8,8 @@ const mentors = [];
 
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  localStorage.clear();
+
+  parseCSV(menteeFile.files[0], db.saveMenteeSurvey, db.saveMentees);
 
   Papa.parse(menteeFile.files[0], {
     complete: function (results) {
@@ -41,4 +42,6 @@ myForm.addEventListener('submit', (e) => {
       db.saveMentors(mentors);
     },
   });
+
+  window.location.href = './question-selection.html';
 });
