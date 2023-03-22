@@ -5,28 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mentor Matcher</title>
-    <script src="/scripts/papaparse.js"></script>
-    <script src="/Models/Database.js"></script>
-    <script src="/Models/Users.js"></script>
-    <script src="/Models/User.js"></script>
-    <script src="/scripts/index.js"></script>
+    <script src="../Models/Keys.js"></script>
+    <script src="../Models/Storage.js"></script>
+    <script defer src="../scripts/papaparse.js"></script>
+    <script defer src="../scripts/index.js"></script>
+    <link rel="stylesheet" href="../styles/index.css" />
   </head>
   <body>
     <section>
-      <form id="myForm">
-        <div>
-          <label for="menteeFile">Attach Mentee File</label>
-          <br />
-          <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
+      <form action="./question-selection.html" id="myForm">
+        <div class="file-inputs">
+          <div class="file-input">
+            <label for="menteeFile">Select your Mentee File</label>
+            <input
+              type="file"
+              name="menteeFile"
+              id="menteeFile"
+              accept=".csv"
+            />
+          </div>
+          <div class="file-input">
+            <label for="mentorFile">Select your Mentor File</label>
+            <input
+              type="file"
+              name="mentorFile"
+              id="mentorFile"
+              accept=".csv"
+            />
+          </div>
         </div>
-        <div>
-          <label for="mentorFile">Attach Mentor File</label>
-          <br />
-          <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
-        </div>
-        <input type="submit" value="Submit" />
+        <input id="save_files" type="submit" value="Submit" />
       </form>
-      <a href="./question-selection.html">Next</a>
     </section>
   </body>
 </html>
