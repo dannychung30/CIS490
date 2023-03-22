@@ -30,23 +30,23 @@ const mentorSelectedQuestions = new Storage(Keys.Mentor_Selected_Questions);
 // }
 
 menteeSelectedQuestions.getAll().forEach((question) => {
-  const currentQuestion = menteeSurvey.findOne({ data: question.data })[0];
+  const currentQuestion = menteeSurvey.findOne({ data: question.data }).data;
   const select = document.createElement('select');
-  select.name = 'Q' + (i + 1);
-  select.id = 'Q' + (i + 1);
+  select.name = question.data;
+  select.id = question.data;
 
   const label = document.createElement('label');
   label.innerText = currentQuestion;
   const breakEl = document.createElement('br');
-  populateOptions(mentorSelectedQuestions, select);
+  populateOptions(mentorSelectedQuestions.getAll(), select);
   pairing_section.append(label, breakEl, select);
 });
 
 function populateOptions(questions, tag) {
-  questions.forEach((question) => {
+  questions.forEach(({ data }) => {
     const option = document.createElement('option');
-    option.value = question;
-    option.innerText = question;
+    option.value = data;
+    option.innerText = data;
     tag.append(option);
   });
 }
