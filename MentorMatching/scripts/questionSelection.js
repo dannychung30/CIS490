@@ -25,35 +25,36 @@ populateOptions(mentorSurvey, mentor_email_select);
 const mentee_options = document.getElementById('mentee-questions');
 const mentor_options = document.getElementById('mentor-questions');
 
-displayQuestions('mentee', menteeSurvey, mentee_options);
-displayQuestions('mentor', mentorSurvey, mentor_options);
+displayQuestions(menteeSurvey, mentee_options);
+displayQuestions(mentorSurvey, mentor_options);
 
 const mentee_question_form = document.getElementById('mentee-question-form');
 const mentor_question_form = document.getElementById('mentor-question-form');
 
 mentee_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
+  menteeSelectedQuestions.clear();
   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
 });
 
 mentor_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
+  mentorSelectedQuestions.clear();
   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
 });
 
 /**
  *
- * @param {string} user Type of user that the questions correspond to.
  * @param {Storage} survey Storage item that includes the User's questions.
  * @param {HTMLDivElement} questionsDiv
  */
 
-function displayQuestions(user, survey, questionsDiv) {
+function displayQuestions(survey, questionsDiv) {
   survey.getAll().forEach(({ id, data }) => {
     const input = document.createElement('input');
     input.type = 'checkbox';
     input.id = id;
-    input.name = id;
+    input.name = data;
     input.value = id;
     const label = document.createElement('label');
     label.htmlFor = id;

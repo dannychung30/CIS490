@@ -6,12 +6,12 @@ class Storage {
 
   getAll() {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    return db.data;
+    return db;
   }
 
   initializeDatabase() {
     if (!localStorage.getItem(this.dbName)) {
-      localStorage.setItem(this.dbName, JSON.stringify({ data: [] }));
+      localStorage.setItem(this.dbName, JSON.stringify([]));
     }
   }
 
@@ -23,13 +23,13 @@ class Storage {
 
   insert(data) {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    db.data.push({ id: crypto.randomUUID(), data });
+    db.push({ id: crypto.randomUUID(), data });
     localStorage.setItem(this.dbName, JSON.stringify(db));
   }
 
   find(query) {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    let result = db.data.filter((doc) => {
+    let result = db.filter((doc) => {
       for (let key in query) {
         if (doc[key] !== query[key]) {
           return false;
@@ -39,6 +39,20 @@ class Storage {
     });
 
     return result;
+  }
+
+  findOne(query) {
+    let db = JSON.parse(localStorage.getItem(this.dbName));
+    let result = db.filter((doc) => {
+      for (let key in query) {
+        if (doc[key] !== query[key]) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+    return result[0];
   }
 
   update(query, data) {
@@ -71,5 +85,9 @@ class Storage {
       return false;
     });
     localStorage.setItem(this.dbName, JSON.stringify(db));
+  }
+
+  clear() {
+    localStorage.setItem(this.dbName, '[]');
   }
 }
