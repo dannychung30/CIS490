@@ -6,7 +6,7 @@ class Storage {
 
   getAll() {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    return db;
+    return db.data;
   }
 
   initializeDatabase() {
@@ -16,12 +16,14 @@ class Storage {
   }
 
   insertMany(data) {
-    localStorage.setItem(this.dbName, JSON.stringify(data));
+    data.forEach((d) => {
+      this.insert(d);
+    });
   }
 
   insert(data) {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    db.data.push(data);
+    db.data.push({ id: crypto.randomUUID(), data });
     localStorage.setItem(this.dbName, JSON.stringify(db));
   }
 

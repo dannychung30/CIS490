@@ -33,12 +33,12 @@ const mentor_question_form = document.getElementById('mentor-question-form');
 
 mentee_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
-  saveSelectedQuestions(menteeSelectedQuestions, mentee_question_form);
+  saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
 });
 
 mentor_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
-  saveSelectedQuestions(mentorSelectedQuestions, mentor_question_form);
+  saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
 });
 
 /**
@@ -49,15 +49,15 @@ mentor_question_form.addEventListener('submit', (e) => {
  */
 
 function displayQuestions(user, survey, questionsDiv) {
-  survey.getAll().forEach((question, idx) => {
+  survey.getAll().forEach(({ id, data }) => {
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.id = user + idx;
-    input.name = user + idx;
-    input.value = user + idx;
+    input.id = id;
+    input.name = id;
+    input.value = id;
     const label = document.createElement('label');
-    label.htmlFor = user + idx;
-    label.innerText = question;
+    label.htmlFor = id;
+    label.innerText = data;
     const breakEl = document.createElement('br');
     questionsDiv.append(input, label, breakEl);
   });
@@ -71,8 +71,8 @@ function displayQuestions(user, survey, questionsDiv) {
 function populateOptions(survey, selectElement) {
   survey.getAll().forEach((question) => {
     const option = document.createElement('option');
-    option.value = question;
-    option.innerText = question;
+    option.value = question.data;
+    option.innerText = question.data;
     selectElement.append(option);
   });
 }
