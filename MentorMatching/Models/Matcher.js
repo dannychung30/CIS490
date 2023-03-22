@@ -1,5 +1,5 @@
 class Matcher {
-    
+
     /**
      * @constructor
      * @param {Array[tuple[number, number]]} question_pairs 
@@ -7,18 +7,12 @@ class Matcher {
      * @param {Array[Entry]} mentor_questions
      * @returns {none} 
      */
-    // constructor(question_pairs, mentee_questions, mentor_questions) {
-    //     this.question_pairs = question_pairs;
-    //     this.mentee_questions = mentee_questions;
-    //     this.mentor_questions = mentor_questions;
-    // }
-    constructor(string1, string2) {
-        this.string1 = string1;
-        this.string2 = string2;
+    constructor(question_pairs, mentee_questions, mentor_questions) {
+        this.question_pairs = question_pairs;
+        this.mentee_questions = mentee_questions;
+        this.mentor_questions = mentor_questions;
     }
-
-
-
+    
     /**
      * @returns {none}
      */
@@ -50,7 +44,7 @@ class Matcher {
         for (let i = 0; i < this.question_pairs.length; i++) {
             let mentee_question_index = this.question_pairs[i][0];
             let mentor_question_index = this.question_pairs[i][1];
-            
+
             console.log("Mentee was asked: " + mentee.get_question_at_index(mentee_question_index));
             console.log("Mentor was asked: " + mentor.get_question_at_index(mentor_question_index));
 
@@ -67,8 +61,9 @@ class Matcher {
      * @returns {number}
      */
     get_score(mentee_answer, mentor_answer) {
-        let score = fuzz.ratio("Testing", "Testing");
-        console.log(score);
+        let score = fuzzball.ratio(mentee_answer, mentor_answer);
+        console.log("Mentee answered: " + mentee_answer + "\n" + "Mentor answered: "
+            + mentor_answer + "\n" + "Score: " + score);
         return score;
     }
 }
