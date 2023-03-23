@@ -1,17 +1,9 @@
-class Mentee extends User {
-  /**
-   * Maximum possible matches for a User
-   * @type {int}
-   */
-  MAX_MATCHES = 3;
-
-  /**
-   * @type {Mentor[]}
-   */
-  possible_matches = [];
-
-  constructor() {
-    super();
+class Mentee {
+  constructor(id) {
+    this.id = id;
+    this.data = new Storage(Keys.Mentees).findOne({ id: this.id });
+    this.MAX_MATCHES = 3;
+    this.possible_matches = [];
   }
 
   /**
