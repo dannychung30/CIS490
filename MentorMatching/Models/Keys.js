@@ -5,4 +5,5 @@ class Keys {
   static Mentors = 'Mentors';
   static Mentor_Survey = 'MentorSurvey';
   static Mentor_Selected_Questions = 'MentorSelectedQuestions';
+  static Question_Pairs = 'QuestionPairs';
 }

@@ -53,11 +53,11 @@ function displayQuestions(survey, questionsDiv) {
   survey.getAll().forEach(({ id, data }) => {
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.id = id;
+    input.id = data;
     input.name = data;
-    input.value = id;
+    input.value = data;
     const label = document.createElement('label');
-    label.htmlFor = id;
+    label.htmlFor = data;
     label.innerText = data;
     const breakEl = document.createElement('br');
     questionsDiv.append(input, label, breakEl);
