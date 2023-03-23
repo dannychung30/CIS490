@@ -32,6 +32,7 @@ function populateOptions(questions, tag) {
 }
 const submit = document.createElement('input');
 submit.type = 'submit';
+submit.value = 'Submit';
 pairing_section.append(submit);
 
 pairing_section.addEventListener('submit', (e) => {
