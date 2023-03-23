@@ -1,17 +1,13 @@
-class Mentor extends User {
+class Mentor {
   /**
-   * Current mentees
-   * @type {Mentee[]}
+   *
+   * @param {String} id
    */
-  mentees = [];
-  /**
-   * Maximum mentees willing to mentor.
-   * @type {int}
-   */
-  max_mentees;
-
-  constructor() {
-    super();
+  constructor(id) {
+    this.id = id;
+    this.data = new Storage(Keys.Mentor).findOne({ id: this.id });
+    this.mentees = [];
+    this.max_mentees = 1;
   }
 
   /**
