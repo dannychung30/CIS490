@@ -30,22 +30,21 @@ displayQuestions(mentorSurvey, mentor_options);
 
 const mentee_question_form = document.getElementById('mentee-question-form');
 const mentor_question_form = document.getElementById('mentor-question-form');
+const question_forms_button = document.querySelector('#question-forms-submit-button');
 
-mentee_question_form.addEventListener('submit', (e) => {
+question_forms_button.addEventListener('click', submitBothForms);
+
+/**
+ * 
+ * @param {Event} e 
+ */
+function submitBothForms(e) {
+  window.location.href = './question-pairing.html';
   e.preventDefault();
+
   menteeSelectedQuestions.clear();
   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
-  const userProfilesCreated = JSON.parse(
-    localStorage.getItem('UserProfilesCreated')
-  );
-  if (!userProfilesCreated) {
-    createUserProfiles(Keys.Mentees, Mentee);
-    localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
-  }
-});
 
-mentor_question_form.addEventListener('submit', (e) => {
-  e.preventDefault();
   mentorSelectedQuestions.clear();
   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
 
@@ -53,10 +52,45 @@ mentor_question_form.addEventListener('submit', (e) => {
     localStorage.getItem('UserProfilesCreated')
   );
   if (!userProfilesCreated) {
+    createUserProfiles(Keys.Mentees, Mentee);
     createUserProfiles(Keys.Mentors, Mentor);
+
     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
   }
-});
+}
+
+// mentee_question_form.addEventListener('submit', (e) => {
+//   mentor_question_form.submit();
+//   e.preventDefault();
+//   menteeSelectedQuestions.clear();
+
+//   console.log("here");
+
+//   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
+//   const userProfilesCreated = JSON.parse(
+//     localStorage.getItem('UserProfilesCreated')
+//   );
+//   if (!userProfilesCreated) {
+//     createUserProfiles(Keys.Mentees, Mentee);
+//     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+//   }
+
+// });
+
+// mentor_question_form.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   mentorSelectedQuestions.clear();
+//   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
+
+//   const userProfilesCreated = JSON.parse(
+//     localStorage.getItem('UserProfilesCreated')
+//   );
+//   if (!userProfilesCreated) {
+//     createUserProfiles(Keys.Mentors, Mentor);
+//     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+//   }
+// });
+
 
 /**
  *
