@@ -35,12 +35,14 @@ mentee_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
   menteeSelectedQuestions.clear();
   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
+  createUserProfiles(Keys.Mentees, Mentee);
 });
 
 mentor_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
   mentorSelectedQuestions.clear();
   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
+  createUserProfiles(Keys.Mentors, Mentor);
 });
 
 /**
@@ -50,15 +52,15 @@ mentor_question_form.addEventListener('submit', (e) => {
  */
 
 function displayQuestions(survey, questionsDiv) {
-  survey.getAll().forEach(({ id, data }) => {
+  survey.getAll().forEach(({ question }) => {
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.id = data;
-    input.name = data;
-    input.value = data;
+    input.id = question;
+    input.name = question;
+    input.value = question;
     const label = document.createElement('label');
-    label.htmlFor = data;
-    label.innerText = data;
+    label.htmlFor = question;
+    label.innerText = question;
     const breakEl = document.createElement('br');
     questionsDiv.append(input, label, breakEl);
   });
@@ -72,8 +74,8 @@ function displayQuestions(survey, questionsDiv) {
 function populateOptions(survey, selectElement) {
   survey.getAll().forEach((question) => {
     const option = document.createElement('option');
-    option.value = question.data;
-    option.innerText = question.data;
+    option.value = question.id;
+    option.innerText = question.question;
     selectElement.append(option);
   });
 }
@@ -104,7 +106,7 @@ function saveSelectedQuestions(form, userSelectedQuestions) {
   userSelectedQuestions.insertMany(selected);
 }
 
-function createUserProfiles(key, userType) {
+function createUserProfiles(key, userType, email, firstName, lastName) {
   const currentData = new Storage(key);
   const users = currentData
     .getAll()
@@ -112,6 +114,3 @@ function createUserProfiles(key, userType) {
   currentData.clear();
   currentData.insertMany(users);
 }
-
-createUserProfiles(Keys.Mentees, Mentee);
-createUserProfiles(Keys.Mentors, Mentor);

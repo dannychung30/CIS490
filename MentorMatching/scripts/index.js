@@ -12,7 +12,7 @@ myForm.addEventListener('submit', (e) => {
   const Mentors = new Storage(Keys.Mentors);
   parseCSV(menteeFile.files[0], MenteeSurvey, Mentees);
   parseCSV(mentorFile.files[0], MentorSurvey, Mentors);
-  // window.location.href = './question-selection.html';
+  window.location.href = './question-selection.html';
 });
 
 /**
