@@ -35,14 +35,27 @@ mentee_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
   menteeSelectedQuestions.clear();
   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
-  createUserProfiles(Keys.Mentees, Mentee);
+  const userProfilesCreated = JSON.parse(
+    localStorage.getItem('UserProfilesCreated')
+  );
+  if (!userProfilesCreated) {
+    createUserProfiles(Keys.Mentees, Mentee);
+    localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+  }
 });
 
 mentor_question_form.addEventListener('submit', (e) => {
   e.preventDefault();
   mentorSelectedQuestions.clear();
   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
-  createUserProfiles(Keys.Mentors, Mentor);
+
+  const userProfilesCreated = JSON.parse(
+    localStorage.getItem('UserProfilesCreated')
+  );
+  if (!userProfilesCreated) {
+    createUserProfiles(Keys.Mentors, Mentor);
+    localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+  }
 });
 
 /**
@@ -106,7 +119,7 @@ function saveSelectedQuestions(form, userSelectedQuestions) {
   userSelectedQuestions.insertMany(selected);
 }
 
-function createUserProfiles(key, userType, email, firstName, lastName) {
+function createUserProfiles(key, userType) {
   const currentData = new Storage(key);
   const users = currentData
     .getAll()
