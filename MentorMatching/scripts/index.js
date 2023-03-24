@@ -10,6 +10,8 @@ myForm.addEventListener('submit', (e) => {
 
   const MentorSurvey = new Storage(Keys.Mentor_Survey);
   const Mentors = new Storage(Keys.Mentors);
+
+  localStorage.setItem('UserProfilesCreated', JSON.stringify(false));
   parseCSV(menteeFile.files[0], MenteeSurvey, Mentees);
   parseCSV(mentorFile.files[0], MentorSurvey, Mentors);
   window.location.href = './question-selection.html';

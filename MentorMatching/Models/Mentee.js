@@ -1,7 +1,10 @@
 class Mentee {
-  constructor(id, responses) {
+  constructor(id, responses, email, firstName, lastName) {
     this.id = id;
     this.responses = responses;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.MAX_MATCHES = 3;
     this.possible_matches = [];
   }
