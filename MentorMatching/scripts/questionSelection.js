@@ -103,3 +103,15 @@ function saveSelectedQuestions(form, userSelectedQuestions) {
   const selected = getCheckedBoxes(form);
   userSelectedQuestions.insertMany(selected);
 }
+
+function createUserProfiles(key, userType) {
+  const currentData = new Storage(key);
+  const users = currentData
+    .getAll()
+    .map((user) => new userType(user.id, user.data.responses));
+  currentData.clear();
+  currentData.insertMany(users);
+}
+
+createUserProfiles(Keys.Mentees, Mentee);
+createUserProfiles(Keys.Mentors, Mentor);

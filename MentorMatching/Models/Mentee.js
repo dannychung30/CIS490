@@ -1,7 +1,7 @@
 class Mentee {
-  constructor(id) {
+  constructor(id, responses) {
     this.id = id;
-    this.data = new Storage(Keys.Mentees).findOne({ id: this.id });
+    this.responses = responses;
     this.MAX_MATCHES = 3;
     this.possible_matches = [];
   }

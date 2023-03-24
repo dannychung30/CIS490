@@ -12,7 +12,7 @@ myForm.addEventListener('submit', (e) => {
   const Mentors = new Storage(Keys.Mentors);
   parseCSV(menteeFile.files[0], MenteeSurvey, Mentees);
   parseCSV(mentorFile.files[0], MentorSurvey, Mentors);
-  window.location.href = './question-selection.html';
+  // window.location.href = './question-selection.html';
 });
 
 /**
@@ -25,13 +25,13 @@ function parseCSV(file, survey, user) {
   const users = [];
   Papa.parse(file, {
     complete: function (results) {
-      survey.insertMany(results.data[0]);
+      survey.insertMany(results.data[0], 'question');
 
       for (let i = 1; i < results.data[0].length; i++) {
         const user = { responses: [] };
         for (let j = 0; j < results.data[0].length; j++) {
           const correspondingQuestion = survey.find({
-            data: results.data[0][j],
+            question: results.data[0][j],
           });
           user.responses.push({
             question: correspondingQuestion[0].id,
@@ -40,7 +40,7 @@ function parseCSV(file, survey, user) {
         }
         users[i - 1] = user;
       }
-      user.insertMany(users);
+      user.insertMany(users, 'data');
     },
   });
 }
