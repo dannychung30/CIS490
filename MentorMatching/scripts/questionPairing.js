@@ -6,27 +6,23 @@ const mentorSurvey = new Storage(Keys.Mentor_Survey);
 const menteeSelectedQuestions = new Storage(Keys.Mentee_Selected_Questions);
 const mentorSelectedQuestions = new Storage(Keys.Mentor_Selected_Questions);
 
-const questionPairs = new Storage(Keys.Question_Pairs);
-
-menteeSelectedQuestions.getAll().forEach(({ data }) => {
-  const currentQuestion = menteeSurvey.findOne({ data });
+menteeSelectedQuestions.getAll().forEach((question) => {
   const select = document.createElement('select');
-  select.id = currentQuestion.id;
+  select.id = question.id;
 
   const label = document.createElement('label');
-  label.innerText = currentQuestion.data;
+  label.innerText = question.question;
   const breakEl = document.createElement('br');
   populateOptions(mentorSelectedQuestions.getAll(), select);
   pairing_section.append(label, breakEl, select);
 });
 
 function populateOptions(questions, tag) {
-  questions.forEach(({ data }) => {
-    const currentQuestion = mentorSurvey.findOne({ data });
+  questions.forEach((question) => {
     const option = document.createElement('option');
-    option.id = currentQuestion.id;
-    option.value = currentQuestion.id;
-    option.innerText = currentQuestion.data;
+    option.id = question.id;
+    option.value = question.id;
+    option.innerText = question.question;
     tag.append(option);
   });
 }
@@ -37,14 +33,19 @@ pairing_section.append(submit);
 
 pairing_section.addEventListener('submit', (e) => {
   e.preventDefault();
+  savePairs();
+});
+
+function savePairs() {
+  const questionPairs = new Storage(Keys.Question_Pairs);
+
   const pairs = [];
-  menteeSelectedQuestions.getAll().forEach(({ data }) => {
-    const currentQuestion = menteeSurvey.findOne({ data });
-    const menteeQuestion = document.getElementById(currentQuestion.id);
+  menteeSelectedQuestions.getAll().forEach((question) => {
+    const menteeQuestion = document.getElementById(question.id);
     pairs.push({
-      menteeQuestion: currentQuestion.id,
+      menteeQuestion: question.id,
       mentorQuestion: menteeQuestion.value,
     });
   });
   questionPairs.insertMany(pairs);
-});
+}

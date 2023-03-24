@@ -65,14 +65,13 @@ mentor_question_form.addEventListener('submit', (e) => {
  */
 
 function displayQuestions(survey, questionsDiv) {
-  survey.getAll().forEach(({ question }) => {
+  survey.getAll().forEach(({ id, question }) => {
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.id = question;
-    input.name = question;
+    input.id = id;
     input.value = question;
     const label = document.createElement('label');
-    label.htmlFor = question;
+    label.htmlFor = id;
     label.innerText = question;
     const breakEl = document.createElement('br');
     questionsDiv.append(input, label, breakEl);
@@ -103,7 +102,10 @@ function getCheckedBoxes(form) {
   const checkedBoxes = [];
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
-      checkedBoxes.push(checkboxes[i].value);
+      checkedBoxes.push({
+        id: checkboxes[i].id,
+        question: checkboxes[i].value,
+      });
     }
   }
   return checkedBoxes;
