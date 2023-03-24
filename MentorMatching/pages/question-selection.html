@@ -1,68 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewpeet" content="width=device-width, initial-scale=1.0" />
-    <title>Question Selection</title>
-    <script src="../Models/Mentor.js"></script>
-    <script src="../Models/Mentee.js"></script>
-    <script src="../Models/Keys.js"></script>
-    <script src="../Models/Storage.js"></script>
-    <script defer src="../scripts/questionSelection.js"></script>
-    <link rel="stylesheet" href="../styles/global.css" />
-    <link rel="stylesheet" href="../styles/questionselection.css" />
-  </head>
-  <body>
-    <div id="container">
-      <section class="survey">
-        <h2>Mentee Survey</h2>
-        <form id="mentee-question-form">
-          <div>
-            <label for="mentee-email">Email</label>
-            <select name="mentee-email" id="mentee-email"></select>
-            <br />
 
-            <label for="mentee-first-name">First Name</label>
-            <select name="mentee-first-name" id="mentee-first-name"></select>
-            <br />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewpeet" content="width=device-width, initial-scale=1.0" />
+  <title>Question Selection</title>
+  <script src="../Models/Mentor.js"></script>
+  <script src="../Models/Mentee.js"></script>
+  <script src="../Models/Keys.js"></script>
+  <script src="../Models/Storage.js"></script>
+  <script defer src="../scripts/questionSelection.js"></script>
+  <link rel="stylesheet" href="../styles/global.css" />
+  <link rel="stylesheet" href="../styles/questionselection.css" />
+</head>
 
-            <label for="mentee-last-name">Last Name</label>
-            <select name="mentee-last-name" id="mentee-last-name"></select>
-          </div>
+<body>
+  <div id="container">
+    <section class="survey">
+      <h2>Mentee Survey</h2>
+      <form id="mentee-question-form" class="question-form">
+        <div>
+          <label for="mentee-email">Email</label>
+          <select name="mentee-email" id="mentee-email"></select>
+          <br />
 
-          <div>
-            <h2>Select the questions to match.</h2>
-            <div id="mentee-questions"></div>
-          </div>
-          <input type="submit" value="submit" />
-        </form>
-      </section>
+          <label for="mentee-first-name">First Name</label>
+          <select name="mentee-first-name" id="mentee-first-name"></select>
+          <br />
 
-      <section class="survey">
-        <h2>Mentor Survey</h2>
-        <form id="mentor-question-form">
-          <div>
-            <label for="mentor-email">Email</label>
-            <select name="mentor-email" id="mentor-email"></select>
-            <br />
+          <label for="mentee-last-name">Last Name</label>
+          <select name="mentee-last-name" id="mentee-last-name"></select>
+        </div>
 
-            <label for="mentor-first-name">First Name</label>
-            <select name="mentor-first-name" id="mentor-first-name"></select>
-            <br />
+        <div>
+          <h2>Select the questions to match.</h2>
+          <div id="mentee-questions"></div>
+        </div>
+      </form>
+    </section>
 
-            <label for="mentor-last-name">Last Name</label>
-            <select name="mentor-last-name" id="mentor-last-name"></select>
-          </div>
+    <section class="survey">
+      <h2>Mentor Survey</h2>
+      <form id="mentor-question-form" class="question-form">
+        <div>
+          <label for="mentor-email">Email</label>
+          <select name="mentor-email" id="mentor-email"></select>
+          <br />
 
-          <div>
-            <h2>Select the questions to match.</h2>
-            <div id="mentor-questions"></div>
-          </div>
-          <input type="submit" value="submit" />
-        </form>
-      </section>
-    </div>
-    <a href="./question-pairing.html">Next</a>
-  </body>
+          <label for="mentor-first-name">First Name</label>
+          <select name="mentor-first-name" id="mentor-first-name"></select>
+          <br />
+
+          <label for="mentor-last-name">Last Name</label>
+          <select name="mentor-last-name" id="mentor-last-name"></select>
+        </div>
+
+        <div>
+          <h2>Select the questions to match.</h2>
+          <div id="mentor-questions"></div>
+        </div>
+      </form>
+    </section>
+    <button id="question-forms-submit-button">Submit</button>
+  </div>
+</body>
+
 </html>
