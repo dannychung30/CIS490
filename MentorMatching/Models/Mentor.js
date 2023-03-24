@@ -3,9 +3,9 @@ class Mentor {
    *
    * @param {String} id
    */
-  constructor(id) {
-    this.id = id;
-    this.data = new Storage(Keys.Mentor).findOne({ id: this.id });
+  constructor() {
+    this.id = crypto.randomUUID();
+    this.responses = {};
     this.mentees = [];
     this.max_mentees = 1;
   }

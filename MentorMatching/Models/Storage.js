@@ -15,15 +15,23 @@ class Storage {
     }
   }
 
-  insertMany(data) {
+  insertMany(data, name) {
     data.forEach((d) => {
-      this.insert(d);
+      this.insert(d, name);
     });
   }
 
-  insert(data) {
+  insert(data, name = '') {
     let db = JSON.parse(localStorage.getItem(this.dbName));
-    db.push({ id: crypto.randomUUID(), data });
+    // db.push({ id: crypto.randomUUID(), data });
+    if (name) {
+      const entry = {};
+      entry.id = crypto.randomUUID();
+      entry[name] = data;
+      db.push(entry);
+    } else {
+      db.push(data);
+    }
     localStorage.setItem(this.dbName, JSON.stringify(db));
   }
 
