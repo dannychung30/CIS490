@@ -39,7 +39,6 @@ question_forms_button.addEventListener('click', submitBothForms);
  * @param {Event} e 
  */
 function submitBothForms(e) {
-  window.location.href = './question-pairing.html';
   e.preventDefault();
 
   menteeSelectedQuestions.clear();
@@ -48,14 +47,27 @@ function submitBothForms(e) {
   mentorSelectedQuestions.clear();
   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
 
-  const userProfilesCreated = JSON.parse(
-    localStorage.getItem('UserProfilesCreated')
-  );
-  if (!userProfilesCreated) {
-    createUserProfiles(Keys.Mentees, Mentee);
-    createUserProfiles(Keys.Mentors, Mentor);
+  let mentee_checked = menteeSelectedQuestions.getAll().length;
+  let mentor_checked = mentorSelectedQuestions.getAll().length;
+  let difference = Math.abs(mentee_checked - mentor_checked);
 
-    localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+  if (mentee_checked > mentor_checked) {
+    alert('The Mentee Survey has ' + difference + ' more question(s) checked than the Mentor Survey. Make sure both surveys have the same amount of questions checked');
+  } else if (mentor_checked > mentee_checked) {
+    alert('The Mentor Survey has ' + difference + ' more question(s) checked than the Mentee Survey. Make sure both surveys have the same amount of questions checked');
+  } else if ((mentee_checked && mentor_checked) === 0) {
+    alert('No question(s) are selected from either survey');
+  } else {
+    const userProfilesCreated = JSON.parse(
+      localStorage.getItem('UserProfilesCreated')
+    );
+    if (!userProfilesCreated) {
+      createUserProfiles(Keys.Mentees, Mentee);
+      createUserProfiles(Keys.Mentors, Mentor);
+
+      localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+    }
+    window.location.href = './question-pairing.html';
   }
 }
 
