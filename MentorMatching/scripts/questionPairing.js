@@ -33,7 +33,12 @@ pairing_section.append(submit);
 
 pairing_section.addEventListener('submit', (e) => {
   e.preventDefault();
+  const pairs = new Storage(Keys.Question_Pairs);
+  pairs.clear();
   savePairs();
+
+  const matcher = new Matcher(pairs);
+  matcher.go_through_data();
 });
 
 function savePairs() {
