@@ -10,14 +10,14 @@ class Matcher {
     const mentees = new Storage(Keys.Mentees).getAll();
     const mentors = new Storage(Keys.Mentors).getAll();
 
-    for (let i = 0; i < mentees.length; i++) {
-      for (let j = 0; j < mentors.length; j++) {
-        let total_score = this.tally_score(mentees[j], mentors[i]);
+    mentees.forEach((mentee) => {
+      mentors.forEach((mentor) => {
+        let total_score = this.tally_score(mentee, mentor);
         console.log(
-          `Mentee: ${mentees[j].id} and Mentor: ${mentors[i].id} scored: ${total_score}`
+          `Mentee: ${mentee.id} and Mentor: ${mentor.id} scored: ${total_score}`
         );
-      }
-    }
+      });
+    });
   }
 
   /**
@@ -28,15 +28,19 @@ class Matcher {
   tally_score(mentee, mentor) {
     let question_pairs = new Storage(Keys.Question_Pairs).getAll();
     let score = 0;
-    for (let i = 0; i < question_pairs.length; i++) {
+
+    question_pairs.forEach((pair) => {
+      const { menteeQuestion, mentorQuestion } = pair;
+
       let mentee_answer = mentee.responses.find(
-        (question) => question.question == question_pairs[i].menteeQuestion
+        ({ question }) => question == menteeQuestion
       );
       let mentor_answer = mentor.responses.find(
-        (question) => question.question == question_pairs[i].mentorQuestion
+        ({ question }) => question == mentorQuestion
       );
       score += this.get_score(mentee_answer.answer, mentor_answer.answer);
-    }
+    });
+
     return score;
   }
 
