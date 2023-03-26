@@ -27,20 +27,21 @@ function parseCSV(file, survey, user) {
   const users = [];
   Papa.parse(file, {
     complete: function (results) {
-      survey.insertMany(results.data[0], 'question');
+      const header = results.data[1];
+      survey.insertMany(header, 'question');
 
-      for (let i = 1; i < results.data[0].length; i++) {
+      for (let i = 2; i < header.length; i++) {
         const user = { responses: [] };
-        for (let j = 0; j < results.data[0].length; j++) {
+        for (let j = 0; j < header.length; j++) {
           const correspondingQuestion = survey.find({
-            question: results.data[0][j],
+            question: header[j],
           });
           user.responses.push({
             question: correspondingQuestion[0].id,
             answer: results.data[i][j],
           });
         }
-        users[i - 1] = user;
+        users[i - 2] = user;
       }
       user.insertMany(users, 'data');
     },
