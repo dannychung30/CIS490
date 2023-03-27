@@ -42,10 +42,24 @@
     0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075);
 }
 
-.top-section {
+.logo {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-top: 2vh;
   margin-bottom: 10vh;
+}
+
+.svg-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 20vh;
+}
+
+.tracker-svg {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  border: 1px solid black;
 }
