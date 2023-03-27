@@ -16,47 +16,63 @@
 </head>
 
 <body>
+  <div class="logo">
+    <img src="../images/csusm-cstem-logo-black.png" alt="CSUSM CSTEM Logo">
+  </div>
   <div id="container">
     <section class="survey">
-      <h2>Mentee Survey</h2>
+      <h2 class="survey-title">Mentee Survey</h2>
+      </br>
       <form id="mentee-question-form" class="question-form">
-        <div>
-          <label for="mentee-email">Email</label>
-          <select name="mentee-email" id="mentee-email"></select>
+        <div class="profile-creator">
+          <div>
+            <label for="mentee-email">Email</label>
+            <select name="mentee-email" id="mentee-email"></select>
+          </div>
           <br />
-
-          <label for="mentee-first-name">First Name</label>
-          <select name="mentee-first-name" id="mentee-first-name"></select>
+          <div>
+            <label for="mentee-first-name">First Name</label>
+            <select name="mentee-first-name" id="mentee-first-name"></select>
+          </div>
           <br />
-
-          <label for="mentee-last-name">Last Name</label>
-          <select name="mentee-last-name" id="mentee-last-name"></select>
+          <div>
+            <label for="mentee-last-name">Last Name</label>
+            <select name="mentee-last-name" id="mentee-last-name"></select>
+          </div>
         </div>
+        </br>
 
         <div>
-          <h2>Select the questions to match.</h2>
+          <h3>Select the questions to match:</h3>
           <div id="mentee-questions"></div>
         </div>
       </form>
     </section>
+
     <section class="survey">
-      <h2>Mentor Survey</h2>
+      <h2 class="survey-title">Mentor Survey</h2>
+      </br>
       <form id="mentor-question-form" class="question-form">
-        <div>
-          <label for="mentor-email">Email</label>
-          <select name="mentor-email" id="mentor-email"></select>
+        <div class="profile-creator">
+          <div>
+            <label for="mentor-email">Email</label>
+            <select name="mentor-email" id="mentor-email"></select>
+          </div>
           <br />
-
-          <label for="mentor-first-name">First Name</label>
-          <select name="mentor-first-name" id="mentor-first-name"></select>
+          <div>
+            <label for="mentor-first-name">First Name</label>
+            <select name="mentor-first-name" id="mentor-first-name"></select>
+          </div>
           <br />
-
-          <label for="mentor-last-name">Last Name</label>
-          <select name="mentor-last-name" id="mentor-last-name"></select>
+          <div>
+            <label for="mentor-last-name">Last Name</label>
+            <select name="mentor-last-name" id="mentor-last-name"></select>
+          </div>
         </div>
+        </br>
 
         <div>
-          <h2>Select the questions to match.</h2>
+          <h3>Select the questions to match:</h3>
           <div id="mentor-questions"></div>
         </div>
       </form>
@@ -65,7 +81,7 @@
     </div>
   </div>
   <div class="button-container">
-    </br><button id="question-forms-submit-button">Submit</button>
+    </br><button id="question-forms-submit-button">&#8674;</button>
   </div>
 </body>
 
