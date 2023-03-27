@@ -19,6 +19,7 @@ class Matcher {
         //   `Mentee: ${mentee.id} and Mentor: ${mentor.id} scored: ${total_score}`
         // );
         mentee.possible_matches.push({ mentor: mentor.id, score: total_score });
+        mentee.possible_matches.sort((a, b) => b.score - a.score);
       });
     });
 
