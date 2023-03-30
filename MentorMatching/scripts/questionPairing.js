@@ -1,5 +1,8 @@
 const pairing_section = document.querySelector('.pairing-section');
-const submit_button_container = document.querySelector(".submit-button-container");
+const submit_button_container = document.querySelector(
+  '.submit-button-container'
+);
+const pair_form = document.getElementById('pair-form');
 
 const menteeSurvey = new Storage(Keys.Mentee_Survey);
 const mentorSurvey = new Storage(Keys.Mentor_Survey);
@@ -12,7 +15,7 @@ menteeSelectedQuestions.getAll().forEach((question) => {
   select.id = question.id;
 
   const label = document.createElement('label');
-  label.innerText = question.question + ": ";
+  label.innerText = question.question + ': ';
   // const breakEl = document.createElement('br');
   populateOptions(mentorSelectedQuestions.getAll(), select);
   pairing_section.append(label, select);
@@ -33,14 +36,12 @@ submit.value = 'Get Matches';
 submit.className = 'submit-question';
 submit_button_container.append(submit);
 
-pairing_section.addEventListener('submit', (e) => {
+pair_form.addEventListener('submit', (e) => {
   e.preventDefault();
   const pairs = new Storage(Keys.Question_Pairs);
   pairs.clear();
   savePairs();
-
-  const matcher = new Matcher(pairs);
-  matcher.go_through_data();
+  window.location.href = './results.html';
 });
 
 function savePairs() {

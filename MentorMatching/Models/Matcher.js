@@ -1,26 +1,24 @@
 class Matcher {
-  constructor(data) {
-    this.data = data;
-  }
-
   /**
    * @returns {none}
    */
-  go_through_data() {
+  generateScores() {
     const mentees = new Storage(Keys.Mentees);
     const mentors = new Storage(Keys.Mentors).getAll();
 
     const mentees_copy = new Storage(Keys.Mentees).getAll();
 
     mentees_copy.forEach((mentee) => {
+      const matches = [];
       mentors.forEach((mentor) => {
         let total_score = this.tally_score(mentee, mentor);
         // console.log(
         //   `Mentee: ${mentee.id} and Mentor: ${mentor.id} scored: ${total_score}`
         // );
-        mentee.possible_matches.push({ mentor: mentor.id, score: total_score });
-        mentee.possible_matches.sort((a, b) => b.score - a.score);
+        matches.push({ mentor: mentor.id, score: total_score });
+        matches.sort((a, b) => b.score - a.score);
       });
+      mentee.possible_matches = matches;
     });
 
     mentees.clear();
@@ -50,6 +48,8 @@ class Matcher {
 
     return score;
   }
+
+  getAnswer(user, question) {}
 
   /**
    * @param {String} mentor_answer
