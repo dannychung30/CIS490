@@ -41,7 +41,7 @@ pair_form.addEventListener('submit', (e) => {
   const pairs = new Storage(Keys.Question_Pairs);
   pairs.clear();
   savePairs();
-  window.location.href = './results.html';
+  window.location.href = './results/public/index.html';
 });
 
 function savePairs() {

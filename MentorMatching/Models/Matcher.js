@@ -1,4 +1,8 @@
-class Matcher {
+import Storage from './Storage';
+import Keys from './Keys';
+import { ratio } from 'fuzzball';
+
+export default class Matcher {
   /**
    * @returns {none}
    */
@@ -57,7 +61,7 @@ class Matcher {
    * @returns {number}
    */
   get_score(mentee_answer, mentor_answer) {
-    let score = fuzzball.ratio(mentee_answer, mentor_answer);
+    let score = ratio(mentee_answer, mentor_answer);
     // console.log(
     //   `Mentee Answered: ${mentee_answer}\nMentor Answered: ${mentor_answer}`
     // );

@@ -1,4 +1,4 @@
-class Keys {
+export default class Keys {
   static Mentees = 'Mentees';
   static Mentee_Survey = 'MenteeSurvey';
   static Mentee_Selected_Questions = 'MenteeSelectedQuestions';

@@ -1,4 +1,4 @@
-class Storage {
+export default class Storage {
   constructor(dbName) {
     this.dbName = dbName;
     this.initializeDatabase();
