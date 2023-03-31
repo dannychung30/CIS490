@@ -1,3 +1,6 @@
+import Storage from '../Models/Storage';
+import Keys from '../Models/Keys';
+
 const pairing_section = document.querySelector('.pairing-section');
 const submit_button_container = document.querySelector(
   '.submit-button-container'
@@ -41,7 +44,7 @@ pair_form.addEventListener('submit', (e) => {
   const pairs = new Storage(Keys.Question_Pairs);
   pairs.clear();
   savePairs();
-  window.location.href = './results/public/index.html';
+  window.location.href = './results.html';
 });
 
 function savePairs() {

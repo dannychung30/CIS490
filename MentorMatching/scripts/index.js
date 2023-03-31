@@ -1,3 +1,7 @@
+import Storage from '../Models/Storage';
+import Keys from '../Models/Keys';
+import { parse } from 'papaparse';
+
 const myForm = document.getElementById('myForm');
 const menteeFile = document.getElementById('menteeFile');
 const mentorFile = document.getElementById('mentorFile');
@@ -25,7 +29,7 @@ myForm.addEventListener('submit', (e) => {
  */
 function parseCSV(file, survey, user) {
   const users = [];
-  Papa.parse(file, {
+  parse(file, {
     complete: function (results) {
       const header = results.data[0];
       survey.insertMany(header, 'question');

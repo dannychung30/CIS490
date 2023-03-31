@@ -3,18 +3,36 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './results/src/index.js',
+  entry: {
+    index: './scripts/index.js',
+    questionPairing: './scripts/questionPairing.js',
+    questionSelection: './scripts/questionSelection.js',
+    results: './results/index.js',
+  },
   output: {
-    filename: 'results.js',
-    path: path.resolve(__dirname, 'results', 'public'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'public'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'results', 'src', 'results.html'),
+      filename: path.join(__dirname, 'public', 'index.html'),
+      template: path.join(__dirname, 'pages', 'index.html'),
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(__dirname, 'public', 'question-pairing.html'),
+      template: path.join(__dirname, 'pages', 'question-pairing.html'),
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(__dirname, 'public', 'question-selection.html'),
+      template: path.join(__dirname, 'pages', 'question-selection.html'),
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(__dirname, 'public', 'results.html'),
+      template: path.join(__dirname, 'pages', 'results.html'),
     }),
   ],
   devServer: {
-    static: './results/public',
+    static: './pages',
   },
   module: {
     // exclude node_modules

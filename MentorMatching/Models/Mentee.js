@@ -1,4 +1,4 @@
-class Mentee {
+export default class Mentee {
   /**
    *
    * @param {String} id

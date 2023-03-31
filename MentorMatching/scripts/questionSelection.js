@@ -1,3 +1,8 @@
+import Storage from '../Models/Storage';
+import Keys from '../Models/Keys';
+import Mentee from '../Models/Mentee';
+import Mentor from '../Models/Mentor';
+
 const menteeSurvey = new Storage(Keys.Mentee_Survey);
 const mentorSurvey = new Storage(Keys.Mentor_Survey);
 
@@ -30,13 +35,15 @@ displayQuestions(mentorSurvey, mentor_options);
 
 const mentee_question_form = document.getElementById('mentee-question-form');
 const mentor_question_form = document.getElementById('mentor-question-form');
-const question_forms_button = document.querySelector('#question-forms-submit-button');
+const question_forms_button = document.querySelector(
+  '#question-forms-submit-button'
+);
 
 question_forms_button.addEventListener('click', submitBothForms);
 
 /**
- * 
- * @param {Event} e 
+ *
+ * @param {Event} e
  */
 function submitBothForms(e) {
   e.preventDefault();
@@ -52,9 +59,17 @@ function submitBothForms(e) {
   let difference = Math.abs(mentee_checked - mentor_checked);
 
   if (mentee_checked > mentor_checked) {
-    alert('The Mentee Survey has ' + difference + ' more question(s) checked than the Mentor Survey. Make sure both surveys have the same amount of questions checked');
+    alert(
+      'The Mentee Survey has ' +
+        difference +
+        ' more question(s) checked than the Mentor Survey. Make sure both surveys have the same amount of questions checked'
+    );
   } else if (mentor_checked > mentee_checked) {
-    alert('The Mentor Survey has ' + difference + ' more question(s) checked than the Mentee Survey. Make sure both surveys have the same amount of questions checked');
+    alert(
+      'The Mentor Survey has ' +
+        difference +
+        ' more question(s) checked than the Mentee Survey. Make sure both surveys have the same amount of questions checked'
+    );
   } else if ((mentee_checked && mentor_checked) === 0) {
     alert('No question(s) are selected from either survey');
   } else {
@@ -102,7 +117,6 @@ function submitBothForms(e) {
 //     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
 //   }
 // });
-
 
 /**
  *

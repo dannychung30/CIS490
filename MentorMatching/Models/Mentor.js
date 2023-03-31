@@ -1,4 +1,4 @@
-class Mentor {
+export default class Mentor {
   /**
    *
    * @param {String} id
