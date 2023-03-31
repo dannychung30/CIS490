@@ -1,3 +1,6 @@
+import '../styles/global.css';
+import '../styles/index.css';
+
 import Storage from '../Models/Storage';
 import Keys from '../Models/Keys';
 import { parse } from 'papaparse';

@@ -1,3 +1,5 @@
+import '../styles/global.css';
+import '../styles/questionpairing.css';
 import Storage from '../Models/Storage';
 import Keys from '../Models/Keys';
 

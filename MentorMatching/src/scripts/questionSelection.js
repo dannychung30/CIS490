@@ -1,3 +1,5 @@
+import '../styles/global.css';
+import '../styles/questionselection.css';
 import Storage from '../Models/Storage';
 import Keys from '../Models/Keys';
 import Mentee from '../Models/Mentee';
