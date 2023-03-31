@@ -29,21 +29,23 @@ const entryHtmlPlugins = config.map(({ page, script }) => {
 });
 
 module.exports = {
-  mode: 'development',
   entry: {
-    index: './src/scripts/index.js',
-    questionPairing: './src/scripts/questionPairing.js',
-    questionSelection: './src/scripts/questionSelection.js',
-    results: './src/results/index.js',
-  },
-  output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'public'),
+    index: path.join(__dirname, 'src', 'scripts', 'index.js'),
+    questionPairing: path.join(
+      __dirname,
+      'src',
+      'scripts',
+      'questionPairing.js'
+    ),
+    questionSelection: path.join(
+      __dirname,
+      'src',
+      'scripts',
+      'questionSelection.js'
+    ),
+    results: path.join(__dirname, 'src', 'results', 'index.js'),
   },
   plugins: [...entryHtmlPlugins],
-  devServer: {
-    static: './src',
-  },
   module: {
     // exclude node_modules
     rules: [
@@ -62,7 +64,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '/src/images/[name].[ext]',
+              name: path.join(__dirname, 'src', 'images', '[name].[ext]'),
             },
           },
         ],
