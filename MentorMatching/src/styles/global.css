@@ -80,3 +80,13 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+.steps-tracker-svg {
+  width: 40vh;
+}
+
+.svg-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+}

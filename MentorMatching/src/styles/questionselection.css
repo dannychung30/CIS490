@@ -35,7 +35,7 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 2vh;
-    /* margin-bottom: 10vh; */
+    margin-bottom: 10vh;
 }
 
 .profile-creator {
@@ -54,7 +54,6 @@
     text-decoration: underline;
     text-align: center;
 }
-
 
 body {
     margin: 1%;
