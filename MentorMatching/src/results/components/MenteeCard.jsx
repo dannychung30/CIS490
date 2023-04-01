@@ -5,7 +5,7 @@ export default function MenteeCard(props) {
       {props.matches.map((match) => {
         return (
           <p key={match.mentor}>
-            {match.mentor} {match.score}
+            {match.mentor} <b>{match.score}</b>
           </p>
         );
       })}

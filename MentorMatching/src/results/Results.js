@@ -5,7 +5,7 @@ import Keys from '../Models/Keys';
 import MenteeCard from './components/MenteeCard';
 
 export default function Results() {
-  const mentees = new Storage(Keys.Mentees).getAll();
+  const mentees = JSON.parse(localStorage.getItem('Mentees'));
   console.log(mentees);
 
   return (
@@ -13,7 +13,7 @@ export default function Results() {
       {mentees.map((mentee) => (
         <MenteeCard
           key={mentee.id}
-          name='Test'
+          name={mentee.id}
           matches={mentee.possible_matches}
         />
       ))}

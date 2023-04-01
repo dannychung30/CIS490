@@ -75,51 +75,40 @@ function submitBothForms(e) {
   } else if ((mentee_checked && mentor_checked) === 0) {
     alert('No question(s) are selected from either survey');
   } else {
+    const mentee_email = document.getElementById('mentee-email').value;
+    const mentee_first_name =
+      document.getElementById('mentee-first-name').value;
+    const mentee_last_name = document.getElementById('mentee-last-name').value;
+
+    const mentor_email = document.getElementById('mentor-email').value;
+    const mentor_first_name =
+      document.getElementById('mentor-first-name').value;
+    const mentor_last_name = document.getElementById('mentor-last-name').value;
+
     const userProfilesCreated = JSON.parse(
       localStorage.getItem('UserProfilesCreated')
     );
     if (!userProfilesCreated) {
-      createUserProfiles(Keys.Mentees, Mentee);
-      createUserProfiles(Keys.Mentors, Mentor);
+      createUserProfiles(
+        Keys.Mentees,
+        Mentee,
+        mentee_email,
+        mentee_first_name,
+        mentee_last_name
+      );
+      createUserProfiles(
+        Keys.Mentors,
+        Mentor,
+        mentor_email,
+        mentor_first_name,
+        mentor_last_name
+      );
 
       localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
     }
     window.location.href = './question-pairing.html';
   }
 }
-
-// mentee_question_form.addEventListener('submit', (e) => {
-//   mentor_question_form.submit();
-//   e.preventDefault();
-//   menteeSelectedQuestions.clear();
-
-//   console.log("here");
-
-//   saveSelectedQuestions(mentee_question_form, menteeSelectedQuestions);
-//   const userProfilesCreated = JSON.parse(
-//     localStorage.getItem('UserProfilesCreated')
-//   );
-//   if (!userProfilesCreated) {
-//     createUserProfiles(Keys.Mentees, Mentee);
-//     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
-//   }
-
-// });
-
-// mentor_question_form.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   mentorSelectedQuestions.clear();
-//   saveSelectedQuestions(mentor_question_form, mentorSelectedQuestions);
-
-//   const userProfilesCreated = JSON.parse(
-//     localStorage.getItem('UserProfilesCreated')
-//   );
-//   if (!userProfilesCreated) {
-//     createUserProfiles(Keys.Mentors, Mentor);
-//     localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
-//   }
-// });
-
 /**
  *
  * @param {Storage} survey Storage item that includes the User's questions.
@@ -183,11 +172,27 @@ function saveSelectedQuestions(form, userSelectedQuestions) {
   userSelectedQuestions.insertMany(selected);
 }
 
-function createUserProfiles(key, userType) {
+function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
   const currentData = new Storage(key);
-  const users = currentData
-    .getAll()
-    .map((user) => new userType(user.id, user.data.responses));
+  const users = currentData.getAll().map((user) => {
+    const email = user.data.responses.find(
+      (response) => emailID == response.question
+    ).answer;
+    const firstName = user.data.responses.find(
+      (response) => firstNameID == response.question
+    ).answer;
+    const lastName = user.data.responses.find(
+      (response) => lastNameID == response.question
+    ).answer;
+
+    return new userType(
+      user.id,
+      user.data.responses,
+      email,
+      firstName,
+      lastName
+    );
+  });
   currentData.clear();
   currentData.insertMany(users);
 }
