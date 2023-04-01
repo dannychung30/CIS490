@@ -9,9 +9,6 @@ const submit_button_container = document.querySelector(
 );
 const pair_form = document.getElementById('pair-form');
 
-const menteeSurvey = new Storage(Keys.Mentee_Survey);
-const mentorSurvey = new Storage(Keys.Mentor_Survey);
-
 const menteeSelectedQuestions = new Storage(Keys.Mentee_Selected_Questions);
 const mentorSelectedQuestions = new Storage(Keys.Mentor_Selected_Questions);
 
@@ -21,7 +18,6 @@ menteeSelectedQuestions.getAll().forEach((question) => {
 
   const label = document.createElement('label');
   label.innerText = question.question + ': ';
-  // const breakEl = document.createElement('br');
   populateOptions(mentorSelectedQuestions.getAll(), select);
   pairing_section.append(label, select);
 });

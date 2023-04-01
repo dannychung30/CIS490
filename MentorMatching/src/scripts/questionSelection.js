@@ -75,15 +75,13 @@ function submitBothForms(e) {
   } else if ((mentee_checked && mentor_checked) === 0) {
     alert('No question(s) are selected from either survey');
   } else {
-    const mentee_email = document.getElementById('mentee-email').value;
-    const mentee_first_name =
-      document.getElementById('mentee-first-name').value;
-    const mentee_last_name = document.getElementById('mentee-last-name').value;
+    const mentee_email = mentee_email_select.value;
+    const mentee_first_name = mentee_first_name_select.value;
+    const mentee_last_name = mentee_last_name_select.value;
 
-    const mentor_email = document.getElementById('mentor-email').value;
-    const mentor_first_name =
-      document.getElementById('mentor-first-name').value;
-    const mentor_last_name = document.getElementById('mentor-last-name').value;
+    const mentor_email = mentor_email_select.value;
+    const mentor_first_name = mentor_first_name_select.value;
+    const mentor_last_name = mentor_last_name_select.value;
 
     const userProfilesCreated = JSON.parse(
       localStorage.getItem('UserProfilesCreated')
@@ -116,17 +114,20 @@ function submitBothForms(e) {
  */
 
 function displayQuestions(survey, questionsDiv) {
-  survey.getAll().forEach(({ id, question }) => {
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.id = id;
-    input.value = question;
-    const label = document.createElement('label');
-    label.htmlFor = id;
-    label.innerText = question;
-    const breakEl = document.createElement('br');
-    questionsDiv.append(input, label, breakEl);
-  });
+  survey
+    .getAll()
+    .slice(17)
+    .forEach(({ id, question }) => {
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.id = id;
+      input.value = question;
+      const label = document.createElement('label');
+      label.htmlFor = id;
+      label.innerText = question;
+      const breakEl = document.createElement('br');
+      questionsDiv.append(input, label, breakEl);
+    });
 }
 
 /**
@@ -135,12 +136,15 @@ function displayQuestions(survey, questionsDiv) {
  * @param {HTMLSelectElement} selectElement
  */
 function populateOptions(survey, selectElement) {
-  survey.getAll().forEach((question) => {
-    const option = document.createElement('option');
-    option.value = question.id;
-    option.innerText = question.question;
-    selectElement.append(option);
-  });
+  survey
+    .getAll()
+    .slice(17)
+    .forEach((question) => {
+      const option = document.createElement('option');
+      option.value = question.id;
+      option.innerText = question.question;
+      selectElement.append(option);
+    });
 }
 
 /**
@@ -175,6 +179,7 @@ function saveSelectedQuestions(form, userSelectedQuestions) {
 function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
   const currentData = new Storage(key);
   const users = currentData.getAll().map((user) => {
+    console.log(user.data.responses);
     const email = user.data.responses.find(
       (response) => emailID == response.question
     ).answer;

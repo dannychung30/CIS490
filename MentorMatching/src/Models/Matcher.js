@@ -19,7 +19,7 @@ export default class Matcher {
         // console.log(
         //   `Mentee: ${mentee.id} and Mentor: ${mentor.id} scored: ${total_score}`
         // );
-        matches.push({ mentor: mentor.id, score: total_score });
+        matches.push({ mentor, score: total_score });
         matches.sort((a, b) => b.score - a.score);
       });
       mentee.possible_matches = matches.slice(0, 3);
@@ -41,19 +41,18 @@ export default class Matcher {
     question_pairs.forEach((pair) => {
       const { menteeQuestion, mentorQuestion } = pair;
 
-      let mentee_answer = mentee.responses.find(
-        ({ question }) => question == menteeQuestion
-      );
-      let mentor_answer = mentor.responses.find(
-        ({ question }) => question == mentorQuestion
-      );
+      let mentee_answer = this.getAnswer(mentee, menteeQuestion);
+      let mentor_answer = this.getAnswer(mentor, mentorQuestion);
+
       score += this.get_score(mentee_answer.answer, mentor_answer.answer);
     });
 
     return score;
   }
 
-  getAnswer(user, question) {}
+  getAnswer(user, userQuestion) {
+    return user.responses.find(({ question }) => question == userQuestion);
+  }
 
   /**
    * @param {String} mentor_answer

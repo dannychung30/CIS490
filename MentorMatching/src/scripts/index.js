@@ -34,10 +34,10 @@ function parseCSV(file, survey, user) {
   const users = [];
   parse(file, {
     complete: function (results) {
-      const header = results.data[0].slice(17);
+      const header = results.data[0];
       survey.insertMany(header, 'question');
 
-      for (let i = 1; i < header.length; i++) {
+      for (let i = 0; i < header.length; i++) {
         const user = { responses: [] };
         for (let j = 0; j < header.length; j++) {
           const correspondingQuestion = survey.find({
