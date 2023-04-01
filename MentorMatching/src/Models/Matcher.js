@@ -1,5 +1,7 @@
 import Storage from './Storage';
 import Keys from './Keys';
+import Mentee from '../Models/Mentee';
+import Mentor from '../Models/Mentor';
 import { ratio } from 'fuzzball';
 
 export default class Matcher {
@@ -15,10 +17,7 @@ export default class Matcher {
     mentees_copy.forEach((mentee) => {
       const matches = [];
       mentors.forEach((mentor) => {
-        let total_score = this.tally_score(mentee, mentor);
-        // console.log(
-        //   `Mentee: ${mentee.id} and Mentor: ${mentor.id} scored: ${total_score}`
-        // );
+        let total_score = this.tallyScore(mentee, mentor);
         matches.push({ mentor, score: total_score });
         matches.sort((a, b) => b.score - a.score);
       });
@@ -30,26 +29,29 @@ export default class Matcher {
   }
 
   /**
-   * @param {Person} mentee
-   * @param {Person} mentor
+   * @param {Mentee} mentee
+   * @param {Mentor} mentor
    * @returns {number}
    */
-  tally_score(mentee, mentor) {
+  tallyScore(mentee, mentor) {
     let question_pairs = new Storage(Keys.Question_Pairs).getAll();
     let score = 0;
 
-    question_pairs.forEach((pair) => {
-      const { menteeQuestion, mentorQuestion } = pair;
-
+    question_pairs.forEach(({ menteeQuestion, mentorQuestion }) => {
       let mentee_answer = this.getAnswer(mentee, menteeQuestion);
       let mentor_answer = this.getAnswer(mentor, mentorQuestion);
-
       score += this.get_score(mentee_answer.answer, mentor_answer.answer);
     });
 
     return score;
   }
 
+  /**
+   *
+   * @param {Mentee | Mentor} user
+   * @param {String} userQuestion
+   * @returns the answer for the given question
+   */
   getAnswer(user, userQuestion) {
     return user.responses.find(({ question }) => question == userQuestion);
   }
@@ -61,9 +63,6 @@ export default class Matcher {
    */
   get_score(mentee_answer, mentor_answer) {
     let score = ratio(mentee_answer, mentor_answer);
-    // console.log(
-    //   `Mentee Answered: ${mentee_answer}\nMentor Answered: ${mentor_answer}`
-    // );
     return score;
   }
 }
