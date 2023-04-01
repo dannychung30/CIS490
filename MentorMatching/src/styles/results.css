@@ -14,6 +14,7 @@
 }
 
 .mentee-cards {
+  width: 40vh;
   background-color: rgb(243, 243, 243);
   border: 3px solid rgb(243, 243, 243);
   border-radius: 3px;
