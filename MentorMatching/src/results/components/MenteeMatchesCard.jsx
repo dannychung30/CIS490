@@ -12,7 +12,7 @@ export default function MenteeCard(props) {
             </p>
           </div>
         );
-      })}
+      })}''
     </div>
   );
 }
