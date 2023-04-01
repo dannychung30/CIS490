@@ -2,18 +2,18 @@ import AnotherComponent from './components/AnotherComponent';
 import Header from './components/Header';
 import Storage from '../Models/Storage';
 import Keys from '../Models/Keys';
-import MenteeCard from './components/MenteeCard';
+
+import MenteeCard from './components/MenteeMatchesCard';
 
 export default function Results() {
   const mentees = JSON.parse(localStorage.getItem('Mentees'));
-  console.log(mentees);
 
   return (
-    <div>
+    <div className='results-list'>
       {mentees.map((mentee) => (
         <MenteeCard
           key={mentee.id}
-          name={mentee.id}
+          name='Mentee'
           matches={mentee.possible_matches}
         />
       ))}
