@@ -49,11 +49,16 @@ function savePairs() {
   const questionPairs = new Storage(Keys.Question_Pairs);
 
   const pairs = [];
-  menteeSelectedQuestions.getAll().forEach((question) => {
-    const menteeQuestion = document.getElementById(question.id);
+  menteeSelectedQuestions.getAll().forEach(({ id, question }) => {
+    const menteeQuestion = document.getElementById(id);
+    console.log(menteeQuestion);
     pairs.push({
-      menteeQuestion: question.id,
-      mentorQuestion: menteeQuestion.value,
+      menteeQuestion: { id, question },
+      mentorQuestion: {
+        id: menteeQuestion.value,
+        question: menteeQuestion.textContent,
+      },
+      weightMultiplier: 1,
     });
   });
   questionPairs.insertMany(pairs);

@@ -5,27 +5,28 @@ import Mentor from '../Models/Mentor';
 import { ratio } from 'fuzzball';
 
 export default class Matcher {
+  mentees = new Storage(Keys.Mentees);
+  mentors = new Storage(Keys.Mentors);
+  question_pairs = new Storage(Keys.Question_Pairs);
+
   /**
    * @returns {none}
    */
   generateScores() {
-    const mentees = new Storage(Keys.Mentees);
-    const mentors = new Storage(Keys.Mentors).getAll();
-
     const mentees_copy = new Storage(Keys.Mentees).getAll();
 
     mentees_copy.forEach((mentee) => {
       const matches = [];
-      mentors.forEach((mentor) => {
+      this.mentors.getAll().forEach((mentor) => {
         let total_score = this.tallyScore(mentee, mentor);
-        matches.push({ mentor, score: total_score });
-        matches.sort((a, b) => b.score - a.score);
+        matches.push({ mentor, scores: total_score });
+        matches.sort((a, b) => b.scores.total_score - a.scores.total_score);
       });
       mentee.possible_matches = matches.slice(0, 3);
     });
 
-    mentees.clear();
-    mentees.insertMany(mentees_copy);
+    this.mentees.clear();
+    this.mentees.insertMany(mentees_copy);
   }
 
   /**
@@ -34,16 +35,25 @@ export default class Matcher {
    * @returns {number}
    */
   tallyScore(mentee, mentor) {
-    let question_pairs = new Storage(Keys.Question_Pairs).getAll();
-    let score = 0;
+    let total_score = 0;
+    const scores = {};
 
-    question_pairs.forEach(({ menteeQuestion, mentorQuestion }) => {
-      let mentee_answer = this.getAnswer(mentee, menteeQuestion);
-      let mentor_answer = this.getAnswer(mentor, mentorQuestion);
-      score += this.get_score(mentee_answer.answer, mentor_answer.answer);
-    });
+    this.question_pairs
+      .getAll()
+      .forEach(({ menteeQuestion, mentorQuestion, weightMultiplier }) => {
+        let mentee_answer = this.getAnswer(mentee, menteeQuestion.id);
+        let mentor_answer = this.getAnswer(mentor, mentorQuestion.id);
+        const answerScore =
+          this.get_score(mentee_answer.answer, mentor_answer.answer) *
+          weightMultiplier;
 
-    return score;
+        scores.question = menteeQuestion;
+        scores.score = answerScore;
+
+        total_score += answerScore;
+      });
+
+    return { total_score, ...scores };
   }
 
   /**

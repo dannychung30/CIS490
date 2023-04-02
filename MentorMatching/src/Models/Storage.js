@@ -4,6 +4,10 @@ export default class Storage {
     this.initializeDatabase();
   }
 
+  /**
+   *
+   * @returns {[]}
+   */
   getAll() {
     let db = JSON.parse(localStorage.getItem(this.dbName));
     return db;
@@ -15,6 +19,11 @@ export default class Storage {
     }
   }
 
+  /**
+   *
+   * @param {[]} data
+   * @param {string} name
+   */
   insertMany(data, name) {
     data.forEach((d) => {
       this.insert(d, name);

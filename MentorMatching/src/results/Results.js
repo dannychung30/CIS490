@@ -1,18 +1,23 @@
-import MenteeCard from './components/MenteeMatchesCard';
+import QuestionWeightForm from './components/QuestionWeightForm';
+import Keys from '../Models/Keys';
+import Storage from '../Models/Storage';
+import MenteeMatchesCardCollection from './components/MenteeMatchesCardCollection';
+import { useState } from 'react';
 
 export default function Results() {
-  const mentees = JSON.parse(localStorage.getItem('Mentees'));
-  console.log(mentees);
+  const [matches, setMatches] = useState(new Storage(Keys.Mentees).getAll());
+  const [pairs, setPairs] = useState(new Storage(Keys.Question_Pairs).getAll());
 
   return (
-    <div className='results-list'>
-      {mentees.map((mentee) => (
-        <MenteeCard
-          key={mentee.id}
-          name={`${mentee.firstName} ${mentee.lastName}`}
-          matches={mentee.possible_matches}
-        />
-      ))}
-    </div>
+    <>
+      <QuestionWeightForm
+        pairs={pairs}
+        setPairs={setPairs}
+        setMatches={setMatches}
+      />
+      <div className='results-list'>
+        <MenteeMatchesCardCollection cards={matches} />
+      </div>
+    </>
   );
 }
