@@ -3,6 +3,11 @@ import { useState } from 'react';
 export default function QuestionWeightForm({ pairs, setMatches }) {
   function handleFormSubmit(e) {
     e.preventDefault();
+    const inputs = Array.from(
+      e.target.querySelectorAll('input[type=number]')
+    ).map((input) => {
+      return { id: input.id, value: input.value };
+    });
   }
 
   return (
