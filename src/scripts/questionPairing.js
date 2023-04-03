@@ -4,6 +4,9 @@ import Storage from '../Models/Storage';
 import Keys from '../Models/Keys';
 
 const pairing_section = document.querySelector('.pairing-section');
+const mentee_questions = document.querySelector('.mentee-questions');
+const mentor_questions = document.querySelector('.mentor-questions');
+
 const submit_button_container = document.querySelector(
   '.submit-button-container'
 );
@@ -13,13 +16,25 @@ const menteeSelectedQuestions = new Storage(Keys.Mentee_Selected_Questions);
 const mentorSelectedQuestions = new Storage(Keys.Mentor_Selected_Questions);
 
 menteeSelectedQuestions.getAll().forEach((question) => {
+  const break_line = document.createElement('br');
+  const select_divs = document.createElement('div');
+  const label_divs = document.createElement('div');
   const select = document.createElement('select');
+
+  label_divs.classList.add('label-containers');
+  select_divs.classList.add('select-containers');
   select.id = question.id;
+  select.classList.add('selects');
 
   const label = document.createElement('label');
   label.innerText = question.question + ': ';
   populateOptions(mentorSelectedQuestions.getAll(), select);
-  pairing_section.append(label, select);
+  label_divs.append(label);
+  select_divs.append(select);
+  mentee_questions.append(label_divs);
+  mentor_questions.append(select_divs);
+  // mentee_questions.append(label);
+  // mentor_questions.append(select);
 });
 
 function populateOptions(questions, tag) {
