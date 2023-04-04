@@ -7,6 +7,14 @@
     flex-direction: row;
 }
 
+#mentee-questions {
+    line-height: 1.6;
+}
+
+#mentor-questions {
+    line-height: 1.6;
+}
+
 #question-forms-submit-button {
     width: 10vh;
     height: 4vh;
