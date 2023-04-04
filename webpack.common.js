@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = [
   {
@@ -45,7 +46,12 @@ module.exports = {
     ),
     results: path.join(__dirname, 'src', 'results', 'index.js'),
   },
-  plugins: [...entryHtmlPlugins],
+  plugins: [
+    ...entryHtmlPlugins,
+    new CopyPlugin({
+      patterns: [{ from: path.join(__dirname, 'src', 'images'), to: 'images' }],
+    }),
+  ],
   module: {
     // exclude node_modules
     rules: [
@@ -60,20 +66,14 @@ module.exports = {
       },
       {
         test: /\.(jpg|jpeg|png|gif|pdf|ico)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: path.join(__dirname, 'src', 'images', '[name].[ext]'),
-            },
-          },
-        ],
+        use: ['file-loader'],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
 
         type: 'asset/resource',
       },
+      { test: /\.svg$/, loader: 'svg-inline-loader' },
     ],
   },
   // pass all js files through Babel
