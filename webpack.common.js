@@ -41,8 +41,8 @@ module.exports = {
     questionSelection: path.join(
       __dirname,
       'src',
-      'scripts',
-      'questionSelection.js'
+      'questionSelection',
+      'index.js'
     ),
     results: path.join(__dirname, 'src', 'results', 'index.js'),
   },
