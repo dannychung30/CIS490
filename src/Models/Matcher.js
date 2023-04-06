@@ -22,7 +22,7 @@ export default class Matcher {
         matches.push({ mentor, scores: total_score });
         matches.sort((a, b) => b.scores.total_score - a.scores.total_score);
       });
-      mentee.possible_matches = matches.slice(0, 3);
+      mentee.possible_matches = matches.slice(0, 5);
     });
 
     this.mentees.clear();
