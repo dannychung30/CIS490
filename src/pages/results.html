@@ -9,6 +9,7 @@
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/results.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -37,6 +38,21 @@
   <div id="app"></div>
   <br />
   <br />
+  <script>
+    $(window).on('load', function() {
+      $(window).scroll(function() {
+        var windowBottom = $(this).scrollTop() + $(this).innerHeight();
+        $('.mentee-cards').each(function() {
+          var objectBottom = $(this).offset().top + $(this).outerHeight();
+          if (objectBottom < windowBottom) {
+              if ($(this).css('opacity') == 0) {
+                $(this).fadeTo(500, 1);
+              }
+          }
+        });
+      }).scroll();
+    });
+  </script>
 </body>
 
 </html>
