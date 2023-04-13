@@ -64,15 +64,6 @@ const ProfileCreatorSection = ({
   );
 };
 
-const Questions = ({ data }) => {
-  return data.map(({ id, question }) => (
-    <div key={id}>
-      <input type='checkbox' id={id} value={question} />
-      <label htmlFor={id}>{question}</label>
-    </div>
-  ));
-};
-
 const Survey = ({ data }) => {
   const [email, setEmail] = useState(data[0].id);
   const [firstName, setFirstName] = useState(data[0].id);
@@ -91,7 +82,12 @@ const Survey = ({ data }) => {
         setFirstName={setFirstName}
         setLastName={setLastName}
       />
-      <Questions data={data} />
+      {data.map(({ id, question }) => (
+        <div key={id}>
+          <input type='checkbox' id={id} value={question} />
+          <label htmlFor={id}>{question}</label>
+        </div>
+      ))}
       <input type='submit' value='Submit' />
     </form>
   );
