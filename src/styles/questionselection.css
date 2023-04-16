@@ -31,10 +31,6 @@
 }
 
 .logo {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 2vh;
   margin-bottom: 10vh;
 }
 
