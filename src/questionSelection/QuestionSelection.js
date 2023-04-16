@@ -5,160 +5,112 @@ import Mentee from '../Models/Mentee';
 import Mentor from '../Models/Mentor';
 import Keys from '../Models/Keys';
 import { useReducer, useState } from 'react';
+import ProfileCreatorForm from './components/ProfileCreatorForm';
+import { initialState, selectionReducer } from './reducers/selectionReducer';
 
-function ProfileCreatorSection({ data, setEmail, setFirstName, setLastName }) {
+const Question = ({ id, question, disabled, dispatch, action }) => {
   return (
-    <div className='profile-creator'>
-      <div className='form-control'>
-        <label htmlFor='email'>Email</label>
-        <select
-          onChange={(e) => setEmail(e.target.value)}
-          name='email'
-          id='email'
-        >
-          {data.map((q) => (
-            <option key={q.id} value={q.id}>
-              {q.question}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className='form-control'>
-        <label htmlFor='first-name'>First Name</label>
-        <select
-          onChange={(e) => setFirstName(e.target.value)}
-          name='first-name'
-          id='first-name'
-        >
-          {data.map((q) => (
-            <option key={q.id} value={q.id}>
-              {q.question}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className='form-control'>
-        <label htmlFor='last-name'>Last Name</label>
-        <select
-          onChange={(e) => setLastName(e.target.value)}
-          name='last-name'
-          id='last-name'
-        >
-          {data.map((q) => (
-            <option key={q.id} value={q.id}>
-              {q.question}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+    <input
+      className='question'
+      type='button'
+      id={id}
+      value={question}
+      disabled={disabled}
+      onClick={() =>
+        dispatch({ type: action, payload: { id: id, text: question } })
+      }
+    />
   );
-}
+};
 
-function QuestionsToSelect({ data, disabled, dispatch, action }) {
+const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
-      {data.map(({ id, question, selected }) => (
-        <input
-          className='question'
-          key={id}
-          type='button'
-          id={id}
-          value={question}
+      {data.map((question) => (
+        <Question
           disabled={disabled}
-          onClick={() =>
-            dispatch({ type: action, payload: { id: id, text: question } })
-          }
+          dispatch={dispatch}
+          action={action}
+          key={question.id}
+          id={question.id}
+          question={question.question}
         />
       ))}
     </div>
   );
-}
-
-const initialState = {
-  disable_mentee_questions: false,
-  disable_mentor_questions: true,
-  mentee_question: { id: '', text: '' },
-  mentor_question: { id: '', text: '' },
-  pairs: [],
 };
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'mentee_question_selected':
-      return {
-        ...state,
-        disable_mentee_questions: true,
-        disable_mentor_questions: false,
-        mentee_question: { id: action.payload.id, text: action.payload.text },
-      };
-    case 'mentor_question_selected':
-      return {
-        ...state,
-        disable_mentee_questions: false,
-        disable_mentor_questions: true,
-        mentor_question: { id: action.payload.id, text: action.payload.text },
-        pairs: [
-          ...state.pairs,
-          {
-            mentee_question: state.mentee_question,
-            mentor_question: {
-              id: action.payload.id,
-              text: action.payload.text,
-            },
-          },
-        ],
-      };
-    case 'clear_pairs':
-      return {
-        ...state,
-        pairs: [],
-      };
-    default:
-      return state;
-  }
-}
+const Pair = ({ data }) => (
+  <div className='pair'>
+    <p>{data.mentee_question.text}</p>
+    <p>{data.mentor_question.text}</p>
+  </div>
+);
 
 function Pairs({ pairs }) {
   return (
     <div className='pairs-container'>
       {pairs.map((pair) => (
-        <div className='pair'>
-          <p>{pair.mentee_question.text}</p>
-          <p>{pair.mentor_question.text}</p>
-        </div>
+        <Pair key={pair.mentee_question.id} data={pair} />
       ))}
     </div>
   );
 }
 
 function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
-  const currentData = new Storage(key);
-  const users = currentData.getAll().map((user) => {
-    const email = user.data.responses.find(
-      (response) => emailID == response.question
-    ).answer;
-    const firstName = user.data.responses.find(
-      (response) => firstNameID == response.question
-    ).answer;
-    const lastName = user.data.responses.find(
-      (response) => lastNameID == response.question
-    ).answer;
+  const userProfilesCreated = JSON.parse(
+    localStorage.getItem('UserProfilesCreated')
+  );
+  localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
 
-    return new userType(
-      user.id,
-      user.data.responses,
-      email,
-      firstName,
-      lastName
-    );
+  if (!userProfilesCreated) {
+    const currentData = new Storage(key);
+    const users = currentData.getAll().map((user) => {
+      const email = user.data.responses.find(
+        (response) => emailID == response.question
+      ).answer;
+      const firstName = user.data.responses.find(
+        (response) => firstNameID == response.question
+      ).answer;
+      const lastName = user.data.responses.find(
+        (response) => lastNameID == response.question
+      ).answer;
+
+      return new userType(
+        user.id,
+        user.data.responses,
+        email,
+        firstName,
+        lastName
+      );
+    });
+    currentData.clear();
+    currentData.insertMany(users);
+  }
+}
+
+function submitQuestionPairs(pairs) {
+  const pairsStorage = new Storage(Keys.Question_Pairs);
+  pairsStorage.clear();
+  const pairsToSave = pairs.map((pair) => {
+    return {
+      menteeQuestion: {
+        id: pair.mentee_question.id,
+        question: pair.mentee_question.text,
+      },
+      mentorQuestion: {
+        id: pair.mentor_question.id,
+        question: pair.mentor_question.text,
+      },
+
+      weightMultiplier: 1,
+    };
   });
-  currentData.clear();
-  currentData.insertMany(users);
+  pairsStorage.insertMany(pairsToSave);
 }
 
 const Survey = ({ menteeSurvey, mentorSurvey }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(selectionReducer, initialState);
 
   const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
   const [menteeFirstName, setMenteeFirstName] = useState(menteeSurvey[0].id);
@@ -170,47 +122,21 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    const pairs = new Storage(Keys.Question_Pairs);
-    pairs.clear();
-    const pairsToSave = state.pairs.map((pair) => {
-      return {
-        menteeQuestion: {
-          id: pair.mentee_question.id,
-          question: pair.mentee_question.text,
-        },
-        mentorQuestion: {
-          id: pair.mentor_question.id,
-          question: pair.mentor_question.text,
-        },
-
-        weightMultiplier: 1,
-      };
-    });
-    pairs.insertMany(pairsToSave);
-
-    const userProfilesCreated = JSON.parse(
-      localStorage.getItem('UserProfilesCreated')
+    submitQuestionPairs(state.pairs);
+    createUserProfiles(
+      Keys.Mentees,
+      Mentee,
+      menteeEmail,
+      menteeFirstName,
+      menteeLastName
     );
-
-    if (!userProfilesCreated) {
-      createUserProfiles(
-        Keys.Mentees,
-        Mentee,
-        menteeEmail,
-        menteeFirstName,
-        menteeLastName
-      );
-      createUserProfiles(
-        Keys.Mentors,
-        Mentor,
-        mentorEmail,
-        mentorFirstName,
-        mentorLastName
-      );
-
-      localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
-    }
-
+    createUserProfiles(
+      Keys.Mentors,
+      Mentor,
+      mentorEmail,
+      mentorFirstName,
+      mentorLastName
+    );
     window.location.href = './results.html';
   }
 
@@ -221,13 +147,13 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
         <div id='container'>
           <div className='survey'>
             <h2 className='survey-title'>Mentee Survey</h2>
-            <ProfileCreatorSection
+            <ProfileCreatorForm
               data={menteeSurvey}
               setEmail={setMenteeEmail}
               setFirstName={setMenteeFirstName}
               setLastName={setMenteeLastName}
             />
-            <QuestionsToSelect
+            <Questions
               data={menteeSurvey}
               disabled={state.disable_mentee_questions}
               dispatch={dispatch}
@@ -236,13 +162,13 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
           </div>
           <div className='survey'>
             <h2 className='survey-title'>Mentor Survey</h2>
-            <ProfileCreatorSection
+            <ProfileCreatorForm
               data={mentorSurvey}
               setEmail={setMentorEmail}
               setFirstName={setMentorFirstName}
               setLastName={setMentorLastName}
             />
-            <QuestionsToSelect
+            <Questions
               data={mentorSurvey}
               disabled={state.disable_mentor_questions}
               dispatch={dispatch}
