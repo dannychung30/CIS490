@@ -250,13 +250,13 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
             />
           </div>
         </div>
-        <div className='button-containers'>
-          <input
+        <div className='buttons-container'>
+          <input className='clear-button'
             type='button'
             value='Clear selections'
             onClick={() => dispatch({ type: 'clear_pairs' })}
           />
-          <input type='submit' value='Submit' />
+          <input className='submit-button' type='submit' value='&#8674;' />
         </div>
       </form>
     </>
