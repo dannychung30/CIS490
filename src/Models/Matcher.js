@@ -2,7 +2,8 @@ import Storage from './Storage';
 import Keys from './Keys';
 import Mentee from '../Models/Mentee';
 import Mentor from '../Models/Mentor';
-import { ratio } from 'fuzzball';
+// import { ratio } from 'fuzzball';
+import { compareTwoStrings } from 'string-similarity';
 
 export default class Matcher {
   mentees = new Storage(Keys.Mentees);
@@ -72,7 +73,8 @@ export default class Matcher {
    * @returns {number}
    */
   get_score(mentee_answer, mentor_answer) {
-    let score = ratio(mentee_answer, mentor_answer);
+    let score = compareTwoStrings(mentee_answer, mentor_answer) * 100;
+    console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
     return score;
   }
 }
