@@ -37,3 +37,22 @@
   font-weight: bolder;
   color: #707070;
 }
+
+.scroll-top-button, .scroll-btm-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 99;
+  width: 5vh;
+  height: 5vh;
+  border: 1px solid #0062a5;
+  border-radius: 50%;
+  background-color: #0062a5;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.hidden-button {
+  display: none;
+}
