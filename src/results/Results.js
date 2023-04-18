@@ -3,6 +3,8 @@ import Keys from '../Models/Keys';
 import Storage from '../Models/Storage';
 import MenteeMatchesCardCollection from './components/MenteeMatchesCardCollection';
 import { useState } from 'react';
+import { CSVLink, CSVDownload } from 'react-csv';
+
 // import gsap from "gsap";
 
 // export function fadeCardsAnimation() {
@@ -57,3 +59,32 @@ export default function Results() {
     </>
   );
 }
+
+const top_scroll = document.querySelector(".scroll-top-button");
+const btm_scroll = document.querySelector(".scroll-btm-button");
+
+top_scroll.addEventListener("click", () => {
+  document.documentElement.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+btm_scroll.addEventListener("click", () => {
+  document.documentElement.scrollTo({
+    top: document.documentElement.scrollHeight,
+    behavior: 'smooth'
+  });
+});
+
+document.addEventListener("scroll", () => {
+  if (document.documentElement.scrollTop > 1000 || document.body.scrollTop > 1000) {
+    top_scroll.classList.remove("hidden-button");
+    btm_scroll.classList.add("hidden-button");
+  } else {
+    top_scroll.classList.add("hidden-button");
+    btm_scroll.classList.remove("hidden-button");
+  }
+});
+
+
