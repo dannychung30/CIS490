@@ -6,19 +6,17 @@ import Mentor from '../Models/Mentor';
 import { compareTwoStrings } from 'string-similarity';
 
 export default class Matcher {
-  mentees = new Storage(Keys.Mentees);
-  mentors = new Storage(Keys.Mentors);
-  question_pairs = new Storage(Keys.Question_Pairs);
-
   /**
    * @returns {none}
    */
   generateScores() {
+    const mentees = new Storage(Keys.Mentees);
+    const mentors = new Storage(Keys.Mentors);
     const mentees_copy = new Storage(Keys.Mentees).getAll();
 
     mentees_copy.forEach((mentee) => {
       const matches = [];
-      this.mentors.getAll().forEach((mentor) => {
+      mentors.getAll().forEach((mentor) => {
         let total_score = this.tallyScore(mentee, mentor);
         matches.push({ mentor, scores: total_score });
         matches.sort((a, b) => b.scores.total_score - a.scores.total_score);
@@ -26,8 +24,8 @@ export default class Matcher {
       mentee.possible_matches = matches.slice(0, 5);
     });
 
-    this.mentees.clear();
-    this.mentees.insertMany(mentees_copy);
+    mentees.clear();
+    mentees.insertMany(mentees_copy);
   }
 
   /**
@@ -36,10 +34,11 @@ export default class Matcher {
    * @returns {number}
    */
   tallyScore(mentee, mentor) {
+    const question_pairs = new Storage(Keys.Question_Pairs);
     let total_score = 0;
     const scores = {};
 
-    this.question_pairs
+    question_pairs
       .getAll()
       .forEach(({ menteeQuestion, mentorQuestion, weightMultiplier }) => {
         let mentee_answer = this.getAnswer(mentee, menteeQuestion.id);
@@ -74,7 +73,7 @@ export default class Matcher {
    */
   get_score(mentee_answer, mentor_answer) {
     let score = compareTwoStrings(mentee_answer, mentor_answer) * 100;
-    console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
+    // console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
     return score;
   }
 }

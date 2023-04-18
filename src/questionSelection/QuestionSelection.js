@@ -58,35 +58,28 @@ function Pairs({ pairs }) {
 }
 
 function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
-  const userProfilesCreated = JSON.parse(
-    localStorage.getItem('UserProfilesCreated')
-  );
-  localStorage.setItem('UserProfilesCreated', JSON.stringify(true));
+  const currentData = new Storage(key);
+  const users = currentData.getAll().map((user) => {
+    const email = user.data.responses.find(
+      (response) => emailID == response.question
+    ).answer;
+    const firstName = user.data.responses.find(
+      (response) => firstNameID == response.question
+    ).answer;
+    const lastName = user.data.responses.find(
+      (response) => lastNameID == response.question
+    ).answer;
 
-  if (!userProfilesCreated) {
-    const currentData = new Storage(key);
-    const users = currentData.getAll().map((user) => {
-      const email = user.data.responses.find(
-        (response) => emailID == response.question
-      ).answer;
-      const firstName = user.data.responses.find(
-        (response) => firstNameID == response.question
-      ).answer;
-      const lastName = user.data.responses.find(
-        (response) => lastNameID == response.question
-      ).answer;
-
-      return new userType(
-        user.id,
-        user.data.responses,
-        email,
-        firstName,
-        lastName
-      );
-    });
-    currentData.clear();
-    currentData.insertMany(users);
-  }
+    return new userType(
+      user.id,
+      user.data.responses,
+      email,
+      firstName,
+      lastName
+    );
+  });
+  currentData.clear();
+  currentData.insertMany(users);
 }
 
 function submitQuestionPairs(pairs) {
@@ -177,7 +170,8 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
           </div>
         </div>
         <div className='buttons-container'>
-          <input className='clear-button'
+          <input
+            className='clear-button'
             type='button'
             value='Clear selections'
             onClick={() => dispatch({ type: 'clear_pairs' })}
@@ -206,29 +200,32 @@ export default function QuestionSelection() {
   return <Survey menteeSurvey={mentees} mentorSurvey={mentors} />;
 }
 
-const top_scroll = document.querySelector(".scroll-top-button");
-const btm_scroll = document.querySelector(".scroll-btm-button");
+const top_scroll = document.querySelector('.scroll-top-button');
+const btm_scroll = document.querySelector('.scroll-btm-button');
 
-top_scroll.addEventListener("click", () => {
+top_scroll.addEventListener('click', () => {
   document.documentElement.scrollTo({
     top: 0,
-    behavior: 'smooth'
+    behavior: 'smooth',
   });
 });
 
-btm_scroll.addEventListener("click", () => {
+btm_scroll.addEventListener('click', () => {
   document.documentElement.scrollTo({
     top: document.documentElement.scrollHeight,
-    behavior: 'smooth'
+    behavior: 'smooth',
   });
 });
 
-document.addEventListener("scroll", () => {
-  if (document.documentElement.scrollTop > 1000 || document.body.scrollTop > 1000) {
-    top_scroll.classList.remove("hidden-button");
-    btm_scroll.classList.add("hidden-button");
+document.addEventListener('scroll', () => {
+  if (
+    document.documentElement.scrollTop > 1000 ||
+    document.body.scrollTop > 1000
+  ) {
+    top_scroll.classList.remove('hidden-button');
+    btm_scroll.classList.add('hidden-button');
   } else {
-    top_scroll.classList.add("hidden-button");
-    btm_scroll.classList.remove("hidden-button");
+    top_scroll.classList.add('hidden-button');
+    btm_scroll.classList.remove('hidden-button');
   }
 });
