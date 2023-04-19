@@ -72,8 +72,9 @@ export default class Matcher {
    * @returns {number}
    */
   get_score(mentee_answer, mentor_answer) {
-    let score = compareTwoStrings(mentee_answer, mentor_answer) * 100;
+    let questions_asked = parseInt(sessionStorage.getItem('questions_asked'));
+    let score = (compareTwoStrings(mentee_answer, mentor_answer) * 100) / questions_asked;
     // console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
-    return score;
+    return Math.round(score);
   }
 }

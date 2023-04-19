@@ -130,6 +130,8 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
       mentorFirstName,
       mentorLastName
     );
+    let questions_asked = document.querySelectorAll('.pair').length;
+    sessionStorage.setItem('questions_asked', questions_asked);
     window.location.href = './results.html';
   }
 
