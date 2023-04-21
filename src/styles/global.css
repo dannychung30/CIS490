@@ -25,6 +25,7 @@
 html,
 body {
   height: 100%;
+  overflow-y: auto;
 }
 
 /*
@@ -81,14 +82,12 @@ h6 {
   isolation: isolate;
 }
 
-.steps-tracker-svg {
-  width: 40vh;
-}
-
 .svg-container {
+  width: 100%;
+
   display: flex;
   justify-content: center;
-  margin-bottom: 10vh;
+  padding: 2rem;
 }
 
 .logo {
@@ -96,5 +95,6 @@ h6 {
   flex-direction: row;
   justify-content: center;
   height: 25vh;
-  margin-top: 2vh;
+  min-height: 250px;
+  margin-top: 2rem;
 }

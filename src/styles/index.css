@@ -5,16 +5,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 10vh;
+  row-gap: 2rem;
+  margin: 2em;
 }
 
 #save_files {
-  width: 10vh;
-  height: 4vh;
+  width: 3em;
+  height: 1.25em;
   color: white;
-  font-size: 30px;
+  font-size: 2rem;
   background-color: #0062a5;
-  border: #0062a5;
+  border: none;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -26,6 +27,8 @@
 .file-inputs {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  /* padding: 2em; */
 }
 
 .file-input {
@@ -40,16 +43,4 @@
 
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
     0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075);
-}
-
-.svg-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 20vh;
-}
-
-.tracker-svg {
-  display: flex;
-  width: 50%;
 }

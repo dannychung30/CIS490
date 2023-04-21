@@ -82,10 +82,6 @@
   cursor: pointer;
 }
 
-.logo {
-  margin-bottom: 10vh;
-}
-
 .profile-creator {
   display: flex;
   flex-direction: column;
@@ -101,10 +97,6 @@
 .survey .survey-title {
   text-decoration: underline;
   text-align: center;
-}
-
-body {
-  margin: 1%;
 }
 
 select {

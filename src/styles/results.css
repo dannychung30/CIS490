@@ -5,10 +5,6 @@
 /* 
   CLASS SELECTORS
 */
-.logo {
-  margin-bottom: 5vh;
-}
-
 .mentee-cards {
   width: 40vh;
   background-color: rgb(243, 243, 243);
@@ -20,7 +16,7 @@
 }
 
 .mentee-cards h2 {
-  color: #002E5A;
+  color: #002e5a;
   padding-bottom: 10px;
 }
 
@@ -38,7 +34,8 @@
   color: #707070;
 }
 
-.scroll-top-button, .scroll-btm-button {
+.scroll-top-button,
+.scroll-btm-button {
   position: fixed;
   bottom: 2rem;
   right: 2rem;

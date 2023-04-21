@@ -8,10 +8,6 @@ const config = [
     script: 'index',
   },
   {
-    page: 'question-pairing',
-    script: 'questionPairing',
-  },
-  {
     page: 'question-selection',
     script: 'questionSelection',
   },
@@ -32,12 +28,6 @@ const entryHtmlPlugins = config.map(({ page, script }) => {
 module.exports = {
   entry: {
     index: path.join(__dirname, 'src', 'scripts', 'index.js'),
-    questionPairing: path.join(
-      __dirname,
-      'src',
-      'scripts',
-      'questionPairing.js'
-    ),
     questionSelection: path.join(
       __dirname,
       'src',

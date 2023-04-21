@@ -10,54 +10,29 @@
     <link rel="stylesheet" href="../styles/global.css" />
   </head>
   <body>
-    <section>
-      <div class="logo">
-        <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
-      </div>
-      <div class="svg-container">
-        <img
-          class="steps-tracker-svg"
-          src="./images/steps-tracker1.svg"
-          alt="Steps tracker on step 1"
-        />
-        <!-- <svg class="tracker-svg">
-          <circle class="step-trackers" cx="20%" />
-          <text class="step-numbers" text-anchor="middle" x="20%">1</text>
-          <line class="step-lines" x1="23%" y1="50%" x2="37%" y2="50%" />
-          <circle class="step-trackers" cx="40%" />
-          <text class="step-numbers" text-anchor="middle" x="40%">2</text>
-          <line class="step-lines" x1="43%" y1="50%" x2="57%" y2="50%" />
-          <circle class="step-trackers" cx="60%" />
-          <text class="step-numbers" text-anchor="middle" x="60%">3</text>
-          <line class="step-lines" x1="63%" y1="50%" x2="77%" y2="50%" />
-          <circle class="step-trackers" cx="80%" />
-          <text class="step-numbers" text-anchor="middle" x="80%">4</text>
-        </svg> -->
-      </div>
+    <div class="logo">
+      <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+    </div>
+    <div class="svg-container">
+      <img
+        class="steps-tracker-svg"
+        src="./images/steps-tracker1.svg"
+        alt="Steps tracker on step 1"
+      />
+    </div>
 
-      <form action="./question-selection.html" id="myForm">
-        <div class="file-inputs">
-          <div class="file-input">
-            <label for="menteeFile">Select your Mentee File</label>
-            <input
-              type="file"
-              name="menteeFile"
-              id="menteeFile"
-              accept=".csv"
-            />
-          </div>
-          <div class="file-input">
-            <label for="mentorFile">Select your Mentor File</label>
-            <input
-              type="file"
-              name="mentorFile"
-              id="mentorFile"
-              accept=".csv"
-            />
-          </div>
+    <form action="./question-selection.html" id="myForm">
+      <div class="file-inputs">
+        <div class="file-input">
+          <label for="menteeFile">Select your Mentee File</label>
+          <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
         </div>
-        <input id="save_files" type="submit" value="&#8674;" />
-      </form>
-    </section>
+        <div class="file-input">
+          <label for="mentorFile">Select your Mentor File</label>
+          <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
+        </div>
+      </div>
+      <input id="save_files" type="submit" value="&#8674;" />
+    </form>
   </body>
 </html>
