@@ -13,7 +13,11 @@ export function selectionReducer(state, action) {
         ...state,
         disable_mentee_questions: true,
         disable_mentor_questions: false,
-        mentee_question: { id: action.payload.id, text: action.payload.text },
+        mentee_question: {
+          id: action.payload.id,
+          text: action.payload.text,
+          disabled: true,
+        },
       };
     case 'mentor_question_selected':
       return {
@@ -31,6 +35,13 @@ export function selectionReducer(state, action) {
             },
           },
         ],
+      };
+    case 'remove_pair':
+      return {
+        ...state,
+        pairs: state.pairs.filter(
+          (pair) => pair.mentee_question.id != action.payload
+        ),
       };
     case 'clear_pairs':
       return {

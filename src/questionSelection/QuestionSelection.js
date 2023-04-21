@@ -1,5 +1,6 @@
 import '../styles/global.css';
 import '../styles/questionselection.css';
+
 import Storage from '../Models/Storage';
 import Mentee from '../Models/Mentee';
 import Mentor from '../Models/Mentor';
@@ -7,79 +8,60 @@ import Keys from '../Models/Keys';
 import { useReducer, useState } from 'react';
 import ProfileCreatorForm from './components/ProfileCreatorForm';
 import { initialState, selectionReducer } from './reducers/selectionReducer';
-
-const Question = ({ id, question, disabled, dispatch, action }) => {
-  return (
-    <input
-      className='question'
-      type='button'
-      id={id}
-      value={question}
-      disabled={disabled}
-      onClick={() =>
-        dispatch({ type: action, payload: { id: id, text: question } })
-      }
-    />
-  );
-};
+import createUserProfiles from './utils/createUserProfiles';
 
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
-      {data.map((question) => (
-        <Question
-          disabled={disabled}
-          dispatch={dispatch}
-          action={action}
-          key={question.id}
-          id={question.id}
-          question={question.question}
-        />
-      ))}
+      {data.map((question) => {
+        return (
+          <input
+            className='question'
+            type='button'
+            key={question.id}
+            value={question.question}
+            disabled={disabled}
+            onClick={() =>
+              dispatch({
+                type: action,
+                payload: { id: question.id, text: question.question },
+              })
+            }
+          />
+        );
+      })}
     </div>
   );
 };
 
-const Pair = ({ data }) => (
-  <div className='pair'>
-    <p>{data.mentee_question.text}</p>
-    <p>{data.mentor_question.text}</p>
-  </div>
-);
+const Pair = ({ data, dispatch }) => {
+  return (
+    <div className='pair'>
+      <p>{data.mentee_question.text}</p>
+      {/* <div id='pair-controller'> */}
+      <img
+        onClick={() =>
+          dispatch({ type: 'remove_pair', payload: data.mentee_question.id })
+        }
+        id='connecting-arrow'
+        src='./images/arrow-right.svg'
+        alt='arrow pointing right'
+      />
+      {/* <img id='remove-pair' src='./images/x.svg' alt='Remove pair' />
+      </div> */}
+      <p>{data.mentor_question.text}</p>
+    </div>
+  );
+};
 
-function Pairs({ pairs }) {
+function Pairs({ pairs, dispatch }) {
   return (
     <div className='pairs-container'>
       {pairs.map((pair) => (
-        <Pair key={pair.mentee_question.id} data={pair} />
+        <Pair dispatch={dispatch} key={pair.mentee_question.id} data={pair} />
       ))}
     </div>
   );
-}
-
-function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
-  const currentData = new Storage(key);
-  const users = currentData.getAll().map((user) => {
-    const email = user.data.responses.find(
-      (response) => emailID == response.question
-    ).answer;
-    const firstName = user.data.responses.find(
-      (response) => firstNameID == response.question
-    ).answer;
-    const lastName = user.data.responses.find(
-      (response) => lastNameID == response.question
-    ).answer;
-
-    return new userType(
-      user.id,
-      user.data.responses,
-      email,
-      firstName,
-      lastName
-    );
-  });
-  currentData.clear();
-  currentData.insertMany(users);
 }
 
 function submitQuestionPairs(pairs) {
@@ -137,7 +119,7 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
 
   return (
     <>
-      <Pairs pairs={state.pairs} />
+      <Pairs pairs={state.pairs} dispatch={dispatch} />
       <form onSubmit={handleFormSubmit} className='question-form'>
         <div id='container'>
           <div className='survey'>
@@ -186,14 +168,8 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
 };
 
 const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll().slice(17);
-// .map((question) => {
-//   return { selected: false, ...question };
-// });
 
 const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll().slice(17);
-// .map((question) => {
-//   return { selected: false, ...question };
-// });
 
 export default function QuestionSelection() {
   const [mentees, setMentee] = useState(menteeSurvey);

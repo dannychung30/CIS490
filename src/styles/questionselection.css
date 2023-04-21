@@ -9,11 +9,11 @@
 }
 
 #mentee-questions {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 #mentor-questions {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 #question-forms-submit-button {
@@ -50,7 +50,8 @@
   cursor: pointer;
 }
 
-.scroll-top-button, .scroll-btm-button {
+.scroll-top-button,
+.scroll-btm-button {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -75,7 +76,7 @@
   color: white;
   font-size: 15px;
   background-color: #0062a5;
-  border: #0078CC;
+  border: #0078cc;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -148,13 +149,29 @@ select {
   flex-direction: column;
 }
 .pair {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.pair > p {
-  background-color: rgb(203, 255, 203);
-  padding: 10px;
+.pair p {
+  max-width: 500px;
+  border: 1px solid #0062a5;
+  border-radius: 25px;
+
+  padding: 25px;
+}
+
+#pair-controller {
+  position: relative;
+}
+
+#connecting-arrow {
+  width: 50px;
+  height: 100%;
+  fill: #0062a5;
+  margin: 0 1rem;
 }
