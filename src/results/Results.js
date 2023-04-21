@@ -1,4 +1,3 @@
-import QuestionWeightForm from './components/QuestionWeightForm';
 import Keys from '../Models/Keys';
 import Storage from '../Models/Storage';
 import MenteeMatchesCardCollection from './components/MenteeMatchesCardCollection';
@@ -47,44 +46,38 @@ export default function Results() {
   const [pairs, setPairs] = useState(new Storage(Keys.Question_Pairs).getAll());
 
   return (
-    <>
-      <QuestionWeightForm
-        pairs={pairs}
-        setPairs={setPairs}
-        setMatches={setMatches}
-      />
-      <div className='results-list'>
-        <MenteeMatchesCardCollection cards={matches} />
-      </div>
-    </>
+    <div className='results-list'>
+      <MenteeMatchesCardCollection cards={matches} />
+    </div>
   );
 }
 
-const top_scroll = document.querySelector(".scroll-top-button");
-const btm_scroll = document.querySelector(".scroll-btm-button");
+const top_scroll = document.querySelector('.scroll-top-button');
+const btm_scroll = document.querySelector('.scroll-btm-button');
 
-top_scroll.addEventListener("click", () => {
+top_scroll.addEventListener('click', () => {
   document.documentElement.scrollTo({
     top: 0,
-    behavior: 'smooth'
+    behavior: 'smooth',
   });
 });
 
-btm_scroll.addEventListener("click", () => {
+btm_scroll.addEventListener('click', () => {
   document.documentElement.scrollTo({
     top: document.documentElement.scrollHeight,
-    behavior: 'smooth'
+    behavior: 'smooth',
   });
 });
 
-document.addEventListener("scroll", () => {
-  if (document.documentElement.scrollTop > 1000 || document.body.scrollTop > 1000) {
-    top_scroll.classList.remove("hidden-button");
-    btm_scroll.classList.add("hidden-button");
+document.addEventListener('scroll', () => {
+  if (
+    document.documentElement.scrollTop > 1000 ||
+    document.body.scrollTop > 1000
+  ) {
+    top_scroll.classList.remove('hidden-button');
+    btm_scroll.classList.add('hidden-button');
   } else {
-    top_scroll.classList.add("hidden-button");
-    btm_scroll.classList.remove("hidden-button");
+    top_scroll.classList.add('hidden-button');
+    btm_scroll.classList.remove('hidden-button');
   }
 });
-
-
