@@ -2,6 +2,11 @@ import Storage from '../../Models/Storage';
 
 function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
   const currentData = new Storage(key);
+  const UserProfilesCreated = JSON.parse(
+    localStorage.getItem('UserProfilesCreated')
+  );
+
+  // if (!UserProfilesCreated) {
   const users = currentData.getAll().map((user) => {
     const email = user.data.responses.find(
       (response) => emailID == response.question
@@ -23,6 +28,9 @@ function createUserProfiles(key, userType, emailID, firstNameID, lastNameID) {
   });
   currentData.clear();
   currentData.insertMany(users);
+  // }
+
+  localStorage.setItem('UserProfilesCreated', true);
 }
 
 export default createUserProfiles;

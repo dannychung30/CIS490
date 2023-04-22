@@ -87,13 +87,13 @@ function submitQuestionPairs(pairs) {
 const Survey = ({ menteeSurvey, mentorSurvey }) => {
   const [state, dispatch] = useReducer(selectionReducer, initialState);
 
-  const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
+  const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[2].id);
   const [menteeFirstName, setMenteeFirstName] = useState(menteeSurvey[0].id);
-  const [menteeLastName, setMenteeLastName] = useState(menteeSurvey[0].id);
+  const [menteeLastName, setMenteeLastName] = useState(menteeSurvey[1].id);
 
-  const [mentorEmail, setMentorEmail] = useState(mentorSurvey[0].id);
+  const [mentorEmail, setMentorEmail] = useState(mentorSurvey[2].id);
   const [mentorFirstName, setMentorFirstName] = useState(mentorSurvey[0].id);
-  const [mentorLastName, setMentorLastName] = useState(mentorSurvey[0].id);
+  const [mentorLastName, setMentorLastName] = useState(mentorSurvey[1].id);
 
   function handleFormSubmit(e) {
     e.preventDefault();

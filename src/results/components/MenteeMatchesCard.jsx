@@ -13,7 +13,7 @@ export default function MenteeMatchesCard(props) {
   return (
     <div className='mentee-cards'>
       <div>
-        <h2 keys={props.name}>{props.name}</h2>
+        <h2>{props.name}</h2>
       </div>
       <MatchedMentorsList matches={props.matches} />
     </div>
