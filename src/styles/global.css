@@ -3,6 +3,18 @@
   src: url('../fonts/Montserrat/static/Montserrat-Regular.ttf');
 }
 
+:root {
+  --baby-blue: #67cefe;
+  --red: #bc441b;
+  --light-gray: #5a5b61;
+  --gray: #47484d;
+  --dark-blue: #00243d;
+  --blue: #004d96;
+  --white: #f8f8f8;
+  --yellow: #f7ba05;
+  --light-blue: #0078cc;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -97,4 +109,26 @@ h6 {
   height: 25vh;
   min-height: 250px;
   margin-top: 2rem;
+}
+
+.button-primary,
+.button-secondary {
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+  color: white;
+  font-size: 1.25em;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.button-primary {
+  background-color: #0062a5;
+}
+
+.button-secondary {
+  background-color: #f0cb0f;
+  font-size: 1em;
 }

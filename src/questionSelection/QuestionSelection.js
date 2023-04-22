@@ -121,6 +121,17 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
     <>
       <Pairs pairs={state.pairs} dispatch={dispatch} />
       <form onSubmit={handleFormSubmit} className='question-form'>
+        {state.pairs.length > 0 && (
+          <div className='buttons-container'>
+            <input
+              className='button-secondary'
+              type='button'
+              value='Clear selections'
+              onClick={() => dispatch({ type: 'clear_pairs' })}
+            />
+            <input className='button-primary' type='submit' value='&#8674;' />
+          </div>
+        )}
         <div id='container'>
           <div className='survey'>
             <h2 className='survey-title'>Mentee Survey</h2>
@@ -152,15 +163,6 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
               action='mentor_question_selected'
             />
           </div>
-        </div>
-        <div className='buttons-container'>
-          <input
-            className='clear-button'
-            type='button'
-            value='Clear selections'
-            onClick={() => dispatch({ type: 'clear_pairs' })}
-          />
-          <input className='submit-button' type='submit' value='&#8674;' />
         </div>
       </form>
     </>

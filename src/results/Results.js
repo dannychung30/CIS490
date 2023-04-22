@@ -56,7 +56,12 @@ export default function Results() {
 
   return (
     <div className='container'>
-      <CSVLink filename='results' data={handleExportFunction()} target='_blank'>
+      <CSVLink
+        className='button-primary'
+        filename='results'
+        data={handleExportFunction()}
+        target='_blank'
+      >
         Export
       </CSVLink>
       <MenteeMatchesCardCollection cards={matches} />
