@@ -94,6 +94,10 @@ h6 {
   isolation: isolate;
 }
 
+.steps-tracker-svg {
+  width: 30vw;
+}
+
 .svg-container {
   width: 100%;
 
