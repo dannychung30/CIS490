@@ -31,7 +31,11 @@ interface User {
 }
 
 interface Mentee extends User {
-  matches?: User[];
+  matches: Mentor[];
+}
+
+interface Mentor extends User {
+  max_mentees: Number;
 }
 
 interface Question {
@@ -59,12 +63,24 @@ function parseCSV(file: File, userType: string, survey: string): void {
       );
 
       for (let i = 0; i < header.length; i++) {
-        let user: User = {
-          id: crypto.randomUUID(),
-          email: '',
-          name: '',
-          responses: [],
-        };
+        let user: Mentee | Mentor;
+        if (userType === 'Mentees') {
+          user = {
+            id: crypto.randomUUID(),
+            email: '',
+            name: '',
+            responses: [],
+            matches: [],
+          };
+        } else if (userType === 'Mentors') {
+          user = {
+            id: crypto.randomUUID(),
+            email: '',
+            name: '',
+            responses: [],
+            max_mentees: 1,
+          } as Mentor;
+        }
         for (let j = 1; j < header.length; j++) {
           let response: Response = {
             id: crypto.randomUUID(),
