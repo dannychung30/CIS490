@@ -169,9 +169,9 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
   );
 };
 
-const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll().slice(17);
+const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll(); //.slice(17);
 
-const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll().slice(17);
+const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll(); //.slice(17);
 
 export default function QuestionSelection() {
   const [mentees, setMentee] = useState(menteeSurvey);
