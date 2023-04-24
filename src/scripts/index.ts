@@ -18,7 +18,7 @@ myForm.addEventListener('submit', (e) => {
 
 interface Response {
   id: string;
-  question: Question;
+  question: String;
   answer: string;
   multiplier: Number;
 }
@@ -62,7 +62,7 @@ function parseCSV(file: File, userType: string, survey: string): void {
         })
       );
 
-      for (let i = 0; i < header.length; i++) {
+      for (let i = 1; i < header.length; i++) {
         let user: Mentee | Mentor;
         if (userType === 'Mentees') {
           user = {
@@ -79,16 +79,13 @@ function parseCSV(file: File, userType: string, survey: string): void {
             name: '',
             responses: [],
             max_mentees: 1,
-          } as Mentor;
+          };
         }
-        for (let j = 1; j < header.length; j++) {
+        for (let j = 0; j < header.length; j++) {
           let response: Response = {
-            id: crypto.randomUUID(),
-            question: {
-              id: surveyQuestions[i].id,
-              text: surveyQuestions[i].text,
-            },
-            answer: results.data[j][i],
+            id: surveyQuestions[j].id,
+            question: surveyQuestions[j].text,
+            answer: results.data[i][j],
             multiplier: 1,
           };
           user.responses.push(response);
