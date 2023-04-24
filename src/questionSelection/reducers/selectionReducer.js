@@ -15,6 +15,7 @@ export function selectionReducer(state, action) {
         disable_mentor_questions: false,
         mentee_question: {
           id: action.payload.id,
+          idx: action.payload.idx,
           text: action.payload.text,
           disabled: true,
         },
@@ -31,6 +32,7 @@ export function selectionReducer(state, action) {
             mentee_question: state.mentee_question,
             mentor_question: {
               id: action.payload.id,
+              idx: action.payload.idx,
               text: action.payload.text,
             },
           },

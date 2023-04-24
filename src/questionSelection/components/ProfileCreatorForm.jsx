@@ -1,12 +1,20 @@
-const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
+import { findBestMatch } from 'string-similarity';
+
+const ProfileCreatorForm = ({
+  type,
+  data,
+  setEmail,
+  setFirstName,
+  setLastName,
+}) => {
   return (
     <div className='profile-creator'>
       <div className='form-control'>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor={type + '-email'}>Email</label>
         <select
           onChange={(e) => setEmail(e.target.value)}
-          name='email'
-          id='email'
+          name={type + '-email'}
+          id={type + '-email'}
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
@@ -16,11 +24,11 @@ const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
         </select>
       </div>
       <div className='form-control'>
-        <label htmlFor='first-name'>First Name</label>
+        <label htmlFor={type + '-first-name'}>First Name</label>
         <select
           onChange={(e) => setFirstName(e.target.value)}
-          name='first-name'
-          id='first-name'
+          name={type + '-first-name'}
+          id={type + '-first-name'}
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
@@ -30,11 +38,11 @@ const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
         </select>
       </div>
       <div className='form-control'>
-        <label htmlFor='last-name'>Last Name</label>
+        <label htmlFor={type + '-last-name'}>Last Name</label>
         <select
           onChange={(e) => setLastName(e.target.value)}
-          name='last-name'
-          id='last-name'
+          name={type + '-last-name'}
+          id={type + '-last-name'}
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
