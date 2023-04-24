@@ -5,14 +5,22 @@
 /* 
   CLASS SELECTORS
 */
+
+.results-list {
+  width: 90vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .mentee-cards {
-  width: 20%;
   background-color: rgb(243, 243, 243);
   border: 3px solid rgb(243, 243, 243);
   border-radius: 3px;
   border-bottom-color: gold;
-  padding: 15px;
-  /* opacity: 0; */
+  width: 300px;
+  max-width: 300px;
+  margin: 10px;
 }
 
 .mentee-cards h2 {
@@ -25,13 +33,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.results-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  row-gap: 2em;
 }
 
 .results-header {
