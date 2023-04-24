@@ -22,7 +22,6 @@ export default class Matcher {
 
       return { ...mentee, matches: matches.splice(0, 5) };
     });
-    console.log(newMentees);
     localStorage.setItem('Mentees', JSON.stringify(newMentees));
   }
 
@@ -41,17 +40,25 @@ export default class Matcher {
       .forEach(({ menteeQuestion, mentorQuestion, weightMultiplier }) => {
         let mentee_answer = this.getAnswer(mentee, menteeQuestion.id);
         let mentor_answer = this.getAnswer(mentor, mentorQuestion.id);
+        console.log({ mentee_answer, mentor_answer });
+        const answerScore = 0;
+        // this.get_score(mentee_answer, mentor_answer) * weightMultiplier;
 
-        const answerScore =
-          this.get_score(mentee_answer, mentor_answer) * weightMultiplier;
-
-        scores.question = menteeQuestion;
-        scores.score = answerScore;
+        // scores.question = menteeQuestion;
+        // scores.question.score = answerScore;
 
         total_score += answerScore;
       });
 
-    return { total_score, ...scores };
+    console.log({
+      total_score: total_score / question_pairs.getAll().length,
+      ...scores,
+    });
+
+    return {
+      total_score: total_score / question_pairs.getAll().length,
+      ...scores,
+    };
   }
 
   /**
@@ -71,8 +78,7 @@ export default class Matcher {
    */
   get_score(mentee_answer, mentor_answer) {
     let questions_asked = parseInt(sessionStorage.getItem('questions_asked'));
-    let score =
-      (compareTwoStrings(mentee_answer, mentor_answer) * 100) / questions_asked;
+    let score = compareTwoStrings(mentee_answer, mentor_answer) * 100; // / questions_asked;
     // console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
     return Math.round(score);
   }
