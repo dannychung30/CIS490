@@ -53,3 +53,35 @@
   display: flex;
   width: 50%;
 }
+
+.logo {
+  -webkit-animation: spin 1s;
+  animation: spin 1s;
+  animation-timing-function: ease-out-in;
+  -webkit-animation-timing-function: ease-out-in;
+}
+
+.logo img {
+  -webkit-animation: grow 1s;
+  animation: grow 1s;
+  animation-timing-function: ease-out-in;
+  -webkit-animation-timing-function: ease-out-in;
+}
+
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(720deg);
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
