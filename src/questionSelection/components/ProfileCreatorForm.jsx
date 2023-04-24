@@ -10,7 +10,7 @@ const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
-              {q.question}
+              {q.text}
             </option>
           ))}
         </select>
@@ -24,7 +24,7 @@ const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
-              {q.question}
+              {q.text}
             </option>
           ))}
         </select>
@@ -38,7 +38,7 @@ const ProfileCreatorForm = ({ data, setEmail, setFirstName, setLastName }) => {
         >
           {data.map((q) => (
             <option key={q.id} value={q.id}>
-              {q.question}
+              {q.text}
             </option>
           ))}
         </select>

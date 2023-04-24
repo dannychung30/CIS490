@@ -27,7 +27,7 @@ const entryHtmlPlugins = config.map(({ page, script }) => {
 
 module.exports = {
   entry: {
-    index: path.join(__dirname, 'src', 'scripts', 'index.js'),
+    index: path.join(__dirname, 'src', 'scripts', 'index.ts'),
     questionSelection: path.join(
       __dirname,
       'src',
@@ -45,6 +45,11 @@ module.exports = {
   module: {
     // exclude node_modules
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.(js|jsx)$/, // <-- added `|jsx` here
         exclude: /node_modules/,
@@ -68,6 +73,6 @@ module.exports = {
   },
   // pass all js files through Babel
   resolve: {
-    extensions: ['*', '.js', '.jsx'], // <-- added `.jsx` here
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'], // <-- added `.jsx` here
   },
 };

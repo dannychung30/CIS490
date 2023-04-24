@@ -8,7 +8,7 @@ import Keys from '../Models/Keys';
 import { useReducer, useState } from 'react';
 import ProfileCreatorForm from './components/ProfileCreatorForm';
 import { initialState, selectionReducer } from './reducers/selectionReducer';
-import createUserProfiles from './utils/createUserProfiles';
+import createdUserProfiles from './utils/createdUserProfiles';
 
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
@@ -19,12 +19,12 @@ const Questions = ({ data, disabled, dispatch, action }) => {
             className='question'
             type='button'
             key={question.id}
-            value={question.question}
+            value={question.text}
             disabled={disabled}
             onClick={() =>
               dispatch({
                 type: action,
-                payload: { id: question.id, text: question.question },
+                payload: { id: question.id, text: question.text },
               })
             }
           />
@@ -85,35 +85,44 @@ function submitQuestionPairs(pairs) {
 }
 
 const Survey = ({ menteeSurvey, mentorSurvey }) => {
+  const mentees = JSON.parse(localStorage.getItem('Mentees'));
+
   const [state, dispatch] = useReducer(selectionReducer, initialState);
 
   const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
   const [menteeFirstName, setMenteeFirstName] = useState(menteeSurvey[0].id);
   const [menteeLastName, setMenteeLastName] = useState(menteeSurvey[0].id);
 
-  const [mentorEmail, setMentorEmail] = useState(mentorSurvey[0].id);
+  const [mentorEmail, setMentorEmail] = useState(mentorSurvey[2].id);
   const [mentorFirstName, setMentorFirstName] = useState(mentorSurvey[0].id);
-  const [mentorLastName, setMentorLastName] = useState(mentorSurvey[0].id);
+  const [mentorLastName, setMentorLastName] = useState(mentorSurvey[1].id);
 
   function handleFormSubmit(e) {
     e.preventDefault();
     submitQuestionPairs(state.pairs);
-    createUserProfiles(
-      Keys.Mentees,
-      Mentee,
+
+    const mentees = JSON.parse(localStorage.getItem('Mentees'));
+    const mentors = JSON.parse(localStorage.getItem('Mentors'));
+
+    const newMentees = createdUserProfiles(
+      mentees,
       menteeEmail,
       menteeFirstName,
       menteeLastName
     );
-    createUserProfiles(
-      Keys.Mentors,
-      Mentor,
+    const newMentors = createdUserProfiles(
+      mentors,
       mentorEmail,
       mentorFirstName,
       mentorLastName
     );
-    let questions_asked = document.querySelectorAll('.pair').length;
-    sessionStorage.setItem('questions_asked', questions_asked);
+
+    console.log(newMentees);
+    console.log(newMentors);
+
+    localStorage.setItem('Mentees', JSON.stringify(newMentees));
+    localStorage.setItem('Mentors', JSON.stringify(newMentors));
+
     window.location.href = './results.html';
   }
 
@@ -121,6 +130,17 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
     <>
       <Pairs pairs={state.pairs} dispatch={dispatch} />
       <form onSubmit={handleFormSubmit} className='question-form'>
+        {state.pairs.length > 0 && (
+          <div className='buttons-container'>
+            <input
+              className='button-secondary'
+              type='button'
+              value='Clear selections'
+              onClick={() => dispatch({ type: 'clear_pairs' })}
+            />
+            <input className='button-primary' type='submit' value='&#8674;' />
+          </div>
+        )}
         <div id='container'>
           <div className='survey'>
             <h2 className='survey-title'>Mentee Survey</h2>
@@ -153,22 +173,12 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
             />
           </div>
         </div>
-        <div className='buttons-container'>
-          <input
-            className='clear-button'
-            type='button'
-            value='Clear selections'
-            onClick={() => dispatch({ type: 'clear_pairs' })}
-          />
-          <input className='submit-button' type='submit' value='&#8674;' />
-        </div>
       </form>
     </>
   );
 };
 
 const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll().slice(17);
-
 const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll().slice(17);
 
 export default function QuestionSelection() {
