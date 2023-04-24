@@ -2,7 +2,6 @@ import Storage from './Storage';
 import Keys from './Keys';
 import Mentee from '../Models/Mentee';
 import Mentor from '../Models/Mentor';
-// import { ratio } from 'fuzzball';
 import { compareTwoStrings } from 'string-similarity';
 
 export default class Matcher {
@@ -10,22 +9,21 @@ export default class Matcher {
    * @returns {none}
    */
   generateScores() {
-    const mentees = new Storage(Keys.Mentees);
-    const mentors = new Storage(Keys.Mentors);
-    const mentees_copy = new Storage(Keys.Mentees).getAll();
+    const mentees = JSON.parse(localStorage.getItem('Mentees'));
+    const mentors = JSON.parse(localStorage.getItem('Mentors'));
 
-    mentees_copy.forEach((mentee) => {
+    const newMentees = mentees.map((mentee) => {
       const matches = [];
-      mentors.getAll().forEach((mentor) => {
+      mentors.forEach((mentor) => {
         let total_score = this.tallyScore(mentee, mentor);
         matches.push({ mentor, scores: total_score });
         matches.sort((a, b) => b.scores.total_score - a.scores.total_score);
       });
-      mentee.possible_matches = matches.slice(0, 5);
-    });
 
-    mentees.clear();
-    mentees.insertMany(mentees_copy);
+      return { ...mentee, matches: matches.splice(0, 5) };
+    });
+    console.log(newMentees);
+    localStorage.setItem('Mentees', JSON.stringify(newMentees));
   }
 
   /**
@@ -43,9 +41,9 @@ export default class Matcher {
       .forEach(({ menteeQuestion, mentorQuestion, weightMultiplier }) => {
         let mentee_answer = this.getAnswer(mentee, menteeQuestion.id);
         let mentor_answer = this.getAnswer(mentor, mentorQuestion.id);
+
         const answerScore =
-          this.get_score(mentee_answer.answer, mentor_answer.answer) *
-          weightMultiplier;
+          this.get_score(mentee_answer, mentor_answer) * weightMultiplier;
 
         scores.question = menteeQuestion;
         scores.score = answerScore;
@@ -63,7 +61,7 @@ export default class Matcher {
    * @returns the answer for the given question
    */
   getAnswer(user, userQuestion) {
-    return user.responses.find(({ question }) => question == userQuestion);
+    return user.responses.find(({ id }) => (id = userQuestion)).answer;
   }
 
   /**
@@ -73,7 +71,8 @@ export default class Matcher {
    */
   get_score(mentee_answer, mentor_answer) {
     let questions_asked = parseInt(sessionStorage.getItem('questions_asked'));
-    let score = (compareTwoStrings(mentee_answer, mentor_answer) * 100) / questions_asked;
+    let score =
+      (compareTwoStrings(mentee_answer, mentor_answer) * 100) / questions_asked;
     // console.log(`${mentee_answer} & ${mentor_answer}. Score: ${score}`);
     return Math.round(score);
   }

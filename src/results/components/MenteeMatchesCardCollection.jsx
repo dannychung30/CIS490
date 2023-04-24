@@ -6,8 +6,8 @@ export default function MenteeMatchesCardCollection({ cards }) {
       {cards.map((mentee) => (
         <MenteeMatchesCard
           key={mentee.id}
-          name={`${mentee.firstName} ${mentee.lastName}`}
-          matches={mentee.possible_matches}
+          name={`${mentee.name}`}
+          matches={mentee.matches}
         />
       ))}
     </div>

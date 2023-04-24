@@ -43,27 +43,26 @@ import { CSVLink, CSVDownload } from 'react-csv';
 
 export default function Results() {
   const [matches, setMatches] = useState(new Storage(Keys.Mentees).getAll());
-  console.log(matches);
   function handleExportFunction() {
-    const formatted = matches.map((match) => [
-      `${match.firstName} ${match.lastName}`,
-      ...match.possible_matches.map((mentor) => {
-        return `${mentor.mentor.firstName} ${mentor.mentor.lastName}`;
-      }),
-    ]);
-    return formatted;
+    // const formatted = matches.map((match) => [
+    //   `${match.firstName} ${match.lastName}`,
+    //   ...match.matches.map((mentor) => {
+    //     return `${mentor.mentor.firstName} ${mentor.mentor.lastName}`;
+    //   }),
+    // ]);
+    // return formatted;
   }
 
   return (
     <div className='container'>
-      <CSVLink
+      {/* <CSVLink
         className='button-primary'
         filename='results'
         data={handleExportFunction()}
         target='_blank'
       >
         Export
-      </CSVLink>
+      </CSVLink> */}
       <MenteeMatchesCardCollection cards={matches} />
     </div>
   );
