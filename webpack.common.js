@@ -27,7 +27,7 @@ const entryHtmlPlugins = config.map(({ page, script }) => {
 
 module.exports = {
   entry: {
-    index: path.join(__dirname, 'src', 'scripts', 'index.ts'),
+    index: path.join(__dirname, 'src', 'scripts', 'index.js'),
     questionSelection: path.join(
       __dirname,
       'src',
