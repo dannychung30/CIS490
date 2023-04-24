@@ -4,8 +4,8 @@ import '../styles/index.css';
 import { parse } from 'papaparse';
 
 const myForm = document.getElementById('myForm');
-const menteeFile = document.getElementById('menteeFile') as HTMLInputElement;
-const mentorFile = document.getElementById('mentorFile') as HTMLInputElement;
+const menteeFile = document.getElementById('menteeFile');
+const mentorFile = document.getElementById('mentorFile');
 
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -16,46 +16,19 @@ myForm.addEventListener('submit', (e) => {
   window.location.href = './question-selection.html';
 });
 
-interface Response {
-  id: string;
-  question: String;
-  answer: string;
-  multiplier: Number;
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  responses: Response[];
-}
-
-interface Mentee extends User {
-  matches: Mentor[];
-}
-
-interface Mentor extends User {
-  max_mentees: Number;
-}
-
-interface Question {
-  id: string;
-  text: string;
-}
-
 /**
  *
  * @param {any} file
  * @param {Storage} survey
  * @param {Storage} user
  */
-function parseCSV(file: File, userType: string, survey: string): void {
-  const surveyQuestions: Question[] = [];
-  const users: User[] = [];
+function parseCSV(file, userType, survey) {
+  const surveyQuestions = [];
+  const users = [];
 
   parse(file, {
     complete: function (results) {
-      const header: string[] = results.data[0];
+      const header = results.data[0];
       surveyQuestions.push(
         ...header.map((question) => {
           return { id: crypto.randomUUID(), text: question };
@@ -63,7 +36,7 @@ function parseCSV(file: File, userType: string, survey: string): void {
       );
 
       for (let i = 1; i < header.length; i++) {
-        let user: Mentee | Mentor;
+        let user;
         if (userType === 'Mentees') {
           user = {
             id: crypto.randomUUID(),
@@ -82,7 +55,7 @@ function parseCSV(file: File, userType: string, survey: string): void {
           };
         }
         for (let j = 0; j < header.length; j++) {
-          let response: Response = {
+          let response = {
             id: surveyQuestions[j].id,
             question: surveyQuestions[j].text,
             answer: results.data[i][j],
