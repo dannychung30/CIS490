@@ -28,7 +28,7 @@ function parseCSV(file, userType, survey) {
 
   parse(file, {
     complete: function (results) {
-      const header = results.data[0];
+      const header = results.data[0].splice(17);
       surveyQuestions.push(
         ...header.map((question) => {
           return { id: crypto.randomUUID(), text: question };
@@ -58,7 +58,7 @@ function parseCSV(file, userType, survey) {
           let response = {
             id: surveyQuestions[j].id,
             question: surveyQuestions[j].text,
-            answer: results.data[i][j],
+            answer: results.data[i][j + 17],
             multiplier: 1,
           };
           user.responses.push(response);
@@ -66,6 +66,7 @@ function parseCSV(file, userType, survey) {
         users.push(user);
       }
       localStorage.setItem(survey, JSON.stringify(surveyQuestions));
+
       localStorage.setItem(userType, JSON.stringify(users));
     },
   });

@@ -2,8 +2,6 @@ import '../styles/global.css';
 import '../styles/questionselection.css';
 
 import Storage from '../Models/Storage';
-import Mentee from '../Models/Mentee';
-import Mentor from '../Models/Mentor';
 import Keys from '../Models/Keys';
 import { useReducer, useState } from 'react';
 import ProfileCreatorForm from './components/ProfileCreatorForm';
@@ -13,7 +11,7 @@ import createdUserProfiles from './utils/createdUserProfiles';
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
-      {data.map((question) => {
+      {data.map((question, idx) => {
         return (
           <input
             className='question'
@@ -24,7 +22,7 @@ const Questions = ({ data, disabled, dispatch, action }) => {
             onClick={() =>
               dispatch({
                 type: action,
-                payload: { id: question.id, text: question.text },
+                payload: { id: question.id, idx: idx, text: question.text },
               })
             }
           />
@@ -71,10 +69,12 @@ function submitQuestionPairs(pairs) {
     return {
       menteeQuestion: {
         id: pair.mentee_question.id,
+        idx: pair.mentee_question.idx,
         question: pair.mentee_question.text,
       },
       mentorQuestion: {
         id: pair.mentor_question.id,
+        idx: pair.mentor_question.idx,
         question: pair.mentor_question.text,
       },
 
@@ -85,8 +85,6 @@ function submitQuestionPairs(pairs) {
 }
 
 const Survey = ({ menteeSurvey, mentorSurvey }) => {
-  const mentees = JSON.parse(localStorage.getItem('Mentees'));
-
   const [state, dispatch] = useReducer(selectionReducer, initialState);
 
   const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
@@ -117,11 +115,9 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
       mentorLastName
     );
 
-    console.log(newMentees);
-    console.log(newMentors);
-
     localStorage.setItem('Mentees', JSON.stringify(newMentees));
     localStorage.setItem('Mentors', JSON.stringify(newMentors));
+    localStorage.setItem('questions_asked', JSON.stringify(state.pairs.length));
 
     window.location.href = './results.html';
   }
@@ -145,12 +141,14 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
           <div className='survey'>
             <h2 className='survey-title'>Mentee Survey</h2>
             <ProfileCreatorForm
+              type='Mentee'
               data={menteeSurvey}
               setEmail={setMenteeEmail}
               setFirstName={setMenteeFirstName}
               setLastName={setMenteeLastName}
             />
             <Questions
+              type='Mentor'
               data={menteeSurvey}
               disabled={state.disable_mentee_questions}
               dispatch={dispatch}
@@ -178,8 +176,8 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
   );
 };
 
-const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll().slice(17);
-const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll().slice(17);
+const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll(); //.slice(17);
+const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll(); //.slice(17);
 
 export default function QuestionSelection() {
   const [mentees, setMentee] = useState(menteeSurvey);

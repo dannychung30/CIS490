@@ -5,14 +5,26 @@
 /* 
   CLASS SELECTORS
 */
+
+.results-list {
+  width: 90vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .mentee-cards {
+<<<<<<< HEAD
   width: 300px;
+=======
+>>>>>>> origin/main
   background-color: rgb(243, 243, 243);
   border: 3px solid rgb(243, 243, 243);
   border-radius: 3px;
   border-bottom-color: gold;
-  padding: 15px;
-  /* opacity: 0; */
+  width: 300px;
+  max-width: 300px;
+  margin: 10px;
 }
 
 .mentee-cards h2 {
@@ -29,6 +41,7 @@
   align-items: center; */
 }
 
+<<<<<<< HEAD
 .results-list {
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +50,8 @@
   column-gap: 1vw;
 }
 
+=======
+>>>>>>> origin/main
 .results-header {
   text-align: center;
   text-shadow: 1px 0 #707070;
