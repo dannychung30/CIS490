@@ -44,56 +44,69 @@ import { CSVLink, CSVDownload } from 'react-csv';
 export default function Results() {
   const [matches, setMatches] = useState(new Storage(Keys.Mentees).getAll());
   function handleExportFunction() {
-    // const formatted = matches.map((match) => [
-    //   `${match.firstName} ${match.lastName}`,
-    //   ...match.matches.map((mentor) => {
-    //     return `${mentor.mentor.firstName} ${mentor.mentor.lastName}`;
-    //   }),
-    // ]);
-    // return formatted;
+    const formatted = matches.map((match) => [
+      `${match.firstName} ${match.lastName}`,
+      ...match.matches.map((mentor) => {
+        return `${mentor.mentor.firstName} ${mentor.mentor.lastName}`;
+      }),
+    ]);
+    return formatted;
   }
 
   return (
     <div className='container'>
-      {/* <CSVLink
+      <CSVLink
         className='button-primary'
         filename='results'
         data={handleExportFunction()}
         target='_blank'
       >
         Export
-      </CSVLink> */}
+      </CSVLink>
       <MenteeMatchesCardCollection cards={matches} />
     </div>
   );
 }
 
-// const top_scroll = document.querySelector('.scroll-top-button');
-// const btm_scroll = document.querySelector('.scroll-btm-button');
+const top_scroll = document.querySelector('.scroll-top-button');
+const btm_scroll = document.querySelector('.scroll-btm-button');
 
-// top_scroll.addEventListener('click', () => {
-//   document.documentElement.scrollTo({
-//     top: 0,
-//     behavior: 'smooth',
-//   });
-// });
+top_scroll.addEventListener('click', () => {
+<<<<<<< HEAD
+  document.body.scrollTo({
+=======
+  document.documentElement.scrollTo({
+>>>>>>> origin/main
+    top: 0,
+    behavior: 'smooth',
+  });
+});
 
-// btm_scroll.addEventListener('click', () => {
-//   document.documentElement.scrollTo({
-//     top: document.documentElement.scrollHeight,
-//     behavior: 'smooth',
-//   });
-// });
+btm_scroll.addEventListener('click', () => {
+<<<<<<< HEAD
+  document.body.scrollTo({
+    top: document.body.scrollHeight,
+=======
+  document.documentElement.scrollTo({
+    top: document.documentElement.scrollHeight,
+>>>>>>> origin/main
+    behavior: 'smooth',
+  });
+});
 
-// document.addEventListener('scroll', () => {
-//   if (
-//     document.documentElement.scrollTop > 1000 ||
-//     document.body.scrollTop > 1000
-//   ) {
-//     top_scroll.classList.remove('hidden-button');
-//     btm_scroll.classList.add('hidden-button');
-//   } else {
-//     top_scroll.classList.add('hidden-button');
-//     btm_scroll.classList.remove('hidden-button');
-//   }
-// });
+<<<<<<< HEAD
+document.body.addEventListener('scroll', () => {
+=======
+document.addEventListener('scroll', () => {
+>>>>>>> origin/main
+  if (
+    document.documentElement.scrollTop > 1000 ||
+    document.body.scrollTop > 1000
+  ) {
+    top_scroll.classList.remove('hidden-button');
+    btm_scroll.classList.add('hidden-button');
+  } else {
+    top_scroll.classList.add('hidden-button');
+    btm_scroll.classList.remove('hidden-button');
+  }
+});
