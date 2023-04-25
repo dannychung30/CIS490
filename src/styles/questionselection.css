@@ -1,3 +1,7 @@
+html, body {
+  overflow-x: hidden;
+}
+
 /* 
   ID SELECTORS
 */
@@ -7,7 +11,7 @@
   margin-left: 15vw;
   margin-top: 2vh;
   /* left: 25vh; */
-  /* overflow: hidden; */
+  /* overflow-x: hidden; */
   /* width: 100%; */
   /* right: 40vh; */
 }
