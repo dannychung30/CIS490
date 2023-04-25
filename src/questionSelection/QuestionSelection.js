@@ -218,7 +218,4 @@ btm_scroll.addEventListener('click', () => {
   });
 });
 
-const logo = document.querySelector(".logo");
-const logo_height = logo.offsetHeight + 10;
-const app = document.querySelector('#app');
-// app.style.top = logo_height + 'px';
+const survey_titles = document.querySelectorAll(".survey survey-title");
