@@ -41,7 +41,7 @@ const Pair = ({ data, dispatch }) => {
         onClick={() =>
           dispatch({ type: 'remove_pair', payload: data.mentee_question.id })
         }
-        id='connecting-arrow'
+        className='connecting-arrow'
         src='./images/arrow-right.svg'
         alt='arrow pointing right'
       />
@@ -215,3 +215,8 @@ btm_scroll.addEventListener('click', () => {
     behavior: 'smooth',
   });
 });
+
+const logo = document.querySelector(".logo");
+const logo_height = logo.offsetHeight + 10;
+const app = document.querySelector('#app');
+// app.style.top = logo_height + 'px';
