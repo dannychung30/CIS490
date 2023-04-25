@@ -6,18 +6,9 @@
   CLASS SELECTORS
 */
 
-.results-list {
-  width: 90vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .mentee-cards {
-<<<<<<< HEAD
   width: 300px;
-=======
->>>>>>> origin/main
+  padding: 10px;
   background-color: rgb(243, 243, 243);
   border: 3px solid rgb(243, 243, 243);
   border-radius: 3px;
@@ -41,7 +32,6 @@
   align-items: center; */
 }
 
-<<<<<<< HEAD
 .results-list {
   display: flex;
   flex-wrap: wrap;
@@ -50,8 +40,6 @@
   column-gap: 1vw;
 }
 
-=======
->>>>>>> origin/main
 .results-header {
   text-align: center;
   text-shadow: 1px 0 #707070;
