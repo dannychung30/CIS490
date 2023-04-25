@@ -72,20 +72,33 @@ const top_scroll = document.querySelector('.scroll-top-button');
 const btm_scroll = document.querySelector('.scroll-btm-button');
 
 top_scroll.addEventListener('click', () => {
+<<<<<<< HEAD
+  document.body.scrollTo({
+=======
   document.documentElement.scrollTo({
+>>>>>>> origin/main
     top: 0,
     behavior: 'smooth',
   });
 });
 
 btm_scroll.addEventListener('click', () => {
+<<<<<<< HEAD
+  document.body.scrollTo({
+    top: document.body.scrollHeight,
+=======
   document.documentElement.scrollTo({
     top: document.documentElement.scrollHeight,
+>>>>>>> origin/main
     behavior: 'smooth',
   });
 });
 
+<<<<<<< HEAD
+document.body.addEventListener('scroll', () => {
+=======
 document.addEventListener('scroll', () => {
+>>>>>>> origin/main
   if (
     document.documentElement.scrollTop > 1000 ||
     document.body.scrollTop > 1000
