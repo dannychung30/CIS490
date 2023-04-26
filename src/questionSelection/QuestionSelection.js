@@ -11,7 +11,7 @@ import createdUserProfiles from './utils/createdUserProfiles';
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
-      {data.map((question, idx) => {
+      {data.map((question, idx, data) => {
         return (
           <input
             className='question'
@@ -22,7 +22,12 @@ const Questions = ({ data, disabled, dispatch, action }) => {
             onClick={() =>
               dispatch({
                 type: action,
-                payload: { id: question.id, idx: idx, text: question.text },
+                payload: {
+                  id: question.id,
+                  idx: idx,
+                  text: question.text,
+                  weight: idx + 1,
+                },
               })
             }
           />
@@ -71,14 +76,13 @@ function submitQuestionPairs(pairs) {
         id: pair.mentee_question.id,
         idx: pair.mentee_question.idx,
         question: pair.mentee_question.text,
+        weight: pair.mentee_question.weight,
       },
       mentorQuestion: {
         id: pair.mentor_question.id,
         idx: pair.mentor_question.idx,
         question: pair.mentor_question.text,
       },
-
-      weightMultiplier: 1,
     };
   });
   pairsStorage.insertMany(pairsToSave);
@@ -88,12 +92,10 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
   const [state, dispatch] = useReducer(selectionReducer, initialState);
 
   const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
-  const [menteeFirstName, setMenteeFirstName] = useState(menteeSurvey[0].id);
-  const [menteeLastName, setMenteeLastName] = useState(menteeSurvey[0].id);
+  const [menteeFullName, setMenteeFullName] = useState(menteeSurvey[0].id);
 
   const [mentorEmail, setMentorEmail] = useState(mentorSurvey[2].id);
-  const [mentorFirstName, setMentorFirstName] = useState(mentorSurvey[0].id);
-  const [mentorLastName, setMentorLastName] = useState(mentorSurvey[1].id);
+  const [mentorFullName, setMentorFullName] = useState(mentorSurvey[0].id);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -105,14 +107,12 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
     const newMentees = createdUserProfiles(
       mentees,
       menteeEmail,
-      menteeFirstName,
-      menteeLastName
+      menteeFullName
     );
     const newMentors = createdUserProfiles(
       mentors,
       mentorEmail,
-      mentorFirstName,
-      mentorLastName
+      mentorFullName
     );
 
     localStorage.setItem('Mentees', JSON.stringify(newMentees));
@@ -126,7 +126,7 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
     <>
       <Pairs pairs={state.pairs} dispatch={dispatch} />
       <form onSubmit={handleFormSubmit} className='question-form'>
-        {state.pairs.length > 0 && (
+        {state.pairs.length && (
           <div className='buttons-container'>
             <input
               className='button-secondary'
@@ -144,8 +144,7 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
               type='Mentee'
               data={menteeSurvey}
               setEmail={setMenteeEmail}
-              setFirstName={setMenteeFirstName}
-              setLastName={setMenteeLastName}
+              setFullName={setMenteeFullName}
             />
             <Questions
               type='Mentor'
@@ -160,8 +159,7 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
             <ProfileCreatorForm
               data={mentorSurvey}
               setEmail={setMentorEmail}
-              setFirstName={setMentorFirstName}
-              setLastName={setMentorLastName}
+              setFullName={setMentorFullName}
             />
             <Questions
               data={mentorSurvey}

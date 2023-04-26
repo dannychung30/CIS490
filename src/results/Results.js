@@ -44,11 +44,9 @@ import { CSVLink, CSVDownload } from 'react-csv';
 export default function Results() {
   const [matches, setMatches] = useState(new Storage(Keys.Mentees).getAll());
   function handleExportFunction() {
-    const formatted = matches.map((match) => [
-      `${match.firstName} ${match.lastName}`,
-      ...match.matches.map((mentor) => {
-        return `${mentor.mentor.firstName} ${mentor.mentor.lastName}`;
-      }),
+    const formatted = matches.map((mentee) => [
+      mentee.name,
+      ...mentee.matches.map((match) => match.mentor.name),
     ]);
     return formatted;
   }

@@ -17,7 +17,7 @@ export function selectionReducer(state, action) {
           id: action.payload.id,
           idx: action.payload.idx,
           text: action.payload.text,
-          disabled: true,
+          weight: action.payload.weight,
         },
       };
     case 'mentor_question_selected':

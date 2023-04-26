@@ -19,7 +19,6 @@ export default class Matcher {
         matches.push({ mentor, scores: total_score });
         matches.sort((a, b) => b.scores.total_score - a.scores.total_score);
       });
-
       return { ...mentee, matches: matches.splice(0, 5) };
     });
     localStorage.setItem('Mentees', JSON.stringify(newMentees));
@@ -35,20 +34,19 @@ export default class Matcher {
     let total_score = 0;
     const scores = {};
 
-    question_pairs
-      .getAll()
-      .forEach(({ menteeQuestion, mentorQuestion, weightMultiplier }) => {
-        let mentee_answer = this.getAnswer(mentee, menteeQuestion.idx);
-        let mentor_answer = this.getAnswer(mentor, mentorQuestion.idx);
+    question_pairs.getAll().forEach(({ menteeQuestion, mentorQuestion }) => {
+      let mentee_answer = this.getAnswer(mentee, menteeQuestion.idx);
+      let mentor_answer = this.getAnswer(mentor, mentorQuestion.idx);
+      let weight =
+        parseInt(this.getAnswer(mentee, menteeQuestion.weight)[0]) + 1;
 
-        const answerScore =
-          this.get_score(mentee_answer, mentor_answer) * weightMultiplier;
+      const answer_score = this.get_score(mentee_answer, mentor_answer, weight);
 
-        total_score += answerScore;
-      });
+      total_score += answer_score;
+    });
 
     return {
-      total_score: total_score / question_pairs.getAll().length,
+      total_score: total_score,
       ...scores,
     };
   }
@@ -68,11 +66,13 @@ export default class Matcher {
    * @param {String} mentor_answer
    * @returns {number}
    */
-  get_score(mentee_answer, mentor_answer) {
+  get_score(mentee_answer, mentor_answer, weight) {
     let questions_asked = parseInt(localStorage.getItem('questions_asked'));
 
-    let score =
-      (compareTwoStrings(mentee_answer, mentor_answer) * 100) / questions_asked;
-    return Math.round(score);
+    const similarity_score_out_of_100 =
+      compareTwoStrings(mentee_answer, mentor_answer) * 100;
+    const with_weight_multiplier = similarity_score_out_of_100 * weight;
+    const out_of_questions_asked = with_weight_multiplier / questions_asked;
+    return Math.round(out_of_questions_asked);
   }
 }
