@@ -29,13 +29,14 @@ function parseCSV(file, userType, survey) {
   parse(file, {
     complete: function (results) {
       const header = results.data[0];
+
       surveyQuestions.push(
         ...header.map((question) => {
           return { id: crypto.randomUUID(), text: question };
         })
       );
 
-      for (let i = 1; i < header.length; i++) {
+      for (let i = 1; i < results.data.length; i++) {
         let user;
         if (userType === 'Mentees') {
           user = {
