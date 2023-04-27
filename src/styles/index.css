@@ -32,3 +32,25 @@
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
     0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075);
 }
+
+
+.steps-tracker-svg {
+  width: 300px;
+} 
+
+.svg-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 25vh;
+  min-height: 250px;
+  margin-top: 2rem;
+}
