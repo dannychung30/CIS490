@@ -94,26 +94,26 @@ h6 {
   isolation: isolate;
 }
 
-.steps-tracker-svg {
+/* .steps-tracker-svg {
   width: 300px;
-}
+} */
 
-.svg-container {
+/* .svg-container {
   width: 100%;
 
   display: flex;
   justify-content: center;
   padding: 2rem;
-}
+} */
 
-.logo {
+/* .logo {
   display: flex;
   flex-direction: row;
   justify-content: center;
   height: 25vh;
   min-height: 250px;
   margin-top: 2rem;
-}
+} */
 
 .button-primary,
 .button-secondary {
