@@ -70,20 +70,20 @@ const top_scroll = document.querySelector('.scroll-top-button');
 const btm_scroll = document.querySelector('.scroll-btm-button');
 
 top_scroll.addEventListener('click', () => {
-  document.documentElement.scrollTo({
+  document.body.scrollTo({
     top: 0,
     behavior: 'smooth',
   });
 });
 
 btm_scroll.addEventListener('click', () => {
-  document.documentElement.scrollTo({
-    top: document.documentElement.scrollHeight,
+  document.body.scrollTo({
+    top: document.body.scrollHeight,
     behavior: 'smooth',
   });
 });
 
-document.addEventListener('scroll', () => {
+document.body.addEventListener('scroll', () => {
   if (
     document.documentElement.scrollTop > 1000 ||
     document.body.scrollTop > 1000

@@ -6,14 +6,9 @@
   CLASS SELECTORS
 */
 
-.results-list {
-  width: 90vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .mentee-cards {
+  width: 300px;
+  padding: 10px;
   background-color: rgb(243, 243, 243);
   border: 3px solid rgb(243, 243, 243);
   border-radius: 3px;
@@ -30,9 +25,19 @@
 }
 
 .container {
-  display: flex;
+  margin-left: 1vh;
+  margin-right: 1vh;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
+}
+
+.results-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  row-gap: 2em;
+  column-gap: 1vw;
 }
 
 .results-header {
