@@ -12,15 +12,20 @@
 
   <body>
     <div class="logo-steps-container">
-      <div class="logo">
-        <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+      <div class="logo loos">
+        <img src="./images/cstem-logo.svg" alt="CSUSM CSTEM Logo" />
       </div>
       <div class="svg-container">
         <img
           class="steps-tracker-svg"
-          src="./images/steps-tracker2.png"
+          src="./images/steps-tracker2.svg"
           alt="Steps tracker on step 2"
+          usemap="#steps-map"
         />
+        <map name="steps-map">
+          <area shape="circle" coords="30,24,23" alt="first page" href="./index.html" />
+          <area shape="circle" coords="29,114,24" alt="second page" href="./question-selection.html" />
+        </map>
       </div>
     </div>
     <div id="app"></div>

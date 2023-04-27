@@ -215,5 +215,3 @@ btm_scroll.addEventListener('click', () => {
     behavior: 'smooth',
   });
 });
-
-const survey_titles = document.querySelectorAll(".survey survey-title");
