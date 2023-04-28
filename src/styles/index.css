@@ -1,7 +1,7 @@
-html,
+/* html,
 body {
   animation: no_scroll 20s;
-}
+} */
 
 /*
  ID SELECTORS
@@ -154,5 +154,6 @@ body {
 @keyframes disappear {
   to {
     opacity: 0;
+    z-index: -1;
   }
 }
