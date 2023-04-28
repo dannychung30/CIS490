@@ -58,12 +58,12 @@ body {
   justify-content: center;
   align-items: center;
   /* animation: spin 1s 2, shift_up 2s 1 3s forwards; */
-  animation: shift_up 2s 1 2s forwards;
+  animation: shift_up 1s 1 2s forwards;
 }
 
 .logo img {
   width: 10vw;
-  animation: grow 2s 1 2s forwards;
+  animation: grow 1s 1 2s forwards;
 }
 
 .loader:before {
