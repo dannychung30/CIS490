@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   animation: no_scroll 20s;
 }
 
@@ -56,19 +57,42 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: spin 1s 2, shift_up 2s 1 3s forwards;
-
+  /* animation: spin 1s 2, shift_up 2s 1 3s forwards; */
+  animation: shift_up 1s 1 2s forwards;
 }
 
 .logo img {
   width: 10vw;
-  animation: grow 2s 1 3s forwards;
+  animation: grow 1s 1 2s forwards;
+}
+
+.loader:before {
+  -webkit-animation: spin .5s 3 linear;
+  animation: spin .5s 3 linear;
+  border-radius: 100%;
+  -webkit-box-shadow: inset -2px 0 0 0px #0062a5;
+  box-shadow: inset -2px 0 0 0px #0062a5;
+  content: '';
+  height: 12vw;
+  position: absolute;
+  width: 12vw;
+}
+
+.loader-container {
+  position: fixed;
+  width: 88vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: disappear 0.5s 1 1.25s forwards;
 }
 
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(720deg);
   }
@@ -97,6 +121,7 @@ html, body {
   0% {
     width: 10vw;
   }
+
   100% {
     width: 20vw;
   }
@@ -106,7 +131,29 @@ html, body {
   from {
     overflow-y: hidden;
   }
+
   to {
     overflow-y: visible;
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    z-index: -1;
   }
 }
