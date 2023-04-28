@@ -13,15 +13,13 @@
 </head>
 
 <body>
-  <div class="logo">
-    <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
-  </div>
-  <div class="svg-container">
-    <img
-      class="steps-tracker-svg"
-      src="./images/steps-tracker3.png"
-      alt="Steps tracker on step 3"
-    />
+  <div class="logo-steps-container">
+    <div class="logo">
+      <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+    </div>
+    <div class="svg-container">
+      <img class="steps-tracker-svg" src="./images/steps-tracker3.svg" alt="Steps tracker on step 3" />
+    </div>
   </div>
   <h1 class="results-header">Here are the results!</h1>
   </br>
@@ -29,21 +27,21 @@
   <div id="app"></div>
   <br />
   <br />
-  <script>
-    $(window).on('load', function() {
-      $(window).scroll(function() {
+  <!-- <script>
+    $(window).on('load', function () {
+      $(window).scroll(function () {
         var windowBottom = $(this).scrollTop() + $(this).innerHeight();
-        $('.mentee-cards').each(function() {
+        $('.mentee-cards').each(function () {
           var objectBottom = $(this).offset().top + $(this).outerHeight();
           if (objectBottom < windowBottom) {
-              if ($(this).css('opacity') == 0) {
-                $(this).fadeTo(500, 1);
-              }
+            if ($(this).css('opacity') == 0) {
+              $(this).fadeTo(500, 1);
+            }
           }
         });
       }).scroll();
     });
-  </script>
+  </script> -->
   <button class="scroll-top-button hidden-button">&#8593;</button>
   <button class="scroll-btm-button hidden-button">&#8595;</button>
 </body>
