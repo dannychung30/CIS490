@@ -1,52 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="../styles/global.css" />
+    <link rel="stylesheet" href="../styles/results.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Results</title>
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-  <link rel="stylesheet" href="../styles/global.css">
-  <link rel="stylesheet" href="../styles/results.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-</head>
-
-<body>
-  <div class="loader-container">
-    <div class="loader"></div>
-  </div>
-  <div class="logo-steps-container">
-    <div class="logo">
-      <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+  <body>
+    <div class="loader-container">
+      <div class="loader"></div>
     </div>
-    <div class="svg-container">
-      <img class="steps-tracker-svg" src="./images/steps-tracker3.svg" alt="Steps tracker on step 3" />
+    <div class="logo-steps-container">
+      <div class="logo">
+        <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+      </div>
+      <div class="svg-container">
+        <img
+          class="steps-tracker-svg"
+          src="./images/steps-tracker3.svg"
+          alt="Steps tracker on step 3"
+        />
+      </div>
     </div>
-  </div>
-  <h1 class="results-header">Here are the results!</h1>
-  </br>
-  </br>
-  <div id="app"></div>
-  <br />
-  <br />
-  <!-- <script>
-    $(window).on('load', function () {
-      $(window).scroll(function () {
-        var windowBottom = $(this).scrollTop() + $(this).innerHeight();
-        $('.mentee-cards').each(function () {
-          var objectBottom = $(this).offset().top + $(this).outerHeight();
-          if (objectBottom < windowBottom) {
-            if ($(this).css('opacity') == 0) {
-              $(this).fadeTo(500, 1);
-            }
-          }
-        });
-      }).scroll();
-    });
-  </script> -->
-  <button class="scroll-top-button hidden-button">&#8593;</button>
-  <button class="scroll-btm-button hidden-button">&#8595;</button>
-</body>
-
+    <div id="app"></div>
+    <button class="scroll-top-button hidden-button">&#8593;</button>
+    <button class="scroll-btm-button hidden-button">&#8595;</button>
+  </body>
 </html>

@@ -69,9 +69,9 @@ export default class Matcher {
   get_score(mentee_answer, mentor_answer, weight) {
     let questions_asked = parseInt(localStorage.getItem('questions_asked'));
 
-    const similarity_score_out_of_100 =
+    const similarity_score =
       compareTwoStrings(mentee_answer, mentor_answer) * 100;
-    const with_weight_multiplier = similarity_score_out_of_100 * weight;
+    const with_weight_multiplier = similarity_score * weight;
     const out_of_questions_asked = with_weight_multiplier / questions_asked;
     return Math.round(out_of_questions_asked);
   }

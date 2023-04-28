@@ -2,7 +2,9 @@
   ID SELECTORS
 */
 
-#app, .results-header, .svg-container {
+#app,
+.results-header,
+.svg-container {
   opacity: 0;
   animation: appear 1s linear 2s forwards;
 }
@@ -24,12 +26,26 @@
 }
 
 .mentee-cards h2 {
+  text-align: center;
   color: #002e5a;
   padding-bottom: 10px;
   overflow-wrap: break-word;
 }
 
+.name-score {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.score {
+  text-align: end;
+}
+
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-left: 15vw;
   margin-right: 1vw;
   width: 80vw;
@@ -44,12 +60,11 @@
 }
 
 .results-header {
+  margin: 1.5em;
   text-align: center;
   text-shadow: 1px 0 #707070;
   font-weight: bolder;
   color: #707070;
-  margin-left: 15vw;
-  margin-top: 2vh;
 }
 
 .scroll-top-button,
@@ -114,7 +129,7 @@
 
 .logo-steps-container:after {
   box-shadow: 15px 0 15px -15px #cdcccc inset;
-  content: " ";
+  content: ' ';
   height: 100%;
   position: absolute;
   top: 0;
@@ -123,8 +138,8 @@
 }
 
 .loader:before {
-  -webkit-animation: spin .5s 3 linear;
-  animation: spin .5s 3 linear;
+  -webkit-animation: spin 0.5s 3 linear;
+  animation: spin 0.5s 3 linear;
   border-radius: 100%;
   -webkit-box-shadow: inset -2px 0 0 0px #0062a5;
   box-shadow: inset -2px 0 0 0px #0062a5;
@@ -142,7 +157,6 @@
   justify-content: center;
   align-items: center;
   animation: disappear 0.5s 1 1.25s forwards;
-
 }
 
 @-webkit-keyframes spin {
@@ -191,7 +205,7 @@
   }
   100% {
     /* position: fixed; */
-    padding: 1vh;    
+    padding: 1vh;
     width: 10vw;
     top: 0vh;
     justify-content: flex-start;

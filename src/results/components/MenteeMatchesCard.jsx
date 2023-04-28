@@ -1,9 +1,8 @@
 function MatchedMentorsList({ matches }) {
   return matches.map((match) => (
-    <div key={match.mentor.id}>
-      <p>
-        {match.mentor.name} matched <strong>{match.scores.total_score}%</strong>
-      </p>
+    <div className='name-score' key={match.mentor.id}>
+      {match.mentor.name}{' '}
+      <strong className='score'>{match.scores.total_score}</strong>
     </div>
   ));
 }
