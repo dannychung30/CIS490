@@ -2,6 +2,11 @@
   ID SELECTORS
 */
 
+#app, .results-header, .svg-container {
+  opacity: 0;
+  animation: appear 1s linear 2s forwards;
+}
+
 /* 
   CLASS SELECTORS
 */
@@ -77,25 +82,34 @@
   position: relative;
   top: 10vh;
   width: 100%;
+  opacity: 0;
 }
 
 .logo {
-  /* display: flex;
-  flex-direction: row;
+  /* padding: 1vh; */
+  /* animation: shift_up 1s 1 2s forwards; */
+  /* width: 100vw;
+  height: 100vh; */
+  display: flex;
   justify-content: center;
-  height: 25vh;
-  min-height: 250px;
-  margin-top: 2rem; */
-  padding: 1vh;
+  align-items: center;
+}
+
+.logo img {
+  width: 10vw;
 }
 
 .logo-steps-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   height: 100vh;
-  width: 10vw;
+  width: 100vw;
+  top: 10vh;
   position: fixed;
+  animation: shift_up 1s linear 1.5s forwards;
 }
 
 .logo-steps-container:after {
@@ -106,4 +120,99 @@
   top: 0;
   right: -20px;
   width: 20px;
+}
+
+.loader:before {
+  -webkit-animation: spin .5s 3 linear;
+  animation: spin .5s 3 linear;
+  border-radius: 100%;
+  -webkit-box-shadow: inset -2px 0 0 0px #0062a5;
+  box-shadow: inset -2px 0 0 0px #0062a5;
+  content: '';
+  height: 12vw;
+  position: absolute;
+  width: 12vw;
+}
+
+.loader-container {
+  position: fixed;
+  width: 88vw;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: disappear 0.5s 1 1.25s forwards;
+
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+@keyframes shift_up {
+  0% {
+    /* width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
+  1% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    /* position: fixed; */
+    padding: 1vh;    
+    width: 10vw;
+    top: 0vh;
+    justify-content: flex-start;
+  }
+}
+
+@keyframes shift_side {
+  to {
+    width: 10vw;
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
 }
