@@ -126,7 +126,7 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
     <>
       <Pairs pairs={state.pairs} dispatch={dispatch} />
       <form onSubmit={handleFormSubmit} className='question-form'>
-        {state.pairs.length && (
+        {state.pairs.length > 0 && (
           <div className='buttons-container'>
             <input
               className='button-secondary'
