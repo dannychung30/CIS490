@@ -66,3 +66,24 @@
 .hidden-button {
   display: none;
 }
+
+.steps-tracker-svg {
+  width: 300px;
+}
+
+.svg-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 25vh;
+  min-height: 250px;
+  margin-top: 2rem;
+}

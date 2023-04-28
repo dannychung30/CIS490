@@ -1,3 +1,7 @@
+html, body {
+  animation: no_scroll 20s;
+}
+
 /*
  ID SELECTORS
 */
@@ -36,7 +40,7 @@
 
 .steps-tracker-svg {
   width: 300px;
-} 
+}
 
 .svg-container {
   width: 100%;
@@ -47,10 +51,62 @@
 }
 
 .logo {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  height: 25vh;
-  min-height: 250px;
-  margin-top: 2rem;
+  align-items: center;
+  animation: spin 1s 2, shift_up 2s 1 3s forwards;
+
+}
+
+.logo img {
+  width: 10vw;
+  animation: grow 2s 1 3s forwards;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes shift_up {
+  0% {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  100% {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 25vh;
+    min-height: 250px;
+    margin-top: 2rem;
+  }
+}
+
+@keyframes grow {
+  0% {
+    width: 10vw;
+  }
+  100% {
+    width: 20vw;
+  }
+}
+
+@keyframes no_scroll {
+  from {
+    overflow-y: hidden;
+  }
+  to {
+    overflow-y: visible;
+  }
 }
