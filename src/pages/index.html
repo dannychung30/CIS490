@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mentor Matcher</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link rel="stylesheet" href="../styles/index.css" />
-    <link rel="stylesheet" href="../styles/global.css" />
-  </head>
-  <body>
-    <div class="logo">
-      <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
-    </div>
-    <div class="svg-container">
-      <img
-        class="steps-tracker-svg"
-        src="./images/steps-tracker1.png"
-        alt="Steps tracker on step 1"
-      />
-    </div>
 
-    <form action="./question-selection.html" id="myForm">
-      <div class="file-inputs">
-        <div class="file-input">
-          <label for="menteeFile">Select your Mentee File</label>
-          <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
-        </div>
-        <div class="file-input">
-          <label for="mentorFile">Select your Mentor File</label>
-          <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentor Matcher</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="../styles/index.css" />
+  <link rel="stylesheet" href="../styles/global.css" />
+</head>
+
+<body>
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+  <div class="logo">
+    <img src="./images/cstem-logo.png" alt="CSUSM CSTEM Logo" />
+  </div>
+  <div class="svg-container">
+    <img class="steps-tracker-svg" src="./images/steps-tracker1.png" alt="Steps tracker on step 1" />
+  </div>
+
+  <form action="./question-selection.html" id="myForm">
+    <div class="file-inputs">
+      <div class="file-input">
+        <label for="menteeFile">Select your Mentee File</label>
+        <input type="file" name="menteeFile" id="menteeFile" accept=".csv" />
       </div>
-      <!-- <input id="save_files" type="submit" value="&#8674;" /> -->
-      <input class="button-primary" type="submit" value="&#8674;" />
-    </form>
-  </body>
+      <div class="file-input">
+        <label for="mentorFile">Select your Mentor File</label>
+        <input type="file" name="mentorFile" id="mentorFile" accept=".csv" />
+      </div>
+    </div>
+    <!-- <input id="save_files" type="submit" value="&#8674;" /> -->
+    <input class="button-primary" type="submit" value="&#8674;" />
+  </form>
+</body>
+
 </html>
