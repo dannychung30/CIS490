@@ -66,25 +66,22 @@ body {
   animation: grow 1s 1 2s forwards;
 }
 
-.loader:before {
-  -webkit-animation: spin .5s 3 linear;
-  animation: spin .5s 3 linear;
+.loader {
   border-radius: 100%;
   -webkit-box-shadow: inset -2px 0 0 0px #0062a5;
   box-shadow: inset -2px 0 0 0px #0062a5;
-  content: '';
   height: 12vw;
-  position: absolute;
   width: 12vw;
+  animation: spin 0.5s 3 linear;
 }
 
 .loader-container {
-  position: fixed;
-  width: 88vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
   animation: disappear 0.5s 1 1.25s forwards;
 }
 
