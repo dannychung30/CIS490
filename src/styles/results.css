@@ -139,6 +139,16 @@
   animation: disappear 0.5s 1 1.25s forwards;
 }
 
+.button-primary {
+  width: 5vw;
+  height: 3vh;
+  font-size: 1em;
+  text-align: center;
+  position: fixed;
+  top: 90vh;
+  left: 2vw;
+}
+
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
