@@ -8,6 +8,10 @@ import ProfileCreatorForm from './components/ProfileCreatorForm';
 import { initialState, selectionReducer } from './reducers/selectionReducer';
 import createdUserProfiles from './utils/createdUserProfiles';
 
+const myStyle = {
+  cursor: "url('../images/x-cursor.svg'), auto"
+};
+
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
@@ -43,6 +47,7 @@ const Pair = ({ data, dispatch }) => {
       <p>{data.mentee_question.text}</p>
       {/* <div id='pair-controller'> */}
       <img
+        style={myStyle}
         onClick={() =>
           dispatch({ type: 'remove_pair', payload: data.mentee_question.id })
         }
@@ -213,3 +218,16 @@ btm_scroll.addEventListener('click', () => {
     behavior: 'smooth',
   });
 });
+
+// X style cursor on mouseover of -> on question pairs
+const arrows = document.querySelectorAll('.connecting-arrow');
+const x_cursor = document.querySelector('.x-cursor');
+arrows.forEach(item => {
+  item.addEventListener('click', () => {
+    console.log('here');
+  });
+});
+
+for (let i = 0; i < arrows.length; i++) {
+  arrows[i].style.backgroundColor = 'blue';
+}
