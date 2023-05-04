@@ -4,43 +4,6 @@ import MenteeMatchesCardCollection from './components/MenteeMatchesCardCollectio
 import { useState } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv';
 
-// import gsap from "gsap";
-
-// export function fadeCardsAnimation() {
-//   let lastTime;
-
-//   document.addEventListener('scroll', onScroll);
-
-//   function onScroll() {
-//     // throttle amount we call the fade in function to every 50ms
-//     if (Date.now() - 50 > lastTime) {
-//       fadeIn();
-//     }
-//   }
-
-//   // fade in all cards that should be faded in
-//   function fadeIn() {
-//     lastTime = Date.now();
-
-//     // get list of elements that should fade in
-//     const objsToFadeIn = [];
-//     // grabbing all mentee cards
-//     const mentee_cards = document.querySelectorAll(".mentee-cards:not(.loaded)");
-//     mentee_cards.forEach(card => {
-//       if (card.offsetTop < scrollY + innerHeight) {
-//         objsToFadeIn.push(card);
-//       } else {
-//         return;
-//       }
-//     });
-
-//     if (objsToFadeIn.length) {
-//       gsap.set(objsToFadeIn, {className: "mentee-cards loaded"});
-//       gsap.to(objsToFadeIn, {autoAlpha: 1, stagger: 0.1});
-//     }
-//   }
-// }
-
 export default function Results() {
   const [matches, setMatches] = useState(new Storage(Keys.Mentees).getAll());
   function handleExportFunction() {
@@ -53,7 +16,7 @@ export default function Results() {
 
   return (
     <div className='container'>
-      <h1 class='results-header'>Here are the results!</h1>
+      <h1 className='results-header'>Here are the results!</h1>
       <CSVLink
         className='button-primary export-btn'
         filename='results'
