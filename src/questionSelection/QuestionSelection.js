@@ -8,10 +8,6 @@ import ProfileCreatorForm from './components/ProfileCreatorForm';
 import { initialState, selectionReducer } from './reducers/selectionReducer';
 import createdUserProfiles from './utils/createdUserProfiles';
 
-const myStyle = {
-  cursor: "url('../images/x-cursor.svg'), auto"
-};
-
 const Questions = ({ data, disabled, dispatch, action }) => {
   return (
     <div className='survey'>
@@ -47,13 +43,14 @@ const Pair = ({ data, dispatch }) => {
       <p>{data.mentee_question.text}</p>
       {/* <div id='pair-controller'> */}
       <img
-        style={myStyle}
         onClick={() =>
           dispatch({ type: 'remove_pair', payload: data.mentee_question.id })
         }
         className='connecting-arrow'
-        src='./images/arrow-right.svg'
+        src='../images/connecting-arrow.svg'
         alt='arrow pointing right'
+        onMouseOver={brokenArrow}
+        onMouseLeave={fixedArrow}
       />
       {/* <img id='remove-pair' src='./images/x.svg' alt='Remove pair' />
       </div> */}
@@ -61,6 +58,18 @@ const Pair = ({ data, dispatch }) => {
     </div>
   );
 };
+
+function brokenArrow(e) {
+  if (e.target.setAttribute.src != '../images/broken-arrow1.svg') {
+    e.target.setAttribute('src', '../images/broken-arrow1.svg');
+  }
+}
+
+function fixedArrow(e) {
+  if (e.target.setAttribute.src != '../images/connecting-arrow.svg') {
+    e.target.setAttribute('src', '../images/connecting-arrow.svg');
+  }
+}
 
 function Pairs({ pairs, dispatch }) {
   return (
