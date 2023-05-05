@@ -224,5 +224,5 @@ select {
   background-color: gray;
   color: white;
   border: 1px solid gray;
-  cursor: default;
+  cursor: not-allowed;
 }
