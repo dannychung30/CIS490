@@ -9,6 +9,12 @@ import { initialState, selectionReducer } from './reducers/selectionReducer';
 import createdUserProfiles from './utils/createdUserProfiles';
 
 const Questions = ({ data, disabled, dispatch, action }) => {
+  const survey_questions = document.querySelectorAll('.question');
+  survey_questions.forEach((question) => {
+    question.addEventListener('click', () => { 
+      question.disabled = true;
+    });
+  });
   return (
     <div className='survey'>
       {data.map((question, idx, data) => {
@@ -18,7 +24,7 @@ const Questions = ({ data, disabled, dispatch, action }) => {
             type='button'
             key={question.id}
             value={question.text}
-            disabled={disabled}
+            // disabled={disabled}
             onClick={() =>
               dispatch({
                 type: action,
@@ -27,7 +33,7 @@ const Questions = ({ data, disabled, dispatch, action }) => {
                   idx: idx,
                   text: question.text,
                   weight: idx + 1,
-                },
+                }
               })
             }
           />
@@ -227,16 +233,3 @@ btm_scroll.addEventListener('click', () => {
     behavior: 'smooth',
   });
 });
-
-// X style cursor on mouseover of -> on question pairs
-const arrows = document.querySelectorAll('.connecting-arrow');
-const x_cursor = document.querySelector('.x-cursor');
-arrows.forEach(item => {
-  item.addEventListener('click', () => {
-    console.log('here');
-  });
-});
-
-for (let i = 0; i < arrows.length; i++) {
-  arrows[i].style.backgroundColor = 'blue';
-}
