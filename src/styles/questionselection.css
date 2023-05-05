@@ -142,7 +142,7 @@ select {
   flex-direction: column;
 }
 
-.form-control>label {
+.form-control > label {
   font-size: 0.75rem;
   color: #242424;
 }
@@ -185,7 +185,7 @@ select {
 
 .logo-steps-container:after {
   box-shadow: 15px 0 15px -15px #cdcccc inset;
-  content: " ";
+  content: ' ';
   height: 100%;
   position: absolute;
   top: 0;
@@ -217,4 +217,12 @@ select {
   position: relative;
   top: 10vh;
   width: 100%;
+}
+
+.selected,
+.selected:hover {
+  background-color: gray;
+  color: white;
+  border: 1px solid gray;
+  cursor: default;
 }

@@ -14,11 +14,11 @@ const Questions = ({ data, disabled, dispatch, action }) => {
       {data.map((question, idx, data) => {
         return (
           <input
-            className='question'
+            className={`question ${question.selected ? 'selected' : ''}`}
             type='button'
             key={question.id}
             value={question.text}
-            disabled={disabled}
+            disabled={question.disabled}
             onClick={() =>
               dispatch({
                 type: action,
@@ -41,10 +41,15 @@ const Pair = ({ data, dispatch }) => {
   return (
     <div className='pair'>
       <p>{data.mentee_question.text}</p>
-      {/* <div id='pair-controller'> */}
       <img
         onClick={() =>
-          dispatch({ type: 'remove_pair', payload: data.mentee_question.id })
+          dispatch({
+            type: 'remove_pair',
+            payload: {
+              mentee_question_id: data.mentee_question.id,
+              mentor_question_id: data.mentor_question.id,
+            },
+          })
         }
         className='connecting-arrow'
         src='../images/connecting-arrow.svg'
@@ -52,8 +57,6 @@ const Pair = ({ data, dispatch }) => {
         onMouseOver={brokenArrow}
         onMouseLeave={fixedArrow}
       />
-      {/* <img id='remove-pair' src='./images/x.svg' alt='Remove pair' />
-      </div> */}
       <p>{data.mentor_question.text}</p>
     </div>
   );
@@ -102,14 +105,14 @@ function submitQuestionPairs(pairs) {
   pairsStorage.insertMany(pairsToSave);
 }
 
-const Survey = ({ menteeSurvey, mentorSurvey }) => {
+export default function QuestionSelection() {
   const [state, dispatch] = useReducer(selectionReducer, initialState);
 
-  const [menteeEmail, setMenteeEmail] = useState(menteeSurvey[0].id);
-  const [menteeFullName, setMenteeFullName] = useState(menteeSurvey[0].id);
+  const [menteeEmail, setMenteeEmail] = useState(state.mentee_survey);
+  const [menteeFullName, setMenteeFullName] = useState(state.mentee_survey);
 
-  const [mentorEmail, setMentorEmail] = useState(mentorSurvey[2].id);
-  const [mentorFullName, setMentorFullName] = useState(mentorSurvey[0].id);
+  const [mentorEmail, setMentorEmail] = useState(state.mentor_survey);
+  const [mentorFullName, setMentorFullName] = useState(state.mentor_survey);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -156,13 +159,13 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
             <h2 className='survey-title'>Mentee Survey</h2>
             <ProfileCreatorForm
               type='Mentee'
-              data={menteeSurvey}
+              data={state.mentee_survey}
               setEmail={setMenteeEmail}
               setFullName={setMenteeFullName}
             />
             <Questions
               type='Mentor'
-              data={menteeSurvey}
+              data={state.mentee_survey}
               disabled={state.disable_mentee_questions}
               dispatch={dispatch}
               action='mentee_question_selected'
@@ -171,12 +174,12 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
           <div className='survey'>
             <h2 className='survey-title'>Mentor Survey</h2>
             <ProfileCreatorForm
-              data={mentorSurvey}
+              data={state.mentor_survey}
               setEmail={setMentorEmail}
               setFullName={setMentorFullName}
             />
             <Questions
-              data={mentorSurvey}
+              data={state.mentor_survey}
               disabled={state.disable_mentor_questions}
               dispatch={dispatch}
               action='mentor_question_selected'
@@ -186,16 +189,6 @@ const Survey = ({ menteeSurvey, mentorSurvey }) => {
       </form>
     </>
   );
-};
-
-const menteeSurvey = new Storage(Keys.Mentee_Survey).getAll(); //.slice(17);
-const mentorSurvey = new Storage(Keys.Mentor_Survey).getAll(); //.slice(17);
-
-export default function QuestionSelection() {
-  const [mentees, setMentee] = useState(menteeSurvey);
-  const [mentors, setMentor] = useState(mentorSurvey);
-
-  return <Survey menteeSurvey={mentees} mentorSurvey={mentors} />;
 }
 
 const top_scroll = document.querySelector('.scroll-top-button');
@@ -231,7 +224,7 @@ btm_scroll.addEventListener('click', () => {
 // X style cursor on mouseover of -> on question pairs
 const arrows = document.querySelectorAll('.connecting-arrow');
 const x_cursor = document.querySelector('.x-cursor');
-arrows.forEach(item => {
+arrows.forEach((item) => {
   item.addEventListener('click', () => {
     console.log('here');
   });
