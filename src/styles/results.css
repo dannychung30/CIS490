@@ -2,7 +2,9 @@
   ID SELECTORS
 */
 
-#app, .results-header, .svg-container {
+#app,
+.results-header,
+.svg-container {
   opacity: 0;
   animation: appear 1s linear 2s forwards;
 }
@@ -41,6 +43,16 @@
   justify-content: space-evenly;
   row-gap: 2em;
   column-gap: 1vw;
+}
+
+.name-score {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0;
+}
+
+.score {
+  font-weight: 700;
 }
 
 .results-header {
@@ -83,9 +95,9 @@
   top: 11vh;
   width: 100%;
   opacity: 0;
-  animation: switch_positions 1s linear 1.5s forwards, appear 1s linear 2s forwards;
+  animation: switch_positions 1s linear 1.5s forwards,
+    appear 1s linear 2s forwards;
 }
-
 
 .logo {
   display: flex;
@@ -112,7 +124,7 @@
 
 .logo-steps-container:after {
   box-shadow: 15px 0 15px -15px #cdcccc inset;
-  content: " ";
+  content: ' ';
   height: 100%;
   position: absolute;
   top: 0;
