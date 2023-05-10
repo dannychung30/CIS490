@@ -9,6 +9,7 @@ export default function Results() {
   function handleExportFunction() {
     const formatted = matches.map((mentee) => [
       mentee.name,
+      mentee.email,
       ...mentee.matches.map((match) => match.mentor.name),
     ]);
     return formatted;
